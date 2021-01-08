@@ -39,6 +39,9 @@ class HillfortMemRepo: IHillfortRepo {
                 if(found.desc.equals(hillfort.desc)){
                     found.desc = hillfort.desc
                 }
+                // do not compare images paths, just change them
+                found.images = hillfort.images
+
                 if(found.loc.equals(hillfort.loc)){
                     found.loc = hillfort.loc
                 }
