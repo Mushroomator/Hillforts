@@ -33,7 +33,6 @@ class HillfordListView : BaseView(), HillfordListener {
    */
   override fun onHillfordClick(hillford: HillfortModel) {
     info("Hillford was clicked:\n$hillford")
-    TODO("Not yet implemented")
   }
 
   /**
