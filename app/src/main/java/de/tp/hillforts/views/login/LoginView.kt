@@ -5,6 +5,7 @@ import android.os.Bundle
 import de.tp.hillforts.R
 import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.login_view_portrait.*
+import org.jetbrains.anko.toast
 
 class LoginView : BaseView() {
 
@@ -20,7 +21,29 @@ class LoginView : BaseView() {
     // initialize view
     init(toolbar)
 
-    bSignIn.setOnClickListener {    }
-    bSignUp.setOnClickListener {  }
+    bSignIn.setOnClickListener {
+      val email = etEmail.text.toString()
+      val pw = etPassword.text.toString()
+
+      if(email == "" || email.isEmpty() || pw == "" || pw.isEmpty()){
+        toast("Please enter email and password")
+      }
+      else{
+        presenter.doLogin(email, pw)
+      }
+    }
+
+    bSignUp.setOnClickListener {
+      val email = etEmail.text.toString()
+      val pw = etPassword.text.toString()
+
+      if(email == "" || email.isEmpty() || pw == "" || pw.isEmpty()){
+        toast("Please enter email and password")
+      }
+      else{
+        presenter.doSignup(email, pw)
+      }
+    }
   }
+
 }
