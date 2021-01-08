@@ -1,7 +1,8 @@
 package de.tp.hillforts.views.login
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import de.tp.hillforts.R
 import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.login_view_portrait.*

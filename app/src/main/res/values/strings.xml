@@ -10,6 +10,8 @@
     <string name="password">Password</string>
 
     <!-- Hillfort List View -->
+    <string name="menu_add">Add</string>
+    <string name="menu_logout">Logout</string>
     <string name="title_hillfort_list_view">All Hillforts</string>
     <string name="lat">Lat:</string>
     <string name="lng">Lng:</string>

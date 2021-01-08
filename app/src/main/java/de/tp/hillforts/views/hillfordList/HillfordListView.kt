@@ -2,6 +2,8 @@ package de.tp.hillforts.views.hillfordList
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.tp.hillforts.R
 import de.tp.hillforts.models.HillfortModel
@@ -44,4 +46,18 @@ class HillfordListView : BaseView(), HillfordListener {
     rvHillforts.adapter = HillfortAdapter(hillforts, this)
     rvHillforts.adapter?.notifyDataSetChanged()
   }
+
+  override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    when(item.itemId){
+      R.id.itemAdd -> presenter.doAddHillfort()
+      R.id.itemLogout -> presenter.doLogout()
+    }
+    return super.onOptionsItemSelected(item)
+  }
+
+  override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    menuInflater.inflate(R.menu.menu_list_view, menu)
+    return super.onCreateOptionsMenu(menu)
+  }
+
 }
