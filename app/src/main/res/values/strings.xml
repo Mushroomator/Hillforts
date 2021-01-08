@@ -9,4 +9,10 @@
     <string name="email">E-mail</string>
     <string name="password">Password</string>
 
+    <!-- Hillfort List View -->
+    <string name="title_hillfort_list_view">All Hillforts</string>
+    <string name="lat">Lat:</string>
+    <string name="lng">Lng:</string>
+    <string name="visited">Visited</string>
+
 </resources>
