@@ -1,3 +1,12 @@
 <resources>
+    <!-- global -->
     <string name="app_name">Hillforts</string>
+
+    <!-- Login View -->
+    <string name="title_login_view">Login to Hillforts</string>
+    <string name="sign_in">Sign in</string>
+    <string name="sign_up">Sign up</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+
 </resources>

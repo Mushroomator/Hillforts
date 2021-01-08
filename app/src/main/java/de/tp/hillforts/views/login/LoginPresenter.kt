@@ -1,4 +1,7 @@
 package de.tp.hillforts.views.login
 
-class LoginPresenter {
+import de.tp.hillforts.views.BasePresenter
+import de.tp.hillforts.views.BaseView
+
+class LoginPresenter(view: BaseView): BasePresenter(view) {
 }
