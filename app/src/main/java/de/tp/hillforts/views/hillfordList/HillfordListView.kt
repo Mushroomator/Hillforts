@@ -7,6 +7,7 @@ import de.tp.hillforts.R
 import de.tp.hillforts.models.HillfortModel
 import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.hillford_list_view_portrait.*
+import org.jetbrains.anko.info
 
 class HillfordListView : BaseView(), HillfordListener {
 
@@ -31,6 +32,7 @@ class HillfordListView : BaseView(), HillfordListener {
    * @param hillford hillford which was clicked on
    */
   override fun onHillfordClick(hillford: HillfortModel) {
+    info("Hillford was clicked:\n$hillford")
     TODO("Not yet implemented")
   }
 

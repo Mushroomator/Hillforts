@@ -1,13 +1,29 @@
 package de.tp.hillforts.views
 
+import android.content.Intent
+import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
 import org.jetbrains.anko.AnkoLogger
 import androidx.appcompat.widget.Toolbar
 import de.tp.hillforts.models.HillfortModel
+import de.tp.hillforts.views.hillfordList.HillfordListView
+import de.tp.hillforts.views.login.LoginView
 
 open abstract class BaseView(): AppCompatActivity(), AnkoLogger {
 
     var basePresenter: BasePresenter? = null
+
+    fun navigateTo(view: VIEW, code: Int = 0, key: String = "", value: Parcelable? = null) {
+        var intent = Intent()
+        when (view) {
+            VIEW.LIST -> intent = Intent(this, HillfordListView::class.java)
+            VIEW.LOGIN -> intent = Intent(this, LoginView::class.java)
+        }
+        if (key != "") {
+            intent.putExtra(key, value)
+        }
+        startActivityForResult(intent, code)
+    }
 
     /**
      * Initialize the Presenter in BasePresenter.

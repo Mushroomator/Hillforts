@@ -19,6 +19,7 @@ class HillfordViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         itemView.tvLatVal.text = hillford.loc.lat.toString()
         itemView.tvLngVal.text = hillford.loc.lng.toString()
         itemView.cbVisited.isChecked = hillford.visited
+        // display first available picture
         if (hillford.images.isNotEmpty()){
             val image = hillford.images.first{ it.isNotEmpty() }
             Glide.with(itemView.context).load(image).into(itemView.ivImage);
