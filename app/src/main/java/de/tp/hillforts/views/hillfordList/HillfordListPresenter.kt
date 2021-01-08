@@ -7,7 +7,12 @@ import de.tp.hillforts.views.BaseView
 class HillfordListPresenter(view: BaseView): BasePresenter(view) {
 
 
-    fun loadPlacemarks(): List<HillfortModel>{
-        return app.hillforts.findAll()
+    /**
+     * Load hillforts from Repo and display them on screen.
+     * @author Thomas Pilz
+     */
+    fun loadPlacemarks(): Unit{
+        val hillforts = app.hillforts.findAll()
+        view?.showHillforts(hillforts)
     }
 }

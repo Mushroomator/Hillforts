@@ -2,6 +2,7 @@ package de.tp.hillforts.views.hillfordList
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
 import de.tp.hillforts.R
 import de.tp.hillforts.models.HillfortModel
 import de.tp.hillforts.views.BaseView
@@ -21,11 +22,12 @@ class HillfordListView : BaseView(), HillfordListener {
     // init toolbar
     init(toolbar)
 
+    rvHillforts.layoutManager = LinearLayoutManager(this)
     presenter.loadPlacemarks()
   }
 
   /**
-   * Executed when a hillford is clicked on in recycler view.
+   * Executed by HillfordViewHolder::bind() when a hillford is clicked on.
    * @param hillford hillford which was clicked on
    */
   override fun onHillfordClick(hillford: HillfortModel) {
@@ -38,6 +40,7 @@ class HillfordListView : BaseView(), HillfordListener {
    * @author Thomas Pilz
    */
   override fun showHillforts(hillforts: List<HillfortModel>) {
-    TODO("Not yet implemented")
+    rvHillforts.adapter = HillfortAdapter(hillforts, this)
+    rvHillforts.adapter?.notifyDataSetChanged()
   }
 }

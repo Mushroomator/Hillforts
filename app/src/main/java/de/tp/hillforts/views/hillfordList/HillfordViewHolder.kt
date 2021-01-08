@@ -2,6 +2,7 @@ package de.tp.hillforts.views.hillfordList
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import de.tp.hillforts.models.HillfortModel
 import kotlinx.android.synthetic.main.card_hillfort.view.*
 
@@ -18,6 +19,10 @@ class HillfordViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         itemView.tvLatVal.text = hillford.loc.lat.toString()
         itemView.tvLngVal.text = hillford.loc.lng.toString()
         itemView.cbVisited.isChecked = hillford.visited
+        if (hillford.images.isNotEmpty()){
+            val image = hillford.images.first{ it.isNotEmpty() }
+            Glide.with(itemView.context).load(image).into(itemView.ivImage);
+        }
 
         // call listener
         itemView.setOnClickListener{ listener.onHillfordClick(hillford) }
