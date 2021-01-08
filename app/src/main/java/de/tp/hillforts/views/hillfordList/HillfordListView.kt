@@ -23,7 +23,7 @@ class HillfordListView : BaseView(), HillfordListener {
     presenter = initPresenter(HillfordListPresenter(this)) as HillfordListPresenter
 
     // init toolbar
-    init(toolbar)
+    init(toolbar, true) //disable up-support later; just for test purposes
 
     rvHillforts.layoutManager = LinearLayoutManager(this)
     presenter.loadPlacemarks()

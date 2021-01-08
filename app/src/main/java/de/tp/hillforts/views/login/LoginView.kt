@@ -20,7 +20,7 @@ class LoginView : BaseView() {
     presenter = initPresenter(LoginPresenter(this)) as LoginPresenter
 
     // initialize view
-    init(toolbar)
+    init(toolbar, false)
 
     bSignIn.setOnClickListener {
       val email = etEmail.text.toString()

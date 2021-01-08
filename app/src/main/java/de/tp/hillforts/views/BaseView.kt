@@ -38,11 +38,13 @@ open abstract class BaseView(): AppCompatActivity(), AnkoLogger {
     /**
      * Initialize common view components e.g. toolbar.
      * @param toolbar toolbar to be initialized
+     * @param upEnabled enable "Up/Back" button on activity
      * @author Thomas Pilz
      */
-    fun init(toolbar: Toolbar){
+    fun init(toolbar: Toolbar, upEnabled: Boolean = true){
         toolbar.title = title
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(upEnabled)
     }
 
     /**

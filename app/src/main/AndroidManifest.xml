@@ -10,7 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hillforts">
-        <activity android:name=".views.hillfordList.HillfordListView"></activity>
+        <activity android:name=".views.hillfordList.HillfordListView">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.login.LoginView" />
+        </activity>
         <activity
             android:name=".views.login.LoginView"
             android:label="@string/title_login_view">
