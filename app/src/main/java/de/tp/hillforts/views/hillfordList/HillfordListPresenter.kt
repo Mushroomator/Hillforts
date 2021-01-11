@@ -1,6 +1,5 @@
 package de.tp.hillforts.views.hillfordList
 
-import de.tp.hillforts.models.HillfortModel
 import de.tp.hillforts.views.BasePresenter
 import de.tp.hillforts.views.BaseView
 import de.tp.hillforts.views.VIEW

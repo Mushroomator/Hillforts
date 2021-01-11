@@ -1,6 +1,5 @@
 package de.tp.hillforts.views.hillfordList
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -23,7 +22,7 @@ class HillfordListView : BaseView(), HillfordListener {
     presenter = initPresenter(HillfordListPresenter(this)) as HillfordListPresenter
 
     // init toolbar
-    init(toolbar, true) //disable up-support later; just for test purposes
+    init(toolbar, false) //disable up-support later; just for test purposes
 
     rvHillforts.layoutManager = LinearLayoutManager(this)
     presenter.loadPlacemarks()
