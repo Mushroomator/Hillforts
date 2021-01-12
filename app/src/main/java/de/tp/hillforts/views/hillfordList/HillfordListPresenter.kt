@@ -1,5 +1,6 @@
 package de.tp.hillforts.views.hillfordList
 
+import de.tp.hillforts.models.HillfortModel
 import de.tp.hillforts.views.BasePresenter
 import de.tp.hillforts.views.BaseView
 import de.tp.hillforts.views.VIEW
@@ -7,6 +8,7 @@ import org.jetbrains.anko.info
 
 class HillfordListPresenter(view: BaseView): BasePresenter(view) {
 
+    private val HILLFORT_EDIT = "hillford_edit"
 
     /**
      * Load hillforts from Repo and display them on screen.
@@ -31,6 +33,10 @@ class HillfordListPresenter(view: BaseView): BasePresenter(view) {
      * @author Thomas Pilz
      */
     fun doAddHillfort(){
+        view?.navigateTo(VIEW.DETAILS)
+    }
 
+    fun doEditHillfort(hillfort: HillfortModel){
+        view?.navigateTo(VIEW.DETAILS, 0, HILLFORT_EDIT, hillfort)
     }
 }

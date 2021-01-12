@@ -10,11 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hillforts">
-        <activity android:name=".views.hillfordList.HillfordListView">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.login.LoginView" />
-        </activity>
+
+        <!-- Login View -->
         <activity
             android:name=".views.login.LoginView"
             android:label="@string/title_login_view">
@@ -24,6 +21,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Hillford List View -->
+        <activity android:name=".views.hillfordList.HillfordListView">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".views.login.LoginView" />
+        </activity>
+
+        <!-- Hillford Details View -->
+        <activity android:name=".views.hillfortDetails.HillfortDetailsView">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.hillfordList.HillfordListView" />
+        </activity>
+
     </application>
 
 </manifest>

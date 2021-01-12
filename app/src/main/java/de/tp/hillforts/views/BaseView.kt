@@ -7,17 +7,22 @@ import org.jetbrains.anko.AnkoLogger
 import androidx.appcompat.widget.Toolbar
 import de.tp.hillforts.models.HillfortModel
 import de.tp.hillforts.views.hillfordList.HillfordListView
+import de.tp.hillforts.views.hillfortDetails.HillfortDetailsView
 import de.tp.hillforts.views.login.LoginView
+import java.util.*
 
-open abstract class BaseView(): AppCompatActivity(), AnkoLogger {
+abstract class BaseView(): AppCompatActivity(), AnkoLogger {
 
     var basePresenter: BasePresenter? = null
+
+    protected val dateFormat = "dd/MM/yyyy"
 
     fun navigateTo(view: VIEW, code: Int = 0, key: String = "", value: Parcelable? = null) {
         var intent = Intent()
         when (view) {
             VIEW.LIST -> intent = Intent(this, HillfordListView::class.java)
             VIEW.LOGIN -> intent = Intent(this, LoginView::class.java)
+            VIEW.DETAILS -> intent = Intent(this, HillfortDetailsView::class.java)
         }
         if (key != "") {
             intent.putExtra(key, value)
@@ -60,4 +65,6 @@ open abstract class BaseView(): AppCompatActivity(), AnkoLogger {
      * @author Thomas Pilz
      */
     open fun showHillfort(hillfort: HillfortModel){}
+
+    open fun showDateVisited(date: Date?){}
 }

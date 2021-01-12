@@ -104,7 +104,7 @@
             app:layout_constraintTop_toTopOf="@+id/tvLngLabel" />
 
         <CheckBox
-            android:id="@+id/cbVisited"
+            android:id="@+id/cbVisitedList"
             android:layout_width="77dp"
             android:layout_height="24dp"
             android:layout_marginTop="2dp"
@@ -112,6 +112,7 @@
             android:layout_marginBottom="2dp"
             android:buttonTint="@color/green_700"
             android:buttonTintMode="src_in"
+            android:clickable="false"
             android:drawableTintMode="src_in"
             android:text="@string/visited"
             android:textColor="@color/green_700"

@@ -1,5 +1,6 @@
 package de.tp.hillforts.views.hillfordList
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -8,7 +9,6 @@ import de.tp.hillforts.R
 import de.tp.hillforts.models.HillfortModel
 import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.hillford_list_view_portrait.*
-import org.jetbrains.anko.info
 
 class HillfordListView : BaseView(), HillfordListener {
 
@@ -33,7 +33,7 @@ class HillfordListView : BaseView(), HillfordListener {
    * @param hillford hillford which was clicked on
    */
   override fun onHillfordClick(hillford: HillfortModel) {
-    info("Hillford was clicked:\n$hillford")
+    presenter.doEditHillfort(hillford)
   }
 
   /**
@@ -48,7 +48,7 @@ class HillfordListView : BaseView(), HillfordListener {
 
   override fun onOptionsItemSelected(item: MenuItem): Boolean {
     when(item.itemId){
-      R.id.itemAdd -> presenter.doAddHillfort()
+      R.id.itemSave -> presenter.doAddHillfort()
       R.id.itemLogout -> presenter.doLogout()
     }
     return super.onOptionsItemSelected(item)
@@ -57,6 +57,11 @@ class HillfordListView : BaseView(), HillfordListener {
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
     menuInflater.inflate(R.menu.menu_list_view, menu)
     return super.onCreateOptionsMenu(menu)
+  }
+
+  override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    presenter.loadPlacemarks() // notify recyclerView that data has been changed
   }
 
 }

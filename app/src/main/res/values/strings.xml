@@ -17,4 +17,15 @@
     <string name="lng">Lng:</string>
     <string name="visited">Visited</string>
 
+    <!-- Hillfort Details -->
+    <string name="title_hillfort_details_view">Hillfort</string>
+    <string name="b_item_save">Save</string>
+    <string name="b_item_add">Add</string>
+    <string name="b_item_cancel">Cancel</string>
+    <string name="b_item_delete">Delete</string>
+    <string name="cb_not_yet_visited">Not yet visited</string>
+    <string name="cb_visited_on">Visited on</string>
+    <string name="notes">Notes</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
 </resources>
