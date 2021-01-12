@@ -5,6 +5,7 @@
     <item
         android:id="@+id/itemDelete"
         android:title="@string/b_item_delete"
+        android:visible="false"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/itemCancel"

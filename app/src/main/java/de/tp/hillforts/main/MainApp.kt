@@ -16,11 +16,5 @@ class MainApp: Application(), AnkoLogger {
         super.onCreate()
         info("Placemark app started")
         hillforts = HillfortMemRepo()
-        hillforts.create(HillfortModel(name = "1", desc = "desc", visited = false))
-        hillforts.create(HillfortModel(name = "2", desc = "desc", visited = true))
-        info("All hillforts:")
-        hillforts.findAll().forEach {
-            info(it.toString())
-        }
     }
 }

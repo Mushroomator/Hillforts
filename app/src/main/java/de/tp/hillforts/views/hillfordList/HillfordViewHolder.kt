@@ -18,7 +18,7 @@ class HillfordViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         itemView.tvName.text = hillford.name
         itemView.tvLatVal.text = hillford.loc.lat.toString()
         itemView.tvLngVal.text = hillford.loc.lng.toString()
-        itemView.cbVisitedList.isChecked = hillford.visited
+        itemView.cbVisitedList.isChecked = hillford.dateVisited != null
         // display first available picture
         if (hillford.images.isNotEmpty()){
             val image = hillford.images.first{ it.isNotEmpty() }

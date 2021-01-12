@@ -1,5 +1,7 @@
 package de.tp.hillforts.models
 
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import java.util.concurrent.atomic.AtomicLong
 
 
@@ -8,7 +10,7 @@ internal fun getId(): Long{
     return nextId.getAndAdd(1L)
 }
 
-class HillfortMemRepo: IHillfortRepo {
+class HillfortMemRepo: IHillfortRepo, AnkoLogger {
 
     val hillforts = ArrayList<HillfortModel>()
 
@@ -31,28 +33,24 @@ class HillfortMemRepo: IHillfortRepo {
      */
     override fun update(hillfort: HillfortModel): HillfortModel? {
         var found = findById(hillfort.id)
+        info("Found hillford: $found\nUpdate with: $hillfort")
         if(found != null){
             if(!found.equals(hillfort)){
-                if(found.name.equals(hillfort.name)){
+                if(!found.name.equals(hillfort.name)){
                     found.name = hillfort.name
                 }
-                if(found.desc.equals(hillfort.desc)){
+                if(!found.desc.equals(hillfort.desc)){
                     found.desc = hillfort.desc
                 }
                 // do not compare images paths, just change them
                 found.images = hillfort.images
 
-                if(found.loc.equals(hillfort.loc)){
+                if(!found.loc.equals(hillfort.loc)){
                     found.loc = hillfort.loc
                 }
-                if(found.visited != hillfort.visited){
-                    found.visited = hillfort.visited
-                }
-                if(found.dateVisited != null){
-                    if(found.dateVisited!!.equals(hillfort.dateVisited)){   // smart cast is not possible --> !!
-                        found.dateVisited = hillfort.dateVisited
-                    }
-                }
+
+                found.dateVisited = hillfort.dateVisited
+
                 if(!found.notes.equals(found.notes)){
                     found.notes = hillfort.notes
                 }

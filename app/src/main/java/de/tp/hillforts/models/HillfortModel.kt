@@ -13,7 +13,6 @@ data class HillfortModel(
     var desc: String = "",
     var loc: LocationModel = LocationModel(),
     var images: List<String> = ArrayList(),
-    var visited: Boolean = false,
     var dateVisited: Date? = null,
     var notes: String = ""
 ): Parcelable {

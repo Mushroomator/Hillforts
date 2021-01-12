@@ -11,6 +11,7 @@ import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.hillford_list_view_portrait.toolbar
 import kotlinx.android.synthetic.main.hillfort_details_view_portrait.*
 import org.jetbrains.anko.error
+import org.jetbrains.anko.info
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,13 +36,17 @@ class HillfortDetailsView : BaseView() {
             etName.setText(it.name)
             etDescription.setText(it.desc)
             mltNotes.setText(it.notes)
-            cbVisited.isChecked = it.visited
-            showDateVisited(it.dateVisited)
         }
+        showDateVisited(hillfort.dateVisited)   // cannot be called within scope function because it can be null
     }
 
     fun onVisitedClicked(view: View){
         if (view is CheckBox){
+            presenter.doHillfordVisited(cbVisited.isChecked)
+        }
+        // when textView after actual textBox is clicked the user exspects the same behavior
+        if(view.id == R.id.tvVisitedOn){
+            cbVisited.isChecked = !cbVisited.isChecked  // checkbox must manually be set in this case
             presenter.doHillfordVisited(cbVisited.isChecked)
         }
     }
@@ -50,10 +55,12 @@ class HillfortDetailsView : BaseView() {
         if(date != null){
             tvVisitedOn.text = SimpleDateFormat(dateFormat, Locale.GERMANY).format(date)
             cbVisited.setText(R.string.cb_visited_on)
+            cbVisited.isChecked = true
         }
         else{
             cbVisited.setText(R.string.cb_not_yet_visited)
             tvVisitedOn.text = ""
+            cbVisited.isChecked = false
         }
     }
 
@@ -65,17 +72,17 @@ class HillfortDetailsView : BaseView() {
                 val notes = mltNotes.text.toString()
                 val visited = cbVisited.isChecked
                 val visitedOn = tvVisitedOn.text.toString()
-                var visitedDate = Date()
-                if(visited && visitedOn != ""){
+                var visitedDate: Date? = null
+                if(visited){
                     try {
                         visitedDate = SimpleDateFormat(dateFormat, Locale.GERMANY).parse(visitedOn)
                     } catch (e: ParseException){
                         // should never happen as date will always be populated automatically!
                         error("Visited date was populated incorrectly! Error:\n$e")
-                        presenter.doAddOrSave(name, desc, notes, visited, null)
+                        presenter.doAddOrSave(name, desc, notes, null)
                     }
                 }
-                presenter.doAddOrSave(name, desc, notes, visited, visitedDate)
+                presenter.doAddOrSave(name, desc, notes, visitedDate)
             }
             R.id.itemCancel -> presenter.doCancel()
             R.id.itemDelete -> presenter.doDelete()
@@ -85,6 +92,10 @@ class HillfortDetailsView : BaseView() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_hillfort_details, menu)
+        if(presenter.editMode && menu != null){
+            menu.getItem(0).isVisible = true // show delete Button
+            menu.getItem(2).setTitle(R.string.b_item_save)  //add button --> save button
+        }
         return super.onCreateOptionsMenu(menu)
     }
 }
