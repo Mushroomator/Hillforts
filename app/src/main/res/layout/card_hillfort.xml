@@ -49,59 +49,16 @@
             android:backgroundTintMode="src_in"
             android:baselineAlignBottom="false"
             android:clickable="false"
+            android:tint="@color/green_900"
             android:tintMode="src_in"
+            app:layout_constraintBottom_toTopOf="@+id/cbVisitedList"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/ivImage"
             app:layout_constraintTop_toBottomOf="@+id/tvName"
+            app:layout_constraintVertical_bias="0.41000003"
             app:srcCompat="@android:drawable/ic_menu_mylocation"
-            app:tint="@color/green_700" />
-
-        <TextView
-            android:id="@+id/tvLatLabel"
-            android:layout_width="30dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="4dp"
-            android:text="@string/lat"
-            android:textColor="@color/green_700"
-            app:layout_constraintBottom_toBottomOf="@+id/ivLocation"
-            app:layout_constraintStart_toEndOf="@+id/ivLocation"
-            app:layout_constraintTop_toTopOf="@+id/ivLocation" />
-
-        <TextView
-            android:id="@+id/tvLatVal"
-            android:layout_width="0dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="8dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="@+id/tvLatLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/tvLatLabel"
-            app:layout_constraintTop_toTopOf="@+id/tvLatLabel" />
-
-        <TextView
-            android:id="@+id/tvLngLabel"
-            android:layout_width="0dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="2dp"
-            android:text="@string/lng"
-            app:layout_constraintEnd_toEndOf="@+id/tvLatLabel"
-            app:layout_constraintStart_toStartOf="@+id/tvLatLabel"
-            app:layout_constraintTop_toBottomOf="@+id/tvLatLabel" />
-
-        <TextView
-            android:id="@+id/tvLngVal"
-            android:layout_width="0dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="8dp"
-            android:text="TextView"
-            app:layout_constraintBottom_toBottomOf="@+id/tvLngLabel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvLngLabel"
-            app:layout_constraintTop_toTopOf="@+id/tvLngLabel" />
+            app:tint="@color/green_900" />
 
         <CheckBox
             android:id="@+id/cbVisitedList"
@@ -115,12 +72,58 @@
             android:clickable="false"
             android:drawableTintMode="src_in"
             android:text="@string/visited"
-            android:textColor="@color/green_700"
+            android:textColor="@color/green_900"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/ivLocation"
             app:layout_constraintTop_toBottomOf="@+id/tvLngLabel" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/ivLocation"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/ivLocation"
+            app:layout_constraintTop_toTopOf="@+id/ivLocation">
+
+            <TextView
+                android:id="@+id/tvLngVal"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/tvLngLabel"
+                app:layout_constraintStart_toStartOf="@+id/tvLatVal"
+                app:layout_constraintTop_toTopOf="@+id/tvLngLabel" />
+
+            <TextView
+                android:id="@+id/tvLatVal"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="8dp"
+                android:text="TextView"
+                app:layout_constraintStart_toEndOf="@+id/tvLatLabel" />
+
+            <TextView
+                android:id="@+id/tvLngLabel"
+                android:layout_width="0dp"
+                android:layout_height="24dp"
+                android:text="@string/lng"
+                android:textColor="@color/green_900"
+                app:layout_constraintStart_toStartOf="@+id/tvLatLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvLatLabel" />
+
+            <TextView
+                android:id="@+id/tvLatLabel"
+                android:layout_width="30dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="8dp"
+                android:text="@string/lat"
+                android:textColor="@color/green_900"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

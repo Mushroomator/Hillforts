@@ -29,8 +29,9 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="55dp"
-        tools:layout_editor_absoluteY="48dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/etName"
@@ -46,21 +47,20 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.155" />
+            app:layout_constraintVertical_bias="0.109" />
 
         <EditText
             android:id="@+id/mltNotes"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
             android:ems="10"
             android:gravity="start|top"
             android:hint="@string/notes"
             android:inputType="textMultiLine"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:lines="4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -101,6 +101,135 @@
             app:layout_constraintBottom_toBottomOf="@+id/cbVisited"
             app:layout_constraintStart_toEndOf="@+id/cbVisited"
             app:layout_constraintTop_toTopOf="@+id/cbVisited" />
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mvLocMap"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/etDescription"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/etDescription"
+            app:layout_constraintTop_toTopOf="@+id/etName" />
+
+        <ImageView
+            android:id="@+id/ivLocationDetails"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/cbVisited"
+            app:layout_constraintStart_toStartOf="@+id/mvLocMap"
+            app:layout_constraintTop_toTopOf="@+id/cbVisited"
+            app:srcCompat="@android:drawable/ic_menu_mylocation" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivLocationDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivLocationDetails"
+            app:layout_constraintTop_toTopOf="@+id/ivLocationDetails">
+
+            <TextView
+                android:id="@+id/tvLat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/lat"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvLng"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="@string/lng"
+                app:layout_constraintStart_toStartOf="@+id/tvLat"
+                app:layout_constraintTop_toBottomOf="@+id/tvLat" />
+
+            <TextView
+                android:id="@+id/tvLatValDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="00.000000"
+                app:layout_constraintStart_toEndOf="@+id/tvLat"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvLngValDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="00.000000"
+                app:layout_constraintBottom_toBottomOf="@+id/tvLng"
+                app:layout_constraintStart_toStartOf="@+id/tvLatValDetails"
+                app:layout_constraintTop_toTopOf="@+id/tvLng" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/ivLeftTop"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/green_500"
+            android:contextClickable="true"
+            android:scaleType="center"
+            android:tint="@color/white"
+            app:layout_constraintBottom_toTopOf="@+id/ivLeftBottom"
+            app:layout_constraintEnd_toStartOf="@+id/ivRightTop"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mltNotes"
+            app:srcCompat="@drawable/ic_outline_add_photo_alternate_24" />
+
+        <ImageView
+            android:id="@+id/ivRightTop"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/green_50"
+            android:scaleType="center"
+            android:tint="@color/green_500"
+            app:layout_constraintBottom_toBottomOf="@+id/ivLeftTop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivLeftTop"
+            app:layout_constraintTop_toTopOf="@+id/ivLeftTop"
+            app:srcCompat="@drawable/ic_outline_add_photo_alternate_24" />
+
+        <ImageView
+            android:id="@+id/ivLeftBottom"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:background="@color/green_50"
+            android:scaleType="center"
+            android:tint="@color/green_500"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/ivLeftTop"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="@+id/ivLeftTop"
+            app:layout_constraintTop_toBottomOf="@+id/ivLeftTop"
+            app:srcCompat="@drawable/ic_outline_add_photo_alternate_24" />
+
+        <ImageView
+            android:id="@+id/ivRightBottom"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/green_50"
+            android:scaleType="center"
+            android:tint="@color/green_500"
+            app:layout_constraintBottom_toBottomOf="@+id/ivLeftBottom"
+            app:layout_constraintEnd_toEndOf="@+id/ivRightTop"
+            app:layout_constraintStart_toStartOf="@+id/ivRightTop"
+            app:layout_constraintTop_toTopOf="@+id/ivLeftBottom"
+            app:srcCompat="@drawable/ic_outline_add_photo_alternate_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
