@@ -1,5 +1,9 @@
 package de.tp.hillforts.views.hillfortDetails
 
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import de.tp.hillforts.models.HillfortModel
 import de.tp.hillforts.views.BasePresenter
 import de.tp.hillforts.views.BaseView
@@ -20,6 +24,21 @@ class HillfortDetailsPresenter(view: BaseView): BasePresenter(view) {
             hillfort = view.intent.extras?.getParcelable<HillfortModel>(HILLFORT_EDIT)!!    //smart cast not possible
             view.showHillfort(hillfort)
         }
+    }
+
+    fun doConfigureMap(map: GoogleMap){
+        if (hillfort.loc.zoom == 0f) {
+            hillfort.loc.lat = 49.141018
+            hillfort.loc.lng = 11.854860
+        }
+        hillfort.loc.zoom = 15f
+        val loc = LatLng(hillfort.loc.lat, hillfort.loc.lng)
+
+        val options = MarkerOptions()
+            .title(hillfort.name)
+            .position(loc)
+        map.addMarker(options)  //add Marker
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, hillfort.loc.zoom)) // center marker and zoom in
     }
 
     fun doHillfordVisited(visited: Boolean){

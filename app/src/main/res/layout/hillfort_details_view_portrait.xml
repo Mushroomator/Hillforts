@@ -60,7 +60,7 @@
             android:gravity="start|top"
             android:hint="@string/notes"
             android:inputType="textMultiLine"
-            android:lines="4"
+            android:lines="2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +82,7 @@
             android:id="@+id/cbVisited"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="4dp"
             android:buttonTint="@color/green_900"
             android:onClick="onVisitedClicked"
             android:text="@string/cb_not_yet_visited"
@@ -90,7 +90,7 @@
             app:layout_constraintEnd_toEndOf="@+id/etDescription"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/etDescription"
-            app:layout_constraintTop_toBottomOf="@+id/etDescription" />
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
         <TextView
             android:id="@+id/tvVisitedOn"
@@ -108,28 +108,30 @@
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/etDescription"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/mltNotes"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/etDescription"
             app:layout_constraintTop_toTopOf="@+id/etName" />
 
         <ImageView
             android:id="@+id/ivLocationDetails"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="@+id/cbVisited"
-            app:layout_constraintStart_toStartOf="@+id/mvLocMap"
-            app:layout_constraintTop_toTopOf="@+id/cbVisited"
+            android:layout_width="28dp"
+            android:layout_height="32dp"
+            app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+            app:layout_constraintStart_toStartOf="@+id/etDescription"
+            app:layout_constraintTop_toTopOf="@+id/constraintLayout"
             app:srcCompat="@android:drawable/ic_menu_mylocation" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintBottom_toBottomOf="@+id/ivLocationDetails"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/mvLocMap"
             app:layout_constraintStart_toEndOf="@+id/ivLocationDetails"
-            app:layout_constraintTop_toTopOf="@+id/ivLocationDetails">
+            app:layout_constraintTop_toBottomOf="@+id/etDescription">
 
             <TextView
                 android:id="@+id/tvLat"

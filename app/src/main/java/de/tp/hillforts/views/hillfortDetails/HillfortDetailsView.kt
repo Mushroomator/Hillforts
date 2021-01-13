@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
+import com.google.android.gms.maps.GoogleMap
 import de.tp.hillforts.R
 import de.tp.hillforts.models.HillfortModel
 import de.tp.hillforts.views.BaseView
@@ -19,16 +20,28 @@ import java.util.*
 class HillfortDetailsView : BaseView() {
 
     lateinit var presenter: HillfortDetailsPresenter
+    lateinit var map: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.hillfort_details_view_portrait)
-        
+
         // init presenter
         presenter = initPresenter(HillfortDetailsPresenter(this)) as HillfortDetailsPresenter
 
         // init toolbar
         init(toolbar, true)
+
+        // init map
+        mvLocMap.onCreate(savedInstanceState)
+        mvLocMap.getMapAsync{
+            map = it
+            presenter.doConfigureMap(map)
+
+            map.setOnMapClickListener{
+                info("Map has been clicked.")
+            }
+        }
     }
 
     override fun showHillfort(hillfort: HillfortModel) {
@@ -97,5 +110,34 @@ class HillfortDetailsView : BaseView() {
             menu.getItem(2).setTitle(R.string.b_item_save)  //add button --> save button
         }
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mvLocMap.onDestroy()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mvLocMap.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mvLocMap.onResume()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mvLocMap.onLowMemory()
+    }
+
+    override fun onBackPressed() {
+        presenter.doCancel()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mvLocMap.onSaveInstanceState(outState)
     }
 }
