@@ -52,6 +52,14 @@ abstract class BaseView(): AppCompatActivity(), AnkoLogger {
         supportActionBar?.setDisplayHomeAsUpEnabled(upEnabled)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data != null) {
+            basePresenter?.doActivityResult(requestCode, resultCode, data)
+        }
+    }
+
+
     /**
      * Show all hillforts on the screen.
      * @param hillforts hillforts to be displayed

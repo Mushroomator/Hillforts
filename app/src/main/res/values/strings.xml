@@ -10,9 +10,9 @@
     <string name="password">Password</string>
 
     <!-- Hillfort List View -->
+    <string name="title_hillfort_list_view">All Hillforts</string>
     <string name="menu_add">Add</string>
     <string name="menu_logout">Logout</string>
-    <string name="title_hillfort_list_view">All Hillforts</string>
     <string name="lat">Lat:</string>
     <string name="lng">Lng:</string>
     <string name="visited">Visited</string>
@@ -28,5 +28,4 @@
     <string name="notes">Notes</string>
     <string name="name">Name</string>
     <string name="description">Description</string>
-    <string name="title_activity_maps">Map</string>
 </resources>

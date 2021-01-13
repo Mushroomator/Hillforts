@@ -1,10 +1,12 @@
 package de.tp.hillforts.views.hillfortDetails
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
+import android.widget.ImageView
 import com.google.android.gms.maps.GoogleMap
 import de.tp.hillforts.R
 import de.tp.hillforts.models.HillfortModel
@@ -62,6 +64,10 @@ class HillfortDetailsView : BaseView() {
             cbVisited.isChecked = !cbVisited.isChecked  // checkbox must manually be set in this case
             presenter.doHillfordVisited(cbVisited.isChecked)
         }
+    }
+
+    fun onImageClicked(view: View){
+        if(view is ImageView) presenter.doSelectImage()
     }
 
     override fun showDateVisited(date: Date?){

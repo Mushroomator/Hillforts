@@ -179,16 +179,18 @@
             android:layout_marginEnd="4dp"
             android:layout_marginBottom="8dp"
             android:background="@color/green_500"
+            android:clickable="true"
             android:contextClickable="true"
+            android:onClick="onImageClicked"
             android:scaleType="center"
-            android:tint="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/ivLeftBottom"
             app:layout_constraintEnd_toStartOf="@+id/ivRightTop"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/mltNotes"
-            app:srcCompat="@drawable/ic_outline_add_photo_alternate_24" />
+            app:srcCompat="@drawable/ic_outline_add_photo_alternate_24"
+            app:tint="@color/white" />
 
         <ImageView
             android:id="@+id/ivRightTop"
@@ -197,13 +199,16 @@
             android:layout_marginStart="4dp"
             android:layout_marginEnd="16dp"
             android:background="@color/green_50"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="onImageClicked"
             android:scaleType="center"
-            android:tint="@color/green_500"
             app:layout_constraintBottom_toBottomOf="@+id/ivLeftTop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivLeftTop"
             app:layout_constraintTop_toTopOf="@+id/ivLeftTop"
-            app:srcCompat="@drawable/ic_outline_add_photo_alternate_24" />
+            app:srcCompat="@drawable/ic_outline_add_photo_alternate_24"
+            app:tint="@color/green_500" />
 
         <ImageView
             android:id="@+id/ivLeftBottom"
@@ -211,27 +216,33 @@
             android:layout_height="0dp"
             android:layout_marginBottom="16dp"
             android:background="@color/green_50"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="onImageClicked"
             android:scaleType="center"
-            android:tint="@color/green_500"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/ivLeftTop"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/ivLeftTop"
             app:layout_constraintTop_toBottomOf="@+id/ivLeftTop"
-            app:srcCompat="@drawable/ic_outline_add_photo_alternate_24" />
+            app:srcCompat="@drawable/ic_outline_add_photo_alternate_24"
+            app:tint="@color/green_500" />
 
         <ImageView
             android:id="@+id/ivRightBottom"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@color/green_50"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="onImageClicked"
             android:scaleType="center"
-            android:tint="@color/green_500"
             app:layout_constraintBottom_toBottomOf="@+id/ivLeftBottom"
             app:layout_constraintEnd_toEndOf="@+id/ivRightTop"
             app:layout_constraintStart_toStartOf="@+id/ivRightTop"
             app:layout_constraintTop_toTopOf="@+id/ivLeftBottom"
-            app:srcCompat="@drawable/ic_outline_add_photo_alternate_24" />
+            app:srcCompat="@drawable/ic_outline_add_photo_alternate_24"
+            app:tint="@color/green_500" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
