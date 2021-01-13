@@ -23,7 +23,7 @@ class HillfortDetailsView : BaseView() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.hillfort_details_view_portrait)
-
+        
         // init presenter
         presenter = initPresenter(HillfortDetailsPresenter(this)) as HillfortDetailsPresenter
 
