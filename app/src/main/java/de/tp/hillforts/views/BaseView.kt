@@ -9,6 +9,7 @@ import de.tp.hillforts.models.HillfortModel
 import de.tp.hillforts.views.hillfordList.HillfordListView
 import de.tp.hillforts.views.hillfortDetails.HillfortDetailsView
 import de.tp.hillforts.views.login.LoginView
+import org.jetbrains.anko.info
 import java.util.*
 
 abstract class BaseView(): AppCompatActivity(), AnkoLogger {
@@ -54,6 +55,7 @@ abstract class BaseView(): AppCompatActivity(), AnkoLogger {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        info("activity result $basePresenter")
         if (data != null) {
             basePresenter?.doActivityResult(requestCode, resultCode, data)
         }

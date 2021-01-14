@@ -1,8 +1,6 @@
 package de.tp.hillforts.views.hillfortDetails
 
 import android.content.Intent
-import android.view.View
-import android.widget.ImageView
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -10,14 +8,14 @@ import com.google.android.gms.maps.model.MarkerOptions
 import de.tp.hillforts.helpers.showImagePicker
 import de.tp.hillforts.models.HillfortModel
 import de.tp.hillforts.views.BasePresenter
-import de.tp.hillforts.views.BaseView
 import org.jetbrains.anko.info
 import java.util.*
 
 class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
 
-    private val HILLFORT_EDIT = "hillford_edit"
+    private val HILLFORT_EDIT = "hillfort_edit"
     private val IMAGE_REQ_ID = 1
+    var previousImage: Int? = null
 
     var hillfort = HillfortModel()
     var editMode = false
@@ -55,17 +53,39 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
         view?.showDateVisited(hillfort.dateVisited)
     }
 
-    fun doSelectImage(){
+    fun loadHillforts(){
+        view?.showHillfort(hillfort)
+    }
+
+    fun doSelectImage(image: String? = null, index: Int? = null){
         view?.also{
+            if(image != null && index != null){
+                previousImage = index
+            }
+            else{
+                previousImage = null
+            }
             showImagePicker(view!!, IMAGE_REQ_ID)
         }
     }
 
-    override fun doActivityResult(requestCode: Int, resultCode: Int,data: Intent) {
-        when(resultCode){
+    override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        when(requestCode){
             IMAGE_REQ_ID -> {
                 if(data != null){
-
+                    val newImgPath = data.data.toString()
+                    if(previousImage != null){
+                        // attempt to change image
+                        if(!newImgPath.equals(hillfort.images[previousImage!!])){
+                            hillfort.images[previousImage!!] = newImgPath
+                        }
+                    }
+                    else{
+                        // add image
+                        hillfort.images.add(newImgPath)
+                    }
+                    view?.info("Images ${hillfort.images.toString()}")
+                    view?.showHillfort(hillfort)
                 }
             }
         }

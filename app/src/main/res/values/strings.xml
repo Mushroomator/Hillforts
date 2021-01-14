@@ -23,6 +23,7 @@
     <string name="b_item_add">Add</string>
     <string name="b_item_cancel">Cancel</string>
     <string name="b_item_delete">Delete</string>
+    <string name="b_item_add_image">Add image</string>
     <string name="cb_not_yet_visited">Not yet visited</string>
     <string name="cb_visited_on">Visited on</string>
     <string name="notes">Notes</string>

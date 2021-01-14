@@ -38,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="72dp"
             android:layout_marginEnd="16dp"
             android:ems="10"
             android:hint="@string/name"
@@ -47,7 +48,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.109" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <EditText
             android:id="@+id/mltNotes"
@@ -170,79 +171,18 @@
                 app:layout_constraintTop_toTopOf="@+id/tvLng" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/ivLeftTop"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHillfortImages"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="8dp"
-            android:background="@color/green_500"
-            android:clickable="true"
-            android:contextClickable="true"
-            android:onClick="onImageClicked"
-            android:scaleType="center"
-            app:layout_constraintBottom_toTopOf="@+id/ivLeftBottom"
-            app:layout_constraintEnd_toStartOf="@+id/ivRightTop"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/mltNotes"
-            app:srcCompat="@drawable/ic_outline_add_photo_alternate_24"
-            app:tint="@color/white" />
-
-        <ImageView
-            android:id="@+id/ivRightTop"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="4dp"
             android:layout_marginEnd="16dp"
-            android:background="@color/green_50"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="onImageClicked"
-            android:scaleType="center"
-            app:layout_constraintBottom_toBottomOf="@+id/ivLeftTop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ivLeftTop"
-            app:layout_constraintTop_toTopOf="@+id/ivLeftTop"
-            app:srcCompat="@drawable/ic_outline_add_photo_alternate_24"
-            app:tint="@color/green_500" />
-
-        <ImageView
-            android:id="@+id/ivLeftBottom"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
             android:layout_marginBottom="16dp"
-            android:background="@color/green_50"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="onImageClicked"
-            android:scaleType="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/ivLeftTop"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="@+id/ivLeftTop"
-            app:layout_constraintTop_toBottomOf="@+id/ivLeftTop"
-            app:srcCompat="@drawable/ic_outline_add_photo_alternate_24"
-            app:tint="@color/green_500" />
-
-        <ImageView
-            android:id="@+id/ivRightBottom"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="@color/green_50"
-            android:clickable="true"
-            android:focusable="true"
-            android:onClick="onImageClicked"
-            android:scaleType="center"
-            app:layout_constraintBottom_toBottomOf="@+id/ivLeftBottom"
-            app:layout_constraintEnd_toEndOf="@+id/ivRightTop"
-            app:layout_constraintStart_toStartOf="@+id/ivRightTop"
-            app:layout_constraintTop_toTopOf="@+id/ivLeftBottom"
-            app:srcCompat="@drawable/ic_outline_add_photo_alternate_24"
-            app:tint="@color/green_500" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mltNotes" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

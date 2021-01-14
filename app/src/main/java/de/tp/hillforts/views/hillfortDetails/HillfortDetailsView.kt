@@ -5,24 +5,29 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.ActionMenuView
 import android.widget.CheckBox
 import android.widget.ImageView
+import androidx.appcompat.view.menu.ActionMenuItem
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.maps.GoogleMap
 import de.tp.hillforts.R
 import de.tp.hillforts.models.HillfortModel
 import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.hillford_list_view_portrait.toolbar
 import kotlinx.android.synthetic.main.hillfort_details_view_portrait.*
+import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
 import org.jetbrains.anko.info
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class HillfortDetailsView : BaseView() {
+class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
 
     lateinit var presenter: HillfortDetailsPresenter
     lateinit var map: GoogleMap
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +49,17 @@ class HillfortDetailsView : BaseView() {
                 info("Map has been clicked.")
             }
         }
+
+        // init recycler view
+        val test: Int = R.integer.image_columns
+        rvHillfortImages.layoutManager = GridLayoutManager(this, resources.getInteger(R.integer.image_columns))
+        presenter.loadHillforts()
     }
 
     override fun showHillfort(hillfort: HillfortModel) {
+        rvHillfortImages.adapter = HillfortImagesAdapter(hillfort.images, this)
+        rvHillfortImages.adapter?.notifyDataSetChanged()
+
         hillfort.also {
             etName.setText(it.name)
             etDescription.setText(it.desc)
@@ -66,10 +79,6 @@ class HillfortDetailsView : BaseView() {
         }
     }
 
-    fun onImageClicked(view: View){
-        if(view is ImageView) presenter.doSelectImage()
-    }
-
     override fun showDateVisited(date: Date?){
         if(date != null){
             tvVisitedOn.text = SimpleDateFormat(dateFormat, Locale.GERMANY).format(date)
@@ -85,6 +94,9 @@ class HillfortDetailsView : BaseView() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
+            R.id.itemAddImage -> {
+                presenter.doSelectImage()
+            }
             R.id.itemSave -> {
                 val name = etName.text.toString()
                 val desc = etDescription.text.toString()
@@ -112,10 +124,30 @@ class HillfortDetailsView : BaseView() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_hillfort_details, menu)
         if(presenter.editMode && menu != null){
-            menu.getItem(0).isVisible = true // show delete Button
-            menu.getItem(2).setTitle(R.string.b_item_save)  //add button --> save button
+            menu.getItem(1)?.isVisible = true // show delete Button
+            menu.getItem(3)?.setTitle(R.string.b_item_save)  //add button --> save button
+        }
+        if(presenter.hillfort.images.size < resources.getInteger(R.integer.max_images)) {
+            menu?.getItem(0).let {
+                it?.isVisible = true  // show add image button
+                it?.setShowAsAction(ActionMenuItem.SHOW_AS_ACTION_ALWAYS)   // show image as button not as dropdown
+            }
         }
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        info("Hillfort menu")
+        return super.onPrepareOptionsMenu(menu)
+    }
+
+    override fun onImageClick(image: String, id: Int) {
+        info("Image #$id clicked.\nImage path: $image")
+        presenter.doSelectImage(image, id)
+    }
+
+    override fun onImageLongClick(image: String, index: Int) {
+        info("Long Click")
     }
 
     override fun onDestroy() {
