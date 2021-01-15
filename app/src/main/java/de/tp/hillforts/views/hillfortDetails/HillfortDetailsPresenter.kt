@@ -23,7 +23,7 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
     init {
         if(view.intent.hasExtra(HILLFORT_EDIT) && view.intent.extras?.getParcelable<HillfortModel>(HILLFORT_EDIT) != null){
             editMode = true
-            hillfort = view.intent.extras?.getParcelable<HillfortModel>(HILLFORT_EDIT)!!    //smart cast not possible
+            hillfort = view.intent.extras?.getParcelable(HILLFORT_EDIT)!!    //smart cast not possible
             view.showHillfort(hillfort)
         }
     }
@@ -41,6 +41,7 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
             .position(loc)
         map.addMarker(options)  //add Marker
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, hillfort.loc.zoom)) // center marker and zoom in
+        view?.showHillfort(hillfort)
     }
 
     fun doHillfordVisited(visited: Boolean){
@@ -53,8 +54,14 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
         view?.showDateVisited(hillfort.dateVisited)
     }
 
-    fun loadHillforts(){
+    fun loadHillfort(){
         view?.showHillfort(hillfort)
+    }
+
+    fun doCacheHillford(name: String, desc: String, notes: String){
+        hillfort.name = name
+        hillfort.desc = desc
+        hillfort.notes = notes
     }
 
     fun doSelectImage(image: String? = null, index: Int? = null){

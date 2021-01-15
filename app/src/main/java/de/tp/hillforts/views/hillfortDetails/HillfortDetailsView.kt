@@ -51,9 +51,8 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
         }
 
         // init recycler view
-        val test: Int = R.integer.image_columns
         rvHillfortImages.layoutManager = GridLayoutManager(this, resources.getInteger(R.integer.image_columns))
-        presenter.loadHillforts()
+        presenter.loadHillfort()
     }
 
     override fun showHillfort(hillfort: HillfortModel) {
@@ -64,6 +63,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
             etName.setText(it.name)
             etDescription.setText(it.desc)
             mltNotes.setText(it.notes)
+            updateLocation(it.loc.lat, it.loc.lng)
         }
         showDateVisited(hillfort.dateVisited)   // cannot be called within scope function because it can be null
     }
@@ -95,7 +95,9 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.itemAddImage -> {
+                cacheHillfort()
                 presenter.doSelectImage()
+                invalidateOptionsMenu() //invalidate options menu so onPrepareOptionsMenu will be called after
             }
             R.id.itemSave -> {
                 val name = etName.text.toString()
@@ -123,22 +125,36 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_hillfort_details, menu)
-        if(presenter.editMode && menu != null){
-            menu.getItem(1)?.isVisible = true // show delete Button
-            menu.getItem(3)?.setTitle(R.string.b_item_save)  //add button --> save button
-        }
-        if(presenter.hillfort.images.size < resources.getInteger(R.integer.max_images)) {
-            menu?.getItem(0).let {
-                it?.isVisible = true  // show add image button
-                it?.setShowAsAction(ActionMenuItem.SHOW_AS_ACTION_ALWAYS)   // show image as button not as dropdown
+        if(menu != null){
+            if(presenter.editMode) {
+                menu.getItem(1)?.isVisible = true // show delete Button
+                menu.getItem(3)?.setTitle(R.string.b_item_save)  //add button --> save button
             }
+
         }
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        info("Hillfort menu")
+        if(menu != null){
+            if(presenter.hillfort.images.size < resources.getInteger(R.integer.max_images)) {
+                menu?.getItem(0).also {
+                    invalidateOptionsMenu() // if back is pressed --> no picture added --> need to recalculate number of images
+                    it?.isVisible = true  // show add image button
+                    it?.setShowAsAction(ActionMenuItem.SHOW_AS_ACTION_ALWAYS)   // show image as button not as dropdown
+                }
+            }
+        }
         return super.onPrepareOptionsMenu(menu)
+    }
+
+    public fun updateLocation(lat: Double, lng: Double){
+        tvLatValDetails.text = "%.6f".format(lat)
+        tvLngValDetails.text = "%.6f".format(lng)
+    }
+
+    fun cacheHillfort(){
+        presenter.doCacheHillford(etName.text.toString(), etDescription.text.toString(), mltNotes.text.toString())
     }
 
     override fun onImageClick(image: String, id: Int) {

@@ -8,7 +8,7 @@ import org.jetbrains.anko.info
 
 class HillfordListPresenter(view: BaseView): BasePresenter(view) {
 
-    private val HILLFORT_EDIT = "hillford_edit"
+    private val HILLFORT_EDIT = "hillfort_edit"
 
     /**
      * Load hillforts from Repo and display them on screen.
