@@ -1,0 +1,110 @@
+package de.tp.hillforts.views.editLocation
+
+import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
+import de.tp.hillforts.R
+import de.tp.hillforts.models.HillfortModel
+import de.tp.hillforts.views.BaseView
+import kotlinx.android.synthetic.main.edit_location_view_portrait.*
+import kotlinx.android.synthetic.main.hillford_list_view_portrait.*
+import kotlinx.android.synthetic.main.hillford_list_view_portrait.toolbar
+import kotlinx.android.synthetic.main.hillfort_details_view_portrait.*
+import org.jetbrains.anko.info
+
+class EditLocationView: BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener{
+
+    lateinit var presenter: EditLocationPresenter
+    lateinit var map: GoogleMap
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.edit_location_view_portrait)
+
+        // init presenter
+        presenter = initPresenter(EditLocationPresenter(this)) as EditLocationPresenter
+
+        // init toolbar
+        init(toolbar, true)
+
+        // init map
+        mvEditLocationMap.onCreate(savedInstanceState)
+        mvEditLocationMap.getMapAsync{
+            map = it
+            map.setOnMarkerDragListener(this)
+            map.setOnMarkerClickListener(this)
+            presenter.doConfigureMap(map)
+        }
+    }
+
+    override fun showHillfort(hillfort: HillfortModel) {
+        tvLatValEL.text = "%.6f".format(hillfort.loc.lat)
+        tvLngValEL.text = "%.6f".format(hillfort.loc.lng)
+    }
+
+    fun doShowMarkerSnippet(marker: Marker) {
+        val loc = LatLng(marker.position.latitude, marker.position.longitude)
+        marker.snippet = "Lat: ${"%.6f".format(loc.latitude)}   Lng: ${"%.6f".format(loc.longitude)}"
+    }
+
+
+    override fun onMarkerClick(marker: Marker): Boolean {
+        info("Marker clicked!")
+        doShowMarkerSnippet(marker)
+        return false
+    }
+
+    override fun onMarkerDragStart(marker: Marker?) {
+
+    }
+
+    override fun onMarkerDrag(marker: Marker) {
+        presenter.doUpdateLocation(marker.position.latitude, marker.position.longitude)
+    }
+
+    override fun onMarkerDragEnd(marker: Marker?) {
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_edit_location_edit, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.itemCancel -> finish()
+            R.id.itemSave -> {
+                presenter.doOnBackPressed()
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        presenter.doOnBackPressed()
+        super.onBackPressed()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mvEditLocationMap.onDestroy()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mvEditLocationMap.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mvEditLocationMap.onResume()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mvEditLocationMap.onLowMemory()
+    }
+}

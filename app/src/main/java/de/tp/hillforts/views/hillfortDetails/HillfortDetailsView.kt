@@ -1,13 +1,10 @@
 package de.tp.hillforts.views.hillfortDetails
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.ActionMenuView
 import android.widget.CheckBox
-import android.widget.ImageView
 import androidx.appcompat.view.menu.ActionMenuItem
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.maps.GoogleMap
@@ -40,13 +37,14 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
         init(toolbar, true)
 
         // init map
-        mvLocMap.onCreate(savedInstanceState)
-        mvLocMap.getMapAsync{
+        mvEditLocation.onCreate(savedInstanceState)
+        mvEditLocation.getMapAsync{
             map = it
             presenter.doConfigureMap(map)
 
             map.setOnMapClickListener{
-                info("Map has been clicked.")
+                cacheHillfort()
+                presenter.doEditLocation()
             }
         }
 
@@ -138,7 +136,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         if(menu != null){
             if(presenter.hillfort.images.size < resources.getInteger(R.integer.max_images)) {
-                menu?.getItem(0).also {
+                menu.getItem(0).also {
                     invalidateOptionsMenu() // if back is pressed --> no picture added --> need to recalculate number of images
                     it?.isVisible = true  // show add image button
                     it?.setShowAsAction(ActionMenuItem.SHOW_AS_ACTION_ALWAYS)   // show image as button not as dropdown
@@ -148,7 +146,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
         return super.onPrepareOptionsMenu(menu)
     }
 
-    public fun updateLocation(lat: Double, lng: Double){
+    override fun updateLocation(lat: Double, lng: Double){
         tvLatValDetails.text = "%.6f".format(lat)
         tvLngValDetails.text = "%.6f".format(lng)
     }
@@ -168,22 +166,22 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
 
     override fun onDestroy() {
         super.onDestroy()
-        mvLocMap.onDestroy()
+        mvEditLocation.onDestroy()
     }
 
     override fun onPause() {
         super.onPause()
-        mvLocMap.onPause()
+        mvEditLocation.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-        mvLocMap.onResume()
+        mvEditLocation.onResume()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mvLocMap.onLowMemory()
+        mvEditLocation.onLowMemory()
     }
 
     override fun onBackPressed() {
@@ -192,6 +190,6 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mvLocMap.onSaveInstanceState(outState)
+        mvEditLocation.onSaveInstanceState(outState)
     }
 }

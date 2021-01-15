@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import org.jetbrains.anko.AnkoLogger
 import androidx.appcompat.widget.Toolbar
 import de.tp.hillforts.models.HillfortModel
+import de.tp.hillforts.views.editLocation.EditLocationView
 import de.tp.hillforts.views.hillfordList.HillfordListView
 import de.tp.hillforts.views.hillfortDetails.HillfortDetailsView
 import de.tp.hillforts.views.login.LoginView
@@ -24,6 +25,7 @@ abstract class BaseView(): AppCompatActivity(), AnkoLogger {
             VIEW.LIST -> intent = Intent(this, HillfordListView::class.java)
             VIEW.LOGIN -> intent = Intent(this, LoginView::class.java)
             VIEW.DETAILS -> intent = Intent(this, HillfortDetailsView::class.java)
+            VIEW.EDIT_LOCATION -> intent = Intent(this, EditLocationView::class.java)
         }
         if (key != "") {
             intent.putExtra(key, value)
@@ -77,4 +79,6 @@ abstract class BaseView(): AppCompatActivity(), AnkoLogger {
     open fun showHillfort(hillfort: HillfortModel){}
 
     open fun showDateVisited(date: Date?){}
+
+    open fun updateLocation(lat: Double, lng: Double){}
 }

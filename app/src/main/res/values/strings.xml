@@ -29,4 +29,8 @@
     <string name="notes">Notes</string>
     <string name="name">Name</string>
     <string name="description">Description</string>
+
+    <!-- Edit Location -->
+    <string name="hillfort_marker_title">Hillfort: </string>
+
 </resources>

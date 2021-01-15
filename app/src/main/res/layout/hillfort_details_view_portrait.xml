@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:foregroundTintMode="src_in"
     tools:context=".views.hillfortDetails.HillfortDetailsView">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -104,7 +105,7 @@
             app:layout_constraintTop_toTopOf="@+id/cbVisited" />
 
         <com.google.android.gms.maps.MapView
-            android:id="@+id/mvLocMap"
+            android:id="@+id/mvEditLocation"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
@@ -119,10 +120,12 @@
             android:id="@+id/ivLocationDetails"
             android:layout_width="28dp"
             android:layout_height="32dp"
+            android:layout_marginStart="2dp"
+            android:tint="@color/green_900"
             app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
             app:layout_constraintStart_toStartOf="@+id/etDescription"
             app:layout_constraintTop_toTopOf="@+id/constraintLayout"
-            app:srcCompat="@android:drawable/ic_menu_mylocation" />
+            app:srcCompat="@drawable/ic_outline_my_location_24" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout"
@@ -130,7 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/mvLocMap"
+            app:layout_constraintEnd_toStartOf="@+id/mvEditLocationMap"
             app:layout_constraintStart_toEndOf="@+id/ivLocationDetails"
             app:layout_constraintTop_toBottomOf="@+id/etDescription">
 

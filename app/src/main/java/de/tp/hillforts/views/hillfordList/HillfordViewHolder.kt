@@ -23,6 +23,8 @@ class HillfordViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         if (hillford.images.isNotEmpty()){
             val image = hillford.images.first{ it.isNotEmpty() }
             Glide.with(itemView.context).load(image).into(itemView.ivImage);
+            itemView.tvLatVal.text = "%.6f".format(hillford.loc.lat)
+            itemView.tvLngVal.text = "%.6f".format(hillford.loc.lng)
         }
 
         // call listener
