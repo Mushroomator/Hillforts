@@ -10,6 +10,7 @@ import de.tp.hillforts.views.editLocation.EditLocationView
 import de.tp.hillforts.views.hillfordList.HillfordListView
 import de.tp.hillforts.views.hillfortDetails.HillfortDetailsView
 import de.tp.hillforts.views.login.LoginView
+import de.tp.hillforts.views.settings.SettingsView
 import org.jetbrains.anko.info
 import java.util.*
 
@@ -26,6 +27,7 @@ abstract class BaseView(): AppCompatActivity(), AnkoLogger {
             VIEW.LOGIN -> intent = Intent(this, LoginView::class.java)
             VIEW.DETAILS -> intent = Intent(this, HillfortDetailsView::class.java)
             VIEW.EDIT_LOCATION -> intent = Intent(this, EditLocationView::class.java)
+            VIEW.SETTINGS -> intent = Intent(this, SettingsView::class.java)
         }
         if (key != "") {
             intent.putExtra(key, value)

@@ -16,7 +16,53 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hillforts">
-        <activity android:name=".views.editLocation.EditLocationView"></activity>
+
+        <!-- Settings view -->
+        <activity
+            android:name=".views.settings.SettingsView"
+            android:label="@string/title_settings_view">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.hillfordList.HillfordListView" />
+        </activity>
+
+        <!-- Edit Location view -->
+        <activity
+            android:name=".views.editLocation.EditLocationView"
+            android:label="@string/title_edit_location_view">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.hillfortDetails.HillfortDetailsView" />
+        </activity>
+
+        <!-- Login View -->
+        <activity
+        android:name=".views.login.LoginView"
+        android:label="@string/title_login_view">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- Hillford List View -->
+        <activity
+            android:name=".views.hillfordList.HillfordListView"
+            android:label="@string/title_hillfort_list_view">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".views.login.LoginView" />
+        </activity>
+
+        <!-- Hillford Details View -->
+        <activity
+            android:name=".views.hillfortDetails.HillfortDetailsView"
+            android:label="@string/title_hillfort_details_view">
+            <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".views.hillfordList.HillfordListView" />
+        </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -27,26 +73,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" /> <!-- Login View -->
-        <activity
-            android:name=".views.login.LoginView"
-            android:label="@string/title_login_view">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity> <!-- Hillford List View -->
-        <activity android:name=".views.hillfordList.HillfordListView">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.login.LoginView" />
-        </activity> <!-- Hillford Details View -->
-        <activity android:name=".views.hillfortDetails.HillfortDetailsView">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.hillfordList.HillfordListView" />
-        </activity>
+            android:value="@string/google_maps_key"/>
     </application>
 
 </manifest>
