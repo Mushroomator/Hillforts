@@ -13,6 +13,7 @@ class LoginView : BaseView() {
   lateinit var presenter: LoginPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    setTheme(R.style.Theme_Hillforts)
     super.onCreate(savedInstanceState)
     setContentView(R.layout.login_view_portrait)
 

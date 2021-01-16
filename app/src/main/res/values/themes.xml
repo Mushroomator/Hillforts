@@ -17,6 +17,13 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <!-- Splash screen -->
+    <style name="Theme.SplashScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <!-- custom button -->
     <style name="customButton" parent="Widget.MaterialComponents.Button">
         <item name="cornerRadius">20sp</item>

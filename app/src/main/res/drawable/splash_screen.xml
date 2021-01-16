@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
+    <!-- white backgroudn -->
+    <item android:drawable="@color/white"/>
+    <!-- -->
+    <item>
+        <bitmap
+            android:src="@drawable/hillfort_logo_with_text_converted"
+            android:gravity="center"/>
+    </item>
+</layer-list>

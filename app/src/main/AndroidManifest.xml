@@ -17,6 +17,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hillforts">
 
+        <!-- Activity for Splash Screen (only necessary cause load is to quick to just make a Theme change) -->
+        <activity android:name=".views.splash.SplashScreenActitivity"
+        android:theme="@style/Theme.SplashScreen">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <!-- Settings view -->
         <activity
             android:name=".views.settings.SettingsView"
@@ -37,13 +47,9 @@
 
         <!-- Login View -->
         <activity
-        android:name=".views.login.LoginView"
-        android:label="@string/title_login_view">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:name=".views.login.LoginView"
+            android:label="@string/title_login_view"
+            android:theme="@style/Theme.SplashScreen">
         </activity>
 
         <!-- Hillford List View -->
@@ -51,8 +57,8 @@
             android:name=".views.hillfordList.HillfordListView"
             android:label="@string/title_hillfort_list_view">
             <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".views.login.LoginView" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.login.LoginView" />
         </activity>
 
         <!-- Hillford Details View -->
@@ -60,8 +66,8 @@
             android:name=".views.hillfortDetails.HillfortDetailsView"
             android:label="@string/title_hillfort_details_view">
             <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".views.hillfordList.HillfordListView" />
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.hillfordList.HillfordListView" />
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -73,7 +79,7 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key"/>
+            android:value="@string/google_maps_key" />
     </application>
 
 </manifest>
