@@ -33,6 +33,10 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
         }
     }
 
+    /**
+     * Configure Google Map.
+     * @param map map to be configured
+     */
     fun doConfigureMap(map: GoogleMap){
         if (hillfort.loc.zoom == 0f) {
             hillfort.loc.lat = 49.141018
@@ -43,6 +47,10 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
         doUpdateMapLocation()
     }
 
+    /**
+     * Set visitedOn.
+     * @param visited true if hillfort is visited
+     */
     fun doHillfordVisited(visited: Boolean){
         if(visited){
             hillfort.dateVisited = Date()
@@ -53,16 +61,30 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
         view?.showDateVisited(hillfort.dateVisited)
     }
 
+    /**
+     * Load hillfort and display it.
+     */
     fun loadHillfort(){
         view?.showHillfort(hillfort)
     }
 
+    /**
+     * Cache current state of hillford.
+     * @param name name for hillford
+     * @param desc description for hillford
+     * @param notes notes for hillford
+     */
     fun doCacheHillford(name: String, desc: String, notes: String){
         hillfort.name = name
         hillfort.desc = desc
         hillfort.notes = notes
     }
 
+    /**
+     * Show image picker to add/ replace an image.
+     * @param image previous image
+     * @param index index of previous image
+     */
     fun doSelectImage(image: String? = null, index: Int? = null){
         view?.also{
             if(image != null && index != null){
@@ -75,10 +97,16 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
         }
     }
 
+    /**
+     * Call activity to set hilfort location.
+     */
     fun doEditLocation(){
         view?.navigateTo(VIEW.EDIT_LOCATION, LOCATION_REQ_ID, LOCATION_EDIT, hillfort.loc)
     }
 
+    /**
+     * Update GoogleMap and labels according to hillfort location.
+     */
     fun doUpdateMapLocation() {
         map?.clear()
         map?.uiSettings?.setZoomControlsEnabled(true)
@@ -119,6 +147,13 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
         }
     }
 
+    /**
+     * Update hillfort when in edit-mode or create a new one.
+     * @param name name for hillfort
+     * @param desc description for hillfort
+     * @param notes notes on hillfort
+     * @param visitedOn date when hillfort was visited
+     */
     fun doAddOrSave(name: String, desc: String, notes: String, visitedOn: Date?){
         hillfort.also{
             it.name = name
@@ -135,10 +170,16 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
         view?.finish()
     }
 
+    /**
+     * Cancel operation. Do nothing.
+     */
     fun doCancel(){
         view?.finish()
     }
 
+    /**
+     * Delete hillford.
+     */
     fun doDelete(){
         app.hillforts.delete(hillfort)
         view?.finish()

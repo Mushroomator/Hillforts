@@ -66,6 +66,10 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
         showDateVisited(hillfort.dateVisited)   // cannot be called within scope function because it can be null
     }
 
+    /**
+     * Listener on Checkbox and following TextView. Set visitedOn date when clicked.
+     * @param view clicked view
+     */
     fun onVisitedClicked(view: View){
         if (view is CheckBox){
             presenter.doHillfordVisited(cbVisited.isChecked)
@@ -77,6 +81,10 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
         }
     }
 
+    /**
+     * Display visitedOn date
+     * @param date visited on
+     */
     override fun showDateVisited(date: Date?){
         if(date != null){
             tvVisitedOn.text = SimpleDateFormat(dateFormat, Locale.GERMANY).format(date)
@@ -133,6 +141,10 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
         return super.onCreateOptionsMenu(menu)
     }
 
+    /**
+     * Called every time before menu is displayed.
+     * Invalidate menu as users might want to change images and then abort that action again.
+     */
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         if(menu != null){
             if(presenter.hillfort.images.size < resources.getInteger(R.integer.max_images)) {
@@ -146,20 +158,34 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
         return super.onPrepareOptionsMenu(menu)
     }
 
+    /**
+     * Update hillfort location displayed.
+     * @param lat latitude
+     * @param lng longitude
+     */
     override fun updateLocation(lat: Double, lng: Double){
         tvLatValDetails.text = "%.6f".format(lat)
         tvLngValDetails.text = "%.6f".format(lng)
     }
 
+    /**
+     * Cache values of text views so they dont get lost when calling another activity.
+     */
     fun cacheHillfort(){
         presenter.doCacheHillford(etName.text.toString(), etDescription.text.toString(), mltNotes.text.toString())
     }
 
+    /**
+     * Listener on image clicks. When image is clicked allow user to select a different image.
+     */
     override fun onImageClick(image: String, id: Int) {
         info("Image #$id clicked.\nImage path: $image")
         presenter.doSelectImage(image, id)
     }
 
+    /**
+     * Show menu of different actions to perform on menu.
+     */
     override fun onImageLongClick(image: String, index: Int) {
         info("Long Click")
     }
