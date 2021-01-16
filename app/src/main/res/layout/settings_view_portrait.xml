@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.settings.SettingsView">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/green_500"
+        android:fitsSystemWindows="true"
+        app:elevation="0dip"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleTextColor="@color/white" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvUserInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardCornerRadius="10sp"
+        app:cardElevation="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4sp">
+
+            <ImageView
+                android:id="@+id/ivPersonIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_outline_add_circle_outline_24"
+                android:tint="@color/green_900"
+                android:tintMode="src_in"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_outline_person_24" />
+
+            <TextView
+                android:id="@+id/tvUserInformation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/card_title_user_info"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/ivPersonIcon"
+                app:layout_constraintStart_toEndOf="@+id/ivPersonIcon"
+                app:layout_constraintTop_toTopOf="@+id/ivPersonIcon" />
+
+            <TextView
+                android:id="@+id/ivUserEmailLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/user_email_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivPersonIcon" />
+
+            <TextView
+                android:id="@+id/tvUserEmailVal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/ivUserEmailLabel"
+                app:layout_constraintStart_toEndOf="@+id/ivUserEmailLabel"
+                app:layout_constraintTop_toTopOf="@+id/ivUserEmailLabel" />
+
+            <TextView
+                android:id="@+id/tvUserPasswordLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/user_password_label"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/ivUserEmailLabel"
+                app:layout_constraintTop_toBottomOf="@+id/ivUserEmailLabel" />
+
+            <TextView
+                android:id="@+id/tvUserPasswordVal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/tvUserPasswordLabel"
+                app:layout_constraintStart_toEndOf="@+id/tvUserPasswordLabel"
+                app:layout_constraintTop_toTopOf="@+id/tvUserPasswordLabel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvUserStats"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardCornerRadius="10sp"
+        app:cardElevation="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvUserInfo">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4sp">
+
+            <ImageView
+                android:id="@+id/ivStatistics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_outline_bar_chart_24"
+                android:tint="@color/green_900"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvUserStatistics"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/card_title_statistics"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/ivStatistics"
+                app:layout_constraintStart_toEndOf="@+id/ivStatistics"
+                app:layout_constraintTop_toTopOf="@+id/ivStatistics" />
+
+            <TextView
+                android:id="@+id/tvTotalSitesLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/total_sites"
+                app:layout_constraintEnd_toStartOf="@+id/tvVisitedSites"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivStatistics" />
+
+            <TextView
+                android:id="@+id/tvTotalSitesVal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tvTotalSitesLabel"
+                app:layout_constraintStart_toStartOf="@+id/tvTotalSitesLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvTotalSitesLabel" />
+
+            <TextView
+                android:id="@+id/tvVisitedSites"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sites_visited"
+                app:layout_constraintBottom_toBottomOf="@+id/tvTotalSitesLabel"
+                app:layout_constraintEnd_toStartOf="@+id/tvPctVisitedLabel"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/tvTotalSitesLabel"
+                app:layout_constraintTop_toTopOf="@+id/tvTotalSitesLabel" />
+
+            <TextView
+                android:id="@+id/tvPctVisitedLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="@string/pct_visited"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvVisitedSites"
+                app:layout_constraintTop_toTopOf="@+id/tvVisitedSites" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:max="100"
+                android:progress="0"
+                android:progressTint="@color/green_500"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tvPctVisitedLabel"
+                app:layout_constraintStart_toStartOf="@+id/tvPctVisitedLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvPctVisitedLabel" />
+
+            <TextView
+                android:id="@+id/tvVisitedSitesVal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="8"
+                android:textSize="36sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/tvVisitedSites"
+                app:layout_constraintStart_toStartOf="@+id/tvVisitedSites"
+                app:layout_constraintTop_toBottomOf="@+id/tvVisitedSites" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvUserPreferences"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardCornerRadius="10sp"
+        app:cardElevation="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvUserStats">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4sp">
+
+            <ImageView
+                android:id="@+id/ivPreferences"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_outline_settings_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/green_900" />
+
+            <TextView
+                android:id="@+id/tvPreferences"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/card_title_preferences"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/ivPreferences"
+                app:layout_constraintStart_toEndOf="@+id/ivPreferences"
+                app:layout_constraintTop_toTopOf="@+id/ivPreferences" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/dvAppInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:cardCornerRadius="10sp"
+        app:cardElevation="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cvUserPreferences"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4sp">
+
+            <ImageView
+                android:id="@+id/ivAppInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_outline_info_24"
+                android:tint="@color/green_900"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="#FFFFFF" />
+
+            <TextView
+                android:id="@+id/tvAppInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/card_title_app_info"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/ivAppInfo"
+                app:layout_constraintStart_toEndOf="@+id/ivAppInfo"
+                app:layout_constraintTop_toTopOf="@+id/ivAppInfo" />
+
+            <ImageView
+                android:id="@+id/ivHillfortLogoInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/ic_hillfort_logo"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivAppInfo" />
+
+            <TextView
+                android:id="@+id/tvAppName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/app_name"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toTopOf="@+id/tvCredits"
+                app:layout_constraintEnd_toStartOf="@+id/ivHillfortLogoInfo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/ivHillfortLogoInfo"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tvCredits"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/app_credits"
+                app:layout_constraintBottom_toTopOf="@+id/tvYear"
+                app:layout_constraintStart_toStartOf="@+id/tvAppName"
+                app:layout_constraintTop_toBottomOf="@+id/tvAppName" />
+
+            <TextView
+                android:id="@+id/tvYear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/app_year"
+                app:layout_constraintBottom_toBottomOf="@+id/ivHillfortLogoInfo"
+                app:layout_constraintStart_toStartOf="@+id/tvCredits"
+                app:layout_constraintTop_toBottomOf="@+id/tvCredits" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

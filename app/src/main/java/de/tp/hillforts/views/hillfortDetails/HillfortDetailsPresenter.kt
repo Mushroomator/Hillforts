@@ -10,10 +10,9 @@ import de.tp.hillforts.models.HillfortModel
 import de.tp.hillforts.models.LocationModel
 import de.tp.hillforts.views.BasePresenter
 import de.tp.hillforts.views.VIEW
-import org.jetbrains.anko.info
 import java.util.*
 
-class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
+class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) {
 
     private val HILLFORT_EDIT = "hillfort_edit"
     private val LOCATION_EDIT = "location"
@@ -26,9 +25,13 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
     var editMode = false
 
     init {
-        if(view.intent.hasExtra(HILLFORT_EDIT) && view.intent.extras?.getParcelable<HillfortModel>(HILLFORT_EDIT) != null){
+        if (view.intent.hasExtra(HILLFORT_EDIT) && view.intent.extras?.getParcelable<HillfortModel>(
+                HILLFORT_EDIT
+            ) != null
+        ) {
             editMode = true
-            hillfort = view.intent.extras?.getParcelable(HILLFORT_EDIT)!!    //smart cast not possible
+            hillfort =
+                view.intent.extras?.getParcelable(HILLFORT_EDIT)!!    //smart cast not possible
             view.showHillfort(hillfort)
         }
     }
@@ -37,7 +40,7 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
      * Configure Google Map.
      * @param map map to be configured
      */
-    fun doConfigureMap(map: GoogleMap){
+    fun doConfigureMap(map: GoogleMap) {
         if (hillfort.loc.zoom == 0f) {
             hillfort.loc.lat = 49.141018
             hillfort.loc.lng = 11.854860
@@ -51,11 +54,10 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
      * Set visitedOn.
      * @param visited true if hillfort is visited
      */
-    fun doHillfordVisited(visited: Boolean){
-        if(visited){
+    fun doHillfordVisited(visited: Boolean) {
+        if (visited) {
             hillfort.dateVisited = Date()
-        }
-        else{
+        } else {
             hillfort.dateVisited = null
         }
         view?.showDateVisited(hillfort.dateVisited)
@@ -64,7 +66,7 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
     /**
      * Load hillfort and display it.
      */
-    fun loadHillfort(){
+    fun loadHillfort() {
         view?.showHillfort(hillfort)
     }
 
@@ -74,7 +76,7 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
      * @param desc description for hillford
      * @param notes notes for hillford
      */
-    fun doCacheHillford(name: String, desc: String, notes: String){
+    fun doCacheHillford(name: String, desc: String, notes: String) {
         hillfort.name = name
         hillfort.desc = desc
         hillfort.notes = notes
@@ -85,12 +87,11 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
      * @param image previous image
      * @param index index of previous image
      */
-    fun doSelectImage(image: String? = null, index: Int? = null){
-        view?.also{
-            if(image != null && index != null){
+    fun doSelectImage(image: String? = null, index: Int? = null) {
+        view?.also {
+            if (image != null && index != null) {
                 previousImage = index
-            }
-            else{
+            } else {
                 previousImage = null
             }
             showImagePicker(view!!, IMAGE_REQ_ID)
@@ -100,7 +101,7 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
     /**
      * Call activity to set hilfort location.
      */
-    fun doEditLocation(){
+    fun doEditLocation() {
         view?.navigateTo(VIEW.EDIT_LOCATION, LOCATION_REQ_ID, LOCATION_EDIT, hillfort.loc)
     }
 
@@ -108,38 +109,35 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
      * Update GoogleMap and labels according to hillfort location.
      */
     fun doUpdateMapLocation() {
-        map?.clear()
-        map?.uiSettings?.setZoomControlsEnabled(true)
+        map.clear()
+        map.uiSettings?.setZoomControlsEnabled(true)
         val pos = LatLng(hillfort.loc.lat, hillfort.loc.lng)
         val options = MarkerOptions()
             .title(hillfort.name)
             .position(pos)
-        map?.addMarker(options)
-        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, hillfort.loc.zoom))
+        map.addMarker(options)
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, hillfort.loc.zoom))
         view?.updateLocation(hillfort.loc.lat, hillfort.loc.lng)
     }
 
-    override fun doActivityResult(requestCode: Int, resultCode: Int, intent: Intent) {
-        when(requestCode){
+    override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        when (requestCode) {
             IMAGE_REQ_ID -> {
-                if(intent != null){
-                    val newImgPath = intent.data.toString()
-                    if(previousImage != null){
-                        // attempt to change image
-                        if(!newImgPath.equals(hillfort.images[previousImage!!])){
-                            hillfort.images[previousImage!!] = newImgPath
-                        }
+                val newImgPath = data.data.toString()
+                if (previousImage != null) {
+                    // attempt to change image
+                    if (!newImgPath.equals(hillfort.images[previousImage!!])) {
+                        hillfort.images[previousImage!!] = newImgPath
                     }
-                    else{
-                        // add image
-                        hillfort.images.add(newImgPath)
-                    }
-                    view?.showHillfort(hillfort)
+                } else {
+                    // add image
+                    hillfort.images.add(newImgPath)
                 }
+                view?.showHillfort(hillfort)
             }
             LOCATION_REQ_ID -> {
-                if(intent!= null && intent.extras?.getParcelable<LocationModel>(LOCATION_EDIT) != null){
-                    hillfort.loc = intent.extras?.getParcelable(LOCATION_EDIT)!!
+                if (data.extras?.getParcelable<LocationModel>(LOCATION_EDIT) != null) {
+                    hillfort.loc = data.extras?.getParcelable(LOCATION_EDIT)!!
                     doUpdateMapLocation()
                     view?.showHillfort(hillfort)
                 }
@@ -154,17 +152,16 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
      * @param notes notes on hillfort
      * @param visitedOn date when hillfort was visited
      */
-    fun doAddOrSave(name: String, desc: String, notes: String, visitedOn: Date?){
-        hillfort.also{
+    fun doAddOrSave(name: String, desc: String, notes: String, visitedOn: Date?) {
+        hillfort.also {
             it.name = name
             it.desc = desc
             it.notes = notes
             it.dateVisited = visitedOn
         }
-        if(editMode){
+        if (editMode) {
             app.hillforts.update(hillfort)
-        }
-        else{
+        } else {
             app.hillforts.create(hillfort)
         }
         view?.finish()
@@ -173,14 +170,14 @@ class HillfortDetailsPresenter(view: HillfortDetailsView): BasePresenter(view) {
     /**
      * Cancel operation. Do nothing.
      */
-    fun doCancel(){
+    fun doCancel() {
         view?.finish()
     }
 
     /**
      * Delete hillford.
      */
-    fun doDelete(){
+    fun doDelete() {
         app.hillforts.delete(hillfort)
         view?.finish()
     }

@@ -178,9 +178,9 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
     /**
      * Listener on image clicks. When image is clicked allow user to select a different image.
      */
-    override fun onImageClick(image: String, id: Int) {
-        info("Image #$id clicked.\nImage path: $image")
-        presenter.doSelectImage(image, id)
+    override fun onImageClick(image: String, index: Int) {
+        info("Image #$index clicked.\nImage path: $image")
+        presenter.doSelectImage(image, index)
     }
 
     /**

@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hillforts">
-        <activity android:name=".views.editLocation.EditLocationView"></activity>
+        <activity android:name=".views.settings.SettingsView"></activity>
+        <activity android:name=".views.editLocation.EditLocationView" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
