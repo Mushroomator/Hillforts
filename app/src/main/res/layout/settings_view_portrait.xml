@@ -26,90 +26,6 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cvUserInfo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        app:cardCornerRadius="10sp"
-        app:cardElevation="10sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="4sp">
-
-            <ImageView
-                android:id="@+id/ivPersonIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_outline_add_circle_outline_24"
-                android:tint="@color/green_900"
-                android:tintMode="src_in"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_outline_person_24" />
-
-            <TextView
-                android:id="@+id/tvUserInformation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="@string/card_title_user_info"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/ivPersonIcon"
-                app:layout_constraintStart_toEndOf="@+id/ivPersonIcon"
-                app:layout_constraintTop_toTopOf="@+id/ivPersonIcon" />
-
-            <TextView
-                android:id="@+id/ivUserEmailLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/user_email_label"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ivPersonIcon" />
-
-            <TextView
-                android:id="@+id/tvUserEmailVal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="@+id/ivUserEmailLabel"
-                app:layout_constraintStart_toEndOf="@+id/ivUserEmailLabel"
-                app:layout_constraintTop_toTopOf="@+id/ivUserEmailLabel" />
-
-            <TextView
-                android:id="@+id/tvUserPasswordLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/user_password_label"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/ivUserEmailLabel"
-                app:layout_constraintTop_toBottomOf="@+id/ivUserEmailLabel" />
-
-            <TextView
-                android:id="@+id/tvUserPasswordVal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:text="TextView"
-                app:layout_constraintBottom_toBottomOf="@+id/tvUserPasswordLabel"
-                app:layout_constraintStart_toEndOf="@+id/tvUserPasswordLabel"
-                app:layout_constraintTop_toTopOf="@+id/tvUserPasswordLabel" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
         android:id="@+id/cvUserStats"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -154,7 +70,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/total_sites"
-                app:layout_constraintEnd_toStartOf="@+id/tvVisitedSites"
+                app:layout_constraintEnd_toStartOf="@+id/tvVisitedSitesLabel"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_chainStyle="spread"
                 app:layout_constraintStart_toStartOf="parent"
@@ -173,7 +89,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvTotalSitesLabel" />
 
             <TextView
-                android:id="@+id/tvVisitedSites"
+                android:id="@+id/tvVisitedSitesLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/sites_visited"
@@ -190,23 +106,23 @@
                 android:layout_marginEnd="16dp"
                 android:text="@string/pct_visited"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvVisitedSites"
-                app:layout_constraintTop_toTopOf="@+id/tvVisitedSites" />
+                app:layout_constraintStart_toEndOf="@+id/tvVisitedSitesLabel"
+                app:layout_constraintTop_toTopOf="@+id/tvVisitedSitesLabel" />
 
             <ProgressBar
-                android:id="@+id/progressBar"
-                style="?android:attr/progressBarStyle"
+                android:id="@+id/pbVisitdProgress"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:indeterminate="false"
                 android:max="100"
-                android:progress="0"
+                android:progress="80"
                 android:progressTint="@color/green_500"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/tvPctVisitedLabel"
                 app:layout_constraintStart_toStartOf="@+id/tvPctVisitedLabel"
-                app:layout_constraintTop_toBottomOf="@+id/tvPctVisitedLabel" />
+                app:layout_constraintTop_toBottomOf="@+id/tvPctVisitedVal" />
 
             <TextView
                 android:id="@+id/tvVisitedSitesVal"
@@ -218,9 +134,20 @@
                 android:textSize="36sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/tvVisitedSites"
-                app:layout_constraintStart_toStartOf="@+id/tvVisitedSites"
-                app:layout_constraintTop_toBottomOf="@+id/tvVisitedSites" />
+                app:layout_constraintEnd_toEndOf="@+id/tvVisitedSitesLabel"
+                app:layout_constraintStart_toStartOf="@+id/tvVisitedSitesLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvVisitedSitesLabel" />
+
+            <TextView
+                android:id="@+id/tvPctVisitedVal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="80%"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/tvPctVisitedLabel"
+                app:layout_constraintStart_toStartOf="@+id/tvPctVisitedLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvPctVisitedLabel" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
@@ -294,7 +221,7 @@
                 android:tint="@color/green_900"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:tint="#FFFFFF" />
+                app:tint="@color/green_900" />
 
             <TextView
                 android:id="@+id/tvAppInfo"
@@ -352,6 +279,87 @@
                 app:layout_constraintStart_toStartOf="@+id/tvCredits"
                 app:layout_constraintTop_toBottomOf="@+id/tvCredits" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvUserInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardCornerRadius="10sp"
+        app:cardElevation="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="4sp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_outline_person_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvUserInformation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/card_title_user_info"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView"
+                app:layout_constraintStart_toEndOf="@+id/imageView"
+                app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+            <TextView
+                android:id="@+id/ivUserEmailLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/user_email_label"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+            <TextView
+                android:id="@+id/tvUserEmailVal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/ivUserEmailLabel"
+                app:layout_constraintStart_toEndOf="@+id/ivUserEmailLabel"
+                app:layout_constraintTop_toTopOf="@+id/ivUserEmailLabel" />
+
+            <TextView
+                android:id="@+id/tvUserPasswordLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@string/user_password_label"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/ivUserEmailLabel"
+                app:layout_constraintTop_toBottomOf="@+id/ivUserEmailLabel" />
+
+            <TextView
+                android:id="@+id/tvUserPasswordVal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="TextView"
+                app:layout_constraintBottom_toBottomOf="@+id/tvUserPasswordLabel"
+                app:layout_constraintStart_toEndOf="@+id/tvUserPasswordLabel"
+                app:layout_constraintTop_toTopOf="@+id/tvUserPasswordLabel" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

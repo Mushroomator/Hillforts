@@ -4,5 +4,6 @@ enum class VIEW {
     LOGIN,
     LIST,
     DETAILS,
-    EDIT_LOCATION
+    EDIT_LOCATION,
+    SETTINGS
 }

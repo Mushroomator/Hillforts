@@ -32,9 +32,11 @@
     <string name="description">Description</string>
 
     <!-- Edit Location -->
+    <string name="title_edit_location_view">Set location</string>
     <string name="hillfort_marker_title">Hillfort: </string>
 
     <!-- Settings -->
+    <string name="title_settings_view">Settings</string>
     <string name="card_title_user_info">Your information</string>
     <string name="card_title_statistics">Statistics</string>
     <string name="card_title_preferences">Preferences</string>

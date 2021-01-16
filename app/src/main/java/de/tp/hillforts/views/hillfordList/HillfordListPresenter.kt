@@ -28,6 +28,10 @@ class HillfordListPresenter(view: BaseView): BasePresenter(view) {
         view?.navigateTo(VIEW.LOGIN)
     }
 
+    fun doShowSettings(){
+        view?.navigateTo(VIEW.SETTINGS)
+    }
+
     /**
      * Call another activity to add a hillfort.
      * @author Thomas Pilz

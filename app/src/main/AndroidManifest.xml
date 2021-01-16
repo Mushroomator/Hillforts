@@ -18,14 +18,18 @@
         android:theme="@style/Theme.Hillforts">
 
         <!-- Settings view -->
-        <activity android:name=".views.settings.SettingsView">
+        <activity
+            android:name=".views.settings.SettingsView"
+            android:label="@string/title_settings_view">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".views.hillfordList.HillfordListView" />
         </activity>
 
         <!-- Edit Location view -->
-        <activity android:name=".views.editLocation.EditLocationView">
+        <activity
+            android:name=".views.editLocation.EditLocationView"
+            android:label="@string/title_edit_location_view">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".views.hillfortDetails.HillfortDetailsView" />
@@ -43,14 +47,18 @@
         </activity>
 
         <!-- Hillford List View -->
-        <activity android:name=".views.hillfordList.HillfordListView">
+        <activity
+            android:name=".views.hillfordList.HillfordListView"
+            android:label="@string/title_hillfort_list_view">
             <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".views.login.LoginView" />
         </activity>
 
         <!-- Hillford Details View -->
-        <activity android:name=".views.hillfortDetails.HillfortDetailsView">
+        <activity
+            android:name=".views.hillfortDetails.HillfortDetailsView"
+            android:label="@string/title_hillfort_details_view">
             <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value=".views.hillfordList.HillfordListView" />
