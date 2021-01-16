@@ -8,6 +8,7 @@
     <string name="sign_up">Sign up</string>
     <string name="email">E-mail</string>
     <string name="password">Password</string>
+    <string name="toast_login_invalid_input">Please enter email and password</string>
 
     <!-- Hillfort List View -->
     <string name="title_hillfort_list_view">All Hillforts</string>
@@ -29,6 +30,7 @@
     <string name="notes">Notes</string>
     <string name="name">Name</string>
     <string name="description">Description</string>
+    <string name="toast_details_invalid_input">Please enter a name</string>
 
     <!-- Edit Location -->
     <string name="hillfort_marker_title">Hillfort: </string>

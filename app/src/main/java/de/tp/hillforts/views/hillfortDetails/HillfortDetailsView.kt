@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.hillfort_details_view_portrait.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
 import org.jetbrains.anko.info
+import org.jetbrains.anko.toast
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -107,6 +108,10 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
             }
             R.id.itemSave -> {
                 val name = etName.text.toString()
+                if(name == "" || name.isEmpty()){
+                    toast(getString(R.string.toast_details_invalid_input))
+                    return false
+                }
                 val desc = etDescription.text.toString()
                 val notes = mltNotes.text.toString()
                 val visited = cbVisited.isChecked
@@ -118,7 +123,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
                     } catch (e: ParseException){
                         // should never happen as date will always be populated automatically!
                         error("Visited date was populated incorrectly! Error:\n$e")
-                        presenter.doAddOrSave(name, desc, notes, null)
+                        return false
                     }
                 }
                 presenter.doAddOrSave(name, desc, notes, visitedDate)

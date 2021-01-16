@@ -27,7 +27,7 @@ class LoginView : BaseView() {
       val pw = etPassword.text.toString()
 
       if(email == "" || email.isEmpty() || pw == "" || pw.isEmpty()){
-        toast("Please enter email and password")
+        toast(getString(R.string.toast_login_invalid_input))
       }
       else{
         presenter.doLogin(email, pw)
