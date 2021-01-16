@@ -40,19 +40,29 @@ class EditLocationView: BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.On
         }
     }
 
+    /**
+     * Show hillfort i.e. its location on map.
+     * @param hillfort hillfort to be displayed.
+     */
     override fun showHillfort(hillfort: HillfortModel) {
         tvLatValEL.text = "%.6f".format(hillfort.loc.lat)
         tvLngValEL.text = "%.6f".format(hillfort.loc.lng)
     }
 
+    /**
+     * Show snippet of marker.
+     * @param marker location marker
+     */
     fun doShowMarkerSnippet(marker: Marker) {
         val loc = LatLng(marker.position.latitude, marker.position.longitude)
         marker.snippet = "Lat: ${"%.6f".format(loc.latitude)}   Lng: ${"%.6f".format(loc.longitude)}"
     }
 
-
+    /**
+     * Listener on marker clicks. Displays snippet.
+     * @param marker clicked marker
+     */
     override fun onMarkerClick(marker: Marker): Boolean {
-        info("Marker clicked!")
         doShowMarkerSnippet(marker)
         return false
     }
@@ -61,6 +71,10 @@ class EditLocationView: BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.On
 
     }
 
+    /**
+     * Called when marker is dragged. Updates location labels.
+     * @param marker dragged marker
+     */
     override fun onMarkerDrag(marker: Marker) {
         presenter.doUpdateLocation(marker.position.latitude, marker.position.longitude)
     }

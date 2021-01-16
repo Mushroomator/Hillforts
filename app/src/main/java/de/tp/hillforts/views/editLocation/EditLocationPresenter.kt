@@ -25,6 +25,10 @@ class EditLocationPresenter(view: EditLocationView): BasePresenter(view) {
         }
     }
 
+    /**
+     * Configure google map and display hillfort on screen.
+     * @param map map to be configured
+     */
     fun doConfigureMap(map: GoogleMap){
         val loc = LatLng(location.lat, location.lng)
         val options = MarkerOptions()
@@ -36,12 +40,20 @@ class EditLocationPresenter(view: EditLocationView): BasePresenter(view) {
         view?.showHillfort(HillfortModel(loc = location))
     }
 
+    /**
+     * Update hillfort location and show it.
+     * @param lat latitude
+     * @param lng longitude
+     */
     fun doUpdateLocation(lat: Double, lng: Double){
         location.lat = lat
         location.lng = lng
         view?.showHillfort(HillfortModel(loc = location))
     }
 
+    /**
+     * Return current location to calling actitiviy.
+     */
     fun doOnBackPressed(){
         val resultIntent = Intent()
         resultIntent.putExtra(LOCATION, location)
