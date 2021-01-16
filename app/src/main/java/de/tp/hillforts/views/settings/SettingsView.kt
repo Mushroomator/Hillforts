@@ -27,11 +27,23 @@ class SettingsView : BaseView() {
         presenter.doLoadStatistics()
     }
 
+    /**
+     * Show a user's information on screen.
+     * @param email email address
+     * @param password password (will be shown in plain text!!! as per requirements)
+     * @author Thomas Pilz
+     */
     fun showUserInfo(email: String, password: String){
         tvUserEmailVal.text = email
         tvUserPasswordVal.text = password
     }
 
+    /**
+     * Show a user's statistics on screen.
+     * @param total total number of hillforts
+     * @param visited number of visited hillforts
+     * @author Thomas Pilz
+     */
     fun showStatistics(total: Int, visited: Int){
         tvTotalSitesVal.text = total.toString()
         tvVisitedSitesVal.text = visited.toString()

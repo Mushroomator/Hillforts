@@ -5,6 +5,10 @@ import de.tp.hillforts.views.BasePresenter
 class SettingsPresenter(view: SettingsView): BasePresenter(view) {
 
 
+    /**
+     * Load user data.
+     * At the moment just sample data.
+     */
     fun doLoadUser(){
         val email = "Testmail"
         val password = "TestPass"
@@ -13,6 +17,9 @@ class SettingsPresenter(view: SettingsView): BasePresenter(view) {
         }
     }
 
+    /**
+     * Calculate a users statistics.
+     */
     fun doLoadStatistics(){
         val hillforts = app.hillforts.findAll()
         var visited = 0
