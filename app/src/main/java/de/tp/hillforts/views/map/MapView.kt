@@ -2,6 +2,7 @@ package de.tp.hillforts.views.map
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
@@ -32,6 +33,7 @@ class MapView : BaseView(), GoogleMap.OnMarkerClickListener {
         mvAllHillforts.onCreate(savedInstanceState)
         mvAllHillforts.getMapAsync {
             presenter.doConfigureMap(it)
+            it.setOnMarkerClickListener(this)
         }
     }
 
@@ -47,6 +49,10 @@ class MapView : BaseView(), GoogleMap.OnMarkerClickListener {
     override fun onMarkerClick(marker: Marker): Boolean {
         presenter.doMarkerSelected(marker)
         return true; // false means default behavior = camera zooms on marker on popup will be displayed; true: custom event
+    }
+
+    fun onCardClick(view: View){
+        presenter.doCardClicked()
     }
 
     // Lifecycle events

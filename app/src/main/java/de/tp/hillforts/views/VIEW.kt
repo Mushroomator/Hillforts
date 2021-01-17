@@ -5,5 +5,6 @@ enum class VIEW {
     LIST,
     DETAILS,
     EDIT_LOCATION,
-    SETTINGS
+    SETTINGS,
+    MAP
 }

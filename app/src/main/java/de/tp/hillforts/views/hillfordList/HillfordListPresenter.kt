@@ -21,6 +21,10 @@ class HillfordListPresenter(view: BaseView): BasePresenter(view) {
         view?.showHillforts(hillforts)
     }
 
+    fun doShowMap(){
+        view?.navigateTo(VIEW.MAP)
+    }
+
     /**
      * Logout a logged in user.
      * @author Thomas Pilz

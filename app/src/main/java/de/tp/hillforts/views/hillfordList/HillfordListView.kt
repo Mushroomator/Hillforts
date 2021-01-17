@@ -51,6 +51,7 @@ class HillfordListView : BaseView(), HillfordListener {
       R.id.itemSave -> presenter.doAddHillfort()
       R.id.itemLogout -> presenter.doLogout()
       R.id.itemSettings -> presenter.doShowSettings()
+      R.id.itemMap -> presenter.doShowMap()
     }
     return super.onOptionsItemSelected(item)
   }

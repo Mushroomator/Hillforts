@@ -58,4 +58,5 @@
 
     <!-- Hillfort Map View -->
     <string name="title_hillfort_map_view">Map of Hillforts</string>
+    <string name="menu_map">Map of Hillforts</string>
 </resources>
