@@ -1,5 +1,7 @@
 package de.tp.hillforts.models.user
 
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import java.util.concurrent.atomic.AtomicLong
 
 
@@ -8,7 +10,7 @@ internal fun getId(): Long{
     return nextId.getAndAdd(1L)
 }
 
-class UserMemRepo: IUserRepo {
+class UserMemRepo: IUserRepo, AnkoLogger {
 
     val users = ArrayList<UserModel>()
 
@@ -25,6 +27,7 @@ class UserMemRepo: IUserRepo {
             // user does not yet exist
             val newUser = UserModel(getId(), email, password)
             users.add(newUser)
+            info(users)
             return newUser
         }
         return null
@@ -49,13 +52,13 @@ class UserMemRepo: IUserRepo {
     }
 
     /**
-     * Find a user by its email address.
+     * Find a user by its email address. Case-insensitive.
      * @param email email of a user
      * @author Thomas Pilz
      * @return found user or null of not found
      */
     override fun findByEmail(email: String): UserModel? {
-        return users.find{ it.email == email }
+        return users.find{ it.email.equals(email, true) }
     }
 
     /**

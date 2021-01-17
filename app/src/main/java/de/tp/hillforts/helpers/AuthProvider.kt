@@ -4,19 +4,11 @@ import de.tp.hillforts.models.user.IUserRepo
 import de.tp.hillforts.models.user.UserMemRepo
 import de.tp.hillforts.models.user.UserModel
 
-class AuthProvider private constructor(){
+object AuthProvider{
 
     var currentUser: UserModel? = null
 
-    private lateinit var INSTANCE: AuthProvider
     private val users: IUserRepo = UserMemRepo()
-
-    fun getInstance(): AuthProvider{
-        if (::INSTANCE.isInitialized){
-            return INSTANCE
-        }
-        return AuthProvider()
-    }
 
     /**
      * Simple sign up. Checks if email address already exists and if so creates a user.
@@ -28,7 +20,8 @@ class AuthProvider private constructor(){
     fun signUp(email: String, password: String): Boolean{
         val found = users.findByEmail(email)
         if(found == null){
-            users.createUser(email, password)
+            val newUser = users.createUser(email, password)
+            currentUser = newUser
             return true
         }
         return false
@@ -43,8 +36,18 @@ class AuthProvider private constructor(){
     fun signIn(email: String, password: String): Boolean{
         val user = users.findByEmail(email)
         if (user != null){
-            return user.password.equals(password)
+            if(user.password.equals(password)){
+                currentUser = user
+                return true
+            }
+            return false
         }
         return false
+    }
+
+    fun logout(){
+        if(currentUser != null){
+            currentUser = null
+        }
     }
 }

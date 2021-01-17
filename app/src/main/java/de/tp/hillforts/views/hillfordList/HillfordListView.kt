@@ -65,4 +65,8 @@ class HillfordListView : BaseView(), HillfordListener {
     presenter.loadPlacemarks() // notify recyclerView that data has been changed
   }
 
+  override fun onBackPressed() {
+    super.onBackPressed()
+    presenter.doLogout()
+  }
 }
