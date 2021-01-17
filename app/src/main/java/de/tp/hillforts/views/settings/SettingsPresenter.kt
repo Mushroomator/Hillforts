@@ -1,5 +1,6 @@
 package de.tp.hillforts.views.settings
 
+import de.tp.hillforts.helpers.AuthProvider
 import de.tp.hillforts.views.BasePresenter
 
 class SettingsPresenter(view: SettingsView): BasePresenter(view) {
@@ -10,10 +11,9 @@ class SettingsPresenter(view: SettingsView): BasePresenter(view) {
      * At the moment just sample data.
      */
     fun doLoadUser(){
-        val email = "Testmail"
-        val password = "TestPass"
-        if(view is SettingsView){
-            (view as SettingsView).showUserInfo(email, password)
+        val user = AuthProvider.currentUser
+        if(view is SettingsView && user != null){
+            (view as SettingsView).showUserInfo(user.email, user.password)
         }
     }
 
