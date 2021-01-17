@@ -1,13 +1,30 @@
 package de.tp.hillforts.models.hillfort
 
-import org.jetbrains.anko.AnkoLogger
+import android.content.Context
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
+import de.tp.hillforts.helpers.exists
+import de.tp.hillforts.helpers.read
+import de.tp.hillforts.helpers.write
 import org.jetbrains.anko.info
 import java.util.concurrent.atomic.AtomicLong
 
+val JSON_FILE = "placemarks.json"
+val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
+val listType = object : TypeToken<java.util.ArrayList<HillfortModel>>() {}.type
 
-class HillfortMemRepo: IHillfortRepo, AnkoLogger {
+class HillfortJsonRepo: IHillfortRepo {
 
-    val hillforts = ArrayList<HillfortModel>()
+    val context: Context
+    var hillforts = mutableListOf<HillfortModel>()
+
+    constructor(context: Context){
+        this.context = context
+        if(exists(context, JSON_FILE)){
+            deserialize()
+        }
+    }
 
     /**
      * Create a hillfort in the repo.
@@ -18,6 +35,7 @@ class HillfortMemRepo: IHillfortRepo, AnkoLogger {
     override fun create(hillfort: HillfortModel): HillfortModel {
         hillfort.id = getId()
         hillforts.add(hillfort.copy())
+        serialize()
         return hillfort
     }
 
@@ -28,7 +46,6 @@ class HillfortMemRepo: IHillfortRepo, AnkoLogger {
      */
     override fun update(hillfort: HillfortModel): HillfortModel? {
         var found = findById(hillfort.id)
-        info("Found hillford: $found\nUpdate with: $hillfort")
         if(found != null){
             if(!found.equals(hillfort)){
                 if(!found.name.equals(hillfort.name)){
@@ -51,6 +68,7 @@ class HillfortMemRepo: IHillfortRepo, AnkoLogger {
                 }
             }
         }
+        serialize()
         return found
     }
 
@@ -60,6 +78,7 @@ class HillfortMemRepo: IHillfortRepo, AnkoLogger {
      */
     override fun delete(hillfort: HillfortModel) {
         hillforts.remove(hillfort)
+        serialize()
     }
 
     /**
@@ -80,5 +99,13 @@ class HillfortMemRepo: IHillfortRepo, AnkoLogger {
         return hillforts
     }
 
+    private fun serialize() {
+        val jsonString = gsonBuilder.toJson(hillforts, listType)
+        write(context, JSON_FILE, jsonString)
+    }
 
+    private fun deserialize() {
+        val jsonString = read(context, JSON_FILE)
+        hillforts = Gson().fromJson(jsonString, listType)
+    }
 }
