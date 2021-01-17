@@ -10,18 +10,22 @@ import de.tp.hillforts.helpers.write
 import org.jetbrains.anko.info
 import java.util.concurrent.atomic.AtomicLong
 
-val JSON_FILE = "placemarks.json"
+val JSON_FILE = ".json"
 val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
 val listType = object : TypeToken<java.util.ArrayList<HillfortModel>>() {}.type
 
 class HillfortJsonRepo: IHillfortRepo {
 
     val context: Context
+    var userId: Long
     var hillforts = mutableListOf<HillfortModel>()
+    var jsonFile: String
 
-    constructor(context: Context){
+    constructor(context: Context, userId: Long){
         this.context = context
-        if(exists(context, JSON_FILE)){
+        this.userId = userId
+        this.jsonFile = "hillforts_$userId$JSON_FILE"
+        if(exists(context, jsonFile)){
             deserialize()
         }
     }
@@ -101,11 +105,11 @@ class HillfortJsonRepo: IHillfortRepo {
 
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(hillforts, listType)
-        write(context, JSON_FILE, jsonString)
+        write(context, jsonFile, jsonString)
     }
 
     private fun deserialize() {
-        val jsonString = read(context, JSON_FILE)
+        val jsonString = read(context, jsonFile)
         hillforts = Gson().fromJson(jsonString, listType)
     }
 }

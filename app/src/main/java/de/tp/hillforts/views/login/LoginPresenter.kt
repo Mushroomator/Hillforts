@@ -22,6 +22,7 @@ class LoginPresenter(view: BaseView): BasePresenter(view) {
         val success = auth.signIn(email, password)
         if (success){
             view?.info(view?.getString(R.string.log_signin_successful, email))
+            app.initHillfortRepo(AuthProvider.currentUser!!)
             view?.navigateTo(VIEW.LIST)
         }
         else{
@@ -39,6 +40,7 @@ class LoginPresenter(view: BaseView): BasePresenter(view) {
         val success = auth.signUp(email, password)
         if (success){
             view?.info(view?.getString(R.string.log_signup_successful, email))
+            app.initHillfortRepo(AuthProvider.currentUser!!)
             view?.navigateTo(VIEW.LIST)
         }
         else{
