@@ -48,7 +48,7 @@ class MapView : BaseView(), GoogleMap.OnMarkerClickListener {
 
     override fun onMarkerClick(marker: Marker): Boolean {
         presenter.doMarkerSelected(marker)
-        return true; // false means default behavior = camera zooms on marker on popup will be displayed; true: custom event
+        return false; // false means default behavior = camera zooms on marker on popup will be displayed; true: custom event
     }
 
     fun onCardClick(view: View){

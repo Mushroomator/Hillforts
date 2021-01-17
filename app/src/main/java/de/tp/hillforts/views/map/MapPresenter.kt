@@ -30,18 +30,13 @@ class MapPresenter(view: MapView) : BasePresenter(view) {
         hillforts.forEach {
             val loc = LatLng(it.loc.lat, it.loc.lng)
             val options = MarkerOptions().title(it.name).position(loc)
-            map.addMarker(options).tag =
-                it.id  // add the marker on the map and a tag to the marker to be able to identify which marker/ Placemark was clicked on later on
-            map.moveCamera(
-                CameraUpdateFactory.newLatLngZoom(
-                    loc,
-                    it.loc.zoom
-                )
-            ) // zoom in to the placemark (should actually be refatored to be out of iteration as it only needs to be done once as only one placemark can be in focus)
+            map.addMarker(options).tag = it.id  // add the marker on the map and a tag to the marker to be able to identify which marker/ Placemark was clicked on later on
         }
         try {
             val first = hillforts.first()
             currentHillfort = first
+            // zoom in to the hillfort
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(first.loc.lat, first.loc.lng),first.loc.zoom))
             view?.showHillfort(first)
         } catch (e: NoSuchElementException) {
 
