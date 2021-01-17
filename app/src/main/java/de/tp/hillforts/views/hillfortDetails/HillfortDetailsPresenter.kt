@@ -111,6 +111,7 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
     fun doUpdateMapLocation() {
         map.clear()
         map.uiSettings?.setZoomControlsEnabled(true)
+        map.uiSettings?.setAllGesturesEnabled(true)
         val pos = LatLng(hillfort.loc.lat, hillfort.loc.lng)
         val options = MarkerOptions()
             .title(hillfort.name)

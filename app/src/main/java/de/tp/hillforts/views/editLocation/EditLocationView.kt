@@ -1,6 +1,7 @@
 package de.tp.hillforts.views.editLocation
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import com.google.android.gms.maps.GoogleMap
@@ -11,6 +12,7 @@ import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.edit_location_view_portrait.*
 import kotlinx.android.synthetic.main.hillford_list_view_portrait.toolbar
+import kotlinx.android.synthetic.main.hillfort_details_view_portrait.*
 
 class EditLocationView: BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener{
 
@@ -92,6 +94,21 @@ class EditLocationView: BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.On
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mvEditLocationMap.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mvEditLocationMap.onStop()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        mvEditLocationMap.onSaveInstanceState(outState)
+        super.onSaveInstanceState(outState, outPersistentState)
     }
 
     override fun onBackPressed() {

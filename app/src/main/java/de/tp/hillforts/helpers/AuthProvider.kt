@@ -1,14 +1,22 @@
 package de.tp.hillforts.helpers
 
+import android.content.Context
+import de.tp.hillforts.main.MainApp
 import de.tp.hillforts.models.user.IUserRepo
+import de.tp.hillforts.models.user.UserJsonRepo
 import de.tp.hillforts.models.user.UserMemRepo
 import de.tp.hillforts.models.user.UserModel
 
-object AuthProvider{
+object AuthProvider {
 
     var currentUser: UserModel? = null
+    lateinit var context: Context
+    lateinit var users: IUserRepo
 
-    private val users: IUserRepo = UserMemRepo()
+    fun init(context: Context){
+        this.context = context
+        users = UserJsonRepo(context)
+    }
 
     /**
      * Simple sign up. Checks if email address already exists and if so creates a user.

@@ -1,13 +1,31 @@
 package de.tp.hillforts.models.user
 
-import org.jetbrains.anko.AnkoLogger
+import android.content.Context
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
+import de.tp.hillforts.helpers.exists
+import de.tp.hillforts.helpers.read
+import de.tp.hillforts.helpers.write
+import de.tp.hillforts.models.hillfort.HillfortModel
 import org.jetbrains.anko.info
-import java.util.concurrent.atomic.AtomicLong
+import java.util.ArrayList
 
+val JSON_FILE = "users.json"
+val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
+val listType = object : TypeToken<ArrayList<UserModel>>() {}.type
 
-class UserMemRepo: IUserRepo, AnkoLogger {
+class UserJsonRepo: IUserRepo {
 
-    val users = ArrayList<UserModel>()
+    private val context: Context
+    var users = mutableListOf<UserModel>()
+
+    constructor(context: Context){
+        this.context = context
+        if(exists(context, JSON_FILE)){
+            deserialize()
+        }
+    }
 
     /**
      * Create a new user and store it.
@@ -22,7 +40,7 @@ class UserMemRepo: IUserRepo, AnkoLogger {
             // user does not yet exist
             val newUser = UserModel(generateRandomId(), email, password)
             users.add(newUser)
-            info(users)
+            serialize()
             return newUser
         }
         return null
@@ -34,6 +52,7 @@ class UserMemRepo: IUserRepo, AnkoLogger {
      */
     override fun deleteUser(user: UserModel) {
         users.remove(user)
+        serialize()
     }
 
     /**
@@ -64,5 +83,13 @@ class UserMemRepo: IUserRepo, AnkoLogger {
         return users
     }
 
+    private fun serialize() {
+        val jsonString = de.tp.hillforts.models.hillfort.gsonBuilder.toJson(users, listType)
+        write(context, JSON_FILE, jsonString)
+    }
 
+    private fun deserialize() {
+        val jsonString = read(context, JSON_FILE)
+        users = Gson().fromJson(jsonString, listType)
+    }
 }

@@ -1,6 +1,7 @@
 package de.tp.hillforts.views.hillfortDetails
 
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -193,6 +194,21 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
      */
     override fun onImageLongClick(image: String, index: Int) {
         info("Long Click")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mvEditLocation.onStart()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mvEditLocation.onStop()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        mvEditLocation.onSaveInstanceState(outState)
+        super.onSaveInstanceState(outState, outPersistentState)
     }
 
     override fun onDestroy() {

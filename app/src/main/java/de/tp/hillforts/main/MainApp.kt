@@ -16,6 +16,7 @@ class MainApp: Application(), AnkoLogger {
 
     override fun onCreate() {
         super.onCreate()
+        AuthProvider.init(applicationContext)
         info("Placemark app started")
     }
 
