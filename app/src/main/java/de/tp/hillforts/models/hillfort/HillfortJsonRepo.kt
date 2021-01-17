@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import de.tp.hillforts.helpers.exists
+import de.tp.hillforts.helpers.generateRandomId
 import de.tp.hillforts.helpers.read
 import de.tp.hillforts.helpers.write
 import org.jetbrains.anko.info
@@ -37,7 +38,7 @@ class HillfortJsonRepo: IHillfortRepo {
      * @return created hillford
      */
     override fun create(hillfort: HillfortModel): HillfortModel {
-        hillfort.id = getId()
+        hillfort.id = generateRandomId()
         hillforts.add(hillfort.copy())
         serialize()
         return hillfort
@@ -79,6 +80,7 @@ class HillfortJsonRepo: IHillfortRepo {
     /**
      * Delete Hillford from repo.
      * @param hillfort hillford to be deleted
+     * @author Thomas Pilz
      */
     override fun delete(hillfort: HillfortModel) {
         hillforts.remove(hillfort)
@@ -98,16 +100,23 @@ class HillfortJsonRepo: IHillfortRepo {
     /**
      * Get all hillforts stored in the repo.
      * @return all hillforts
+     * @author Thomas Pilz
      */
     override fun findAll(): List<HillfortModel> {
         return hillforts
     }
 
+    /**
+     * Serialize hillforts.
+     */
     private fun serialize() {
         val jsonString = gsonBuilder.toJson(hillforts, listType)
         write(context, jsonFile, jsonString)
     }
 
+    /**
+     * Deserialize hillforts.
+     */
     private fun deserialize() {
         val jsonString = read(context, jsonFile)
         hillforts = Gson().fromJson(jsonString, listType)

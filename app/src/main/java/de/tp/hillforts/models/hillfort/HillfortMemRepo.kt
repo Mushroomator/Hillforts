@@ -1,8 +1,7 @@
 package de.tp.hillforts.models.hillfort
 
+import de.tp.hillforts.helpers.generateRandomId
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
-import java.util.concurrent.atomic.AtomicLong
 
 
 class HillfortMemRepo: IHillfortRepo, AnkoLogger {
@@ -16,7 +15,7 @@ class HillfortMemRepo: IHillfortRepo, AnkoLogger {
      * @return created hillford
      */
     override fun create(hillfort: HillfortModel): HillfortModel {
-        hillfort.id = getId()
+        hillfort.id = generateRandomId()
         hillforts.add(hillfort.copy())
         return hillfort
     }
@@ -28,7 +27,6 @@ class HillfortMemRepo: IHillfortRepo, AnkoLogger {
      */
     override fun update(hillfort: HillfortModel): HillfortModel? {
         var found = findById(hillfort.id)
-        info("Found hillford: $found\nUpdate with: $hillfort")
         if(found != null){
             if(!found.equals(hillfort)){
                 if(!found.name.equals(hillfort.name)){
@@ -57,6 +55,7 @@ class HillfortMemRepo: IHillfortRepo, AnkoLogger {
     /**
      * Delete Hillford from repo.
      * @param hillfort hillford to be deleted
+     * @author Thomas Pilz
      */
     override fun delete(hillfort: HillfortModel) {
         hillforts.remove(hillfort)
@@ -75,6 +74,7 @@ class HillfortMemRepo: IHillfortRepo, AnkoLogger {
     /**
      * Get all hillforts stored in the repo.
      * @return all hillforts
+     * @author Thomas Pilz
      */
     override fun findAll(): List<HillfortModel> {
         return hillforts

@@ -5,6 +5,7 @@ import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import de.tp.hillforts.helpers.exists
+import de.tp.hillforts.helpers.generateRandomId
 import de.tp.hillforts.helpers.read
 import de.tp.hillforts.helpers.write
 import de.tp.hillforts.models.hillfort.HillfortModel

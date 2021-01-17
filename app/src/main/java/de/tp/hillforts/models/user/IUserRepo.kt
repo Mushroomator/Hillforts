@@ -4,14 +4,6 @@ import android.provider.ContactsContract
 import de.tp.hillforts.models.hillfort.HillfortModel
 import java.util.*
 
-/**
- * Simple implementation to generate a unique ID for each user.
- * Not really production ready as there might in theory be clashes but with
- * the amount of data handled here its highly unlikely and therefore this approach is used.
- */
-fun generateRandomId(): Long {
-    return Random().nextLong()
-}
 
 interface IUserRepo {
 
@@ -27,6 +19,7 @@ interface IUserRepo {
     /**
      * Delete a user from the repo.
      * @param user user to be deleted
+     * @author Thomas Pilz
      */
     fun deleteUser(user: UserModel)
 
@@ -49,6 +42,7 @@ interface IUserRepo {
     /**
      * Get all users stored in the repo.
      * @return all users
+     * @author Thomas Pilz
      */
     fun findAll(): List<UserModel>
 }

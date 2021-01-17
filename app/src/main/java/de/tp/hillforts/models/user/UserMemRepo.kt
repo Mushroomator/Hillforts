@@ -1,5 +1,6 @@
 package de.tp.hillforts.models.user
 
+import de.tp.hillforts.helpers.generateRandomId
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import java.util.concurrent.atomic.AtomicLong

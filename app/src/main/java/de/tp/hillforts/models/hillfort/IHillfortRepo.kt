@@ -2,12 +2,6 @@ package de.tp.hillforts.models.hillfort
 
 import java.util.concurrent.atomic.AtomicLong
 
-var nextId: AtomicLong = AtomicLong(1)
-internal fun getId(): Long{
-    return nextId.getAndAdd(1L)
-}
-
-
 interface IHillfortRepo {
 
     /**
