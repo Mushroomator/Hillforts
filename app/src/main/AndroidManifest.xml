@@ -17,9 +17,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hillforts">
 
+        <!-- Hillfort Map View -->
+        <activity android:name=".views.map.MapView"
+            android:label="@string/title_hillfort_map_view">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.hillfordList.HillfordListView" />
+        </activity>
+
         <!-- Activity for Splash Screen (only necessary cause load is to quick to just make a Theme change) -->
-        <activity android:name=".views.splash.SplashScreenActitivity"
-        android:theme="@style/Theme.SplashScreen">
+        <activity
+            android:name=".views.splash.SplashScreenActitivity"
+            android:theme="@style/Theme.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -49,8 +58,7 @@
         <activity
             android:name=".views.login.LoginView"
             android:label="@string/title_login_view"
-            android:theme="@style/Theme.SplashScreen">
-        </activity>
+            android:theme="@style/Theme.SplashScreen"></activity>
 
         <!-- Hillford List View -->
         <activity

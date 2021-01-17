@@ -55,4 +55,7 @@
     <string name="total_sites">Total sites</string>
     <string name="sites_visited">Visited sites</string>
     <string name="pct_visited">Progress</string>
+
+    <!-- Hillfort Map View -->
+    <string name="title_hillfort_map_view">Map of Hillforts</string>
 </resources>
