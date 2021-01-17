@@ -12,7 +12,7 @@ interface IUserRepo {
      * @author Thomas Pilz
      * @return created user
      */
-    fun createUser(email: String, password: String): UserModel
+    fun createUser(email: String, password: String): UserModel?
 
     /**
      * Delete a user from the repo.
@@ -21,16 +21,24 @@ interface IUserRepo {
     fun deleteUser(user: UserModel)
 
     /**
-     * Find a hillfort by its ID.
-     * @param id ID of a hillfort
+     * Find a user by its ID.
+     * @param id ID of a user
      * @author Thomas Pilz
-     * @return found hillford or null of not found
+     * @return found user or null of not found
      */
     fun findById(id: Long): UserModel?
 
     /**
-     * Get all hillforts stored in the repo.
-     * @return all hillforts
+     * Find a user by its email address.
+     * @param email email of a user
+     * @author Thomas Pilz
+     * @return found user or null of not found
+     */
+    fun findByEmail(email: String): UserModel?
+
+    /**
+     * Get all users stored in the repo.
+     * @return all users
      */
     fun findAll(): List<UserModel>
 }
