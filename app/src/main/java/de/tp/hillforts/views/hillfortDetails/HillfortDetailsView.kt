@@ -9,7 +9,7 @@ import androidx.appcompat.view.menu.ActionMenuItem
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.maps.GoogleMap
 import de.tp.hillforts.R
-import de.tp.hillforts.models.HillfortModel
+import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.hillford_list_view_portrait.toolbar
 import kotlinx.android.synthetic.main.hillfort_details_view_portrait.*

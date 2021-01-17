@@ -3,7 +3,7 @@ package de.tp.hillforts.views.hillfordList
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import de.tp.hillforts.models.HillfortModel
+import de.tp.hillforts.models.hillfort.HillfortModel
 import kotlinx.android.synthetic.main.card_hillfort.view.*
 
 class HillfordViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {

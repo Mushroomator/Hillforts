@@ -6,8 +6,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import de.tp.hillforts.helpers.showImagePicker
-import de.tp.hillforts.models.HillfortModel
-import de.tp.hillforts.models.LocationModel
+import de.tp.hillforts.models.hillfort.HillfortModel
+import de.tp.hillforts.models.location.LocationModel
 import de.tp.hillforts.views.BasePresenter
 import de.tp.hillforts.views.VIEW
 import java.util.*

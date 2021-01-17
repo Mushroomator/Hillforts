@@ -1,4 +1,4 @@
-package de.tp.hillforts.models
+package de.tp.hillforts.models.hillfort
 
 interface IHillfortRepo {
 

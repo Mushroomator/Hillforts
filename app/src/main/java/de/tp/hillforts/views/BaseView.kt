@@ -5,7 +5,7 @@ import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
 import org.jetbrains.anko.AnkoLogger
 import androidx.appcompat.widget.Toolbar
-import de.tp.hillforts.models.HillfortModel
+import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.editLocation.EditLocationView
 import de.tp.hillforts.views.hillfordList.HillfordListView
 import de.tp.hillforts.views.hillfortDetails.HillfortDetailsView

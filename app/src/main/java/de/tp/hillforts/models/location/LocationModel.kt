@@ -1,4 +1,4 @@
-package de.tp.hillforts.models
+package de.tp.hillforts.models.location
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
