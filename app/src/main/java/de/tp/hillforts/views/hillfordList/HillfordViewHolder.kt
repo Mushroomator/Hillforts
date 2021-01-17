@@ -16,15 +16,13 @@ class HillfordViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
     fun bind(hillford: HillfortModel, listener: HillfordListener){
         // bind data to UI fields
         itemView.tvName.text = hillford.name
-        itemView.tvLatVal.text = hillford.loc.lat.toString()
-        itemView.tvLngVal.text = hillford.loc.lng.toString()
+        itemView.tvLatVal.text = "%.6f".format(hillford.loc.lat)
+        itemView.tvLngVal.text = "%.6f".format(hillford.loc.lng)
         itemView.cbVisitedList.isChecked = hillford.dateVisited != null
         // display first available picture
         if (hillford.images.isNotEmpty()){
             val image = hillford.images.first{ it.isNotEmpty() }
             Glide.with(itemView.context).load(image).into(itemView.ivImage);
-            itemView.tvLatVal.text = "%.6f".format(hillford.loc.lat)
-            itemView.tvLngVal.text = "%.6f".format(hillford.loc.lng)
         }
 
         // call listener
