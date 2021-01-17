@@ -1,9 +1,8 @@
 package de.tp.hillforts.main
 
 import android.app.Application
-import de.tp.hillforts.models.HillfortMemRepo
-import de.tp.hillforts.models.HillfortModel
-import de.tp.hillforts.models.IHillfortRepo
+import de.tp.hillforts.models.hillfort.HillfortMemRepo
+import de.tp.hillforts.models.hillfort.IHillfortRepo
 
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info

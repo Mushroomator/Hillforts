@@ -2,16 +2,14 @@ package de.tp.hillforts.views.editLocation
 
 import android.app.Activity
 import android.content.Intent
-import android.provider.Settings.Global.getString
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import de.tp.hillforts.R
-import de.tp.hillforts.models.HillfortModel
-import de.tp.hillforts.models.LocationModel
+import de.tp.hillforts.models.hillfort.HillfortModel
+import de.tp.hillforts.models.location.LocationModel
 import de.tp.hillforts.views.BasePresenter
-import kotlin.math.ln
 
 class EditLocationPresenter(view: EditLocationView): BasePresenter(view) {
 

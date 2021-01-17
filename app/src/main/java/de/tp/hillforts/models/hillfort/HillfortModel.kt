@@ -1,9 +1,9 @@
-package de.tp.hillforts.models
+package de.tp.hillforts.models.hillfort
 
 import android.os.Parcelable
+import de.tp.hillforts.models.location.LocationModel
 import kotlinx.android.parcel.Parcelize
 import java.util.*
-import kotlin.collections.ArrayList
 
 // annote and mark with marker interface to make parcelable
 @Parcelize

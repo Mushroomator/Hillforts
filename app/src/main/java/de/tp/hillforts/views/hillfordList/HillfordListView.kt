@@ -6,7 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import de.tp.hillforts.R
-import de.tp.hillforts.models.HillfortModel
+import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.hillford_list_view_portrait.*
 
@@ -65,4 +65,8 @@ class HillfordListView : BaseView(), HillfordListener {
     presenter.loadPlacemarks() // notify recyclerView that data has been changed
   }
 
+  override fun onBackPressed() {
+    super.onBackPressed()
+    presenter.doLogout()
+  }
 }

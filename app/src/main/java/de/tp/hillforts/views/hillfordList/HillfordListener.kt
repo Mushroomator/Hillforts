@@ -1,6 +1,6 @@
 package de.tp.hillforts.views.hillfordList
 
-import de.tp.hillforts.models.HillfortModel
+import de.tp.hillforts.models.hillfort.HillfortModel
 
 interface HillfordListener {
 

@@ -1,6 +1,8 @@
 package de.tp.hillforts.views.hillfordList
 
-import de.tp.hillforts.models.HillfortModel
+import de.tp.hillforts.R
+import de.tp.hillforts.helpers.AuthProvider
+import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BasePresenter
 import de.tp.hillforts.views.BaseView
 import de.tp.hillforts.views.VIEW
@@ -24,7 +26,8 @@ class HillfordListPresenter(view: BaseView): BasePresenter(view) {
      * @author Thomas Pilz
      */
     fun doLogout(){
-        view?.info("User logged out.")
+        AuthProvider.logout()
+        view?.info(view?.getString(R.string.log_signed_out))
         view?.navigateTo(VIEW.LOGIN)
     }
 

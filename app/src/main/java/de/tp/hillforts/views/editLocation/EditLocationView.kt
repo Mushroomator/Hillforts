@@ -7,13 +7,10 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import de.tp.hillforts.R
-import de.tp.hillforts.models.HillfortModel
+import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.edit_location_view_portrait.*
-import kotlinx.android.synthetic.main.hillford_list_view_portrait.*
 import kotlinx.android.synthetic.main.hillford_list_view_portrait.toolbar
-import kotlinx.android.synthetic.main.hillfort_details_view_portrait.*
-import org.jetbrains.anko.info
 
 class EditLocationView: BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener{
 
