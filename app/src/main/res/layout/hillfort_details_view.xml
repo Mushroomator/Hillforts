@@ -65,9 +65,9 @@
                     <com.google.android.gms.maps.MapView
                         android:id="@+id/mvEditLocation"
                         android:layout_width="0dp"
-                        android:layout_height="300sp"
-                        app:layout_constraintEnd_toStartOf="@+id/rvHillfortImages"
-                        app:layout_constraintHorizontal_bias="0.5"
+                        android:layout_height="200sp"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -137,13 +137,11 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginEnd="16dp"
-                        android:layout_marginBottom="16dp"
                         android:ems="10"
                         android:gravity="start|top"
                         android:hint="@string/notes"
                         android:inputType="textMultiLine"
                         android:lines="2"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/cbVisited" />
@@ -202,11 +200,16 @@
                         android:id="@+id/rvHillfortImages"
                         android:layout_width="0dp"
                         android:layout_height="300sp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="16dp"
                         android:background="#0010B981"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.5"
-                        app:layout_constraintStart_toEndOf="@+id/mvEditLocation"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/mltNotes" />
 
                     <RatingBar
                         android:id="@+id/rbHillfortRating"
@@ -229,7 +232,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/rvHillfortImages" />
+                        app:layout_constraintTop_toBottomOf="@+id/mvEditLocation" />
 
                     <Button
                         android:id="@+id/bAddFav"

@@ -66,6 +66,10 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
         presenter.loadHillfort()
     }
 
+    override fun getRequestedOrientation(): Int {
+        return super.getRequestedOrientation()
+    }
+
     override fun showHillfort(hillfort: HillfortModel) {
         rvHillfortImages.adapter = HillfortImagesAdapter(hillfort.images, this)
         rvHillfortImages.adapter?.notifyDataSetChanged()
@@ -210,7 +214,8 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         if (menu != null) {
             if (presenter.hillfort.images.size < resources.getInteger(R.integer.max_images)) {
-                menu.getItem(0).also {
+                val menuAddImage = menu.findItem(R.id.itemAddImage)
+                menuAddImage.also {
                     invalidateOptionsMenu() // if back is pressed --> no picture added --> need to recalculate number of images
                     it?.isVisible = true  // show add image button
                     it?.setShowAsAction(ActionMenuItem.SHOW_AS_ACTION_ALWAYS)   // show image as button not as dropdown
@@ -284,6 +289,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
     override fun onResume() {
         super.onResume()
         mvEditLocation.onResume()
+        presenter.doResartLocationUpdates() //restart location updates
     }
 
     override fun onLowMemory() {
