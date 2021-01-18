@@ -188,6 +188,10 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
         view?.navigateTo(VIEW.EDIT_LOCATION, LOCATION_REQ_ID, LOCATION_EDIT, hillfort.loc)
     }
 
+    fun doChangeRating(rating: Float){
+        hillfort.rating = rating
+    }
+
     override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         when (requestCode) {
             IMAGE_REQ_ID -> {

@@ -58,16 +58,19 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
             presenter.doAddOrRemoveFavourites()
         }
 
+        // update cached rating when it is changed
+        rbHillfortRating.setOnRatingBarChangeListener { ratingBar, rating, fromUser ->
+            if (ratingBar.id == R.id.rbHillfortRating && fromUser){
+                presenter.doChangeRating(rating)
+            }
+        }
+
         // init recycler view
         rvHillfortImages.layoutManager = GridLayoutManager(
             this,
             resources.getInteger(R.integer.image_columns)
         )
         presenter.loadHillfort()
-    }
-
-    override fun getRequestedOrientation(): Int {
-        return super.getRequestedOrientation()
     }
 
     override fun showHillfort(hillfort: HillfortModel) {
