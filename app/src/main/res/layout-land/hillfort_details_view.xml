@@ -28,6 +28,7 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,155 +37,217 @@
 
         <ScrollView
             android:id="@+id/scrollView2"
-            android:layout_width="309dp"
-            android:layout_height="290dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="72dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="55dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/guideline3"
-            app:layout_constraintHorizontal_bias="0.44"
+            app:layout_constraintEnd_toStartOf="@+id/rvHillfortImages"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/tvVisitedOn"
-                    android:layout_width="wrap_content"
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="2dp"
-                    android:onClick="onVisitedClicked"
-                    app:layout_constraintBottom_toBottomOf="@+id/cbVisited"
-                    app:layout_constraintStart_toEndOf="@+id/cbVisited"
-                    app:layout_constraintTop_toTopOf="@+id/cbVisited" />
-
-                <EditText
-                    android:id="@+id/etDescription"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
-                    android:ems="10"
-                    android:hint="@string/description"
-                    android:inputType="textPersonName"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/etName" />
-
-                <EditText
-                    android:id="@+id/etName"
-                    android:layout_width="0dp"
-                    android:layout_height="45dp"
-                    android:ems="10"
-                    android:hint="@string/name"
-                    android:inputType="textPersonName"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <ImageView
-                    android:id="@+id/ivLocationDetails"
-                    android:layout_width="28dp"
-                    android:layout_height="32dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:contentDescription="TODO"
-                    android:foregroundTint="@color/green_900"
-                    android:tintMode="src_in"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cbVisited"
-                    app:srcCompat="@drawable/ic_outline_my_location_24" />
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/constraintLayout"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/ivLocationDetails"
-                    app:layout_constraintStart_toEndOf="@+id/ivLocationDetails"
-                    app:layout_constraintTop_toTopOf="@+id/ivLocationDetails">
-
-                    <TextView
-                        android:id="@+id/tvLat"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="@string/lat"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvLng"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="@string/lng"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvLatValDetails"
-                        app:layout_constraintStart_toEndOf="@+id/tvLatValDetails"
-                        app:layout_constraintTop_toTopOf="@+id/tvLatValDetails" />
-
-                    <TextView
-                        android:id="@+id/tvLatValDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="00.000000"
-                        app:layout_constraintStart_toEndOf="@+id/tvLat"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
-                        android:id="@+id/tvLngValDetails"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:text="00.000000"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvLng"
-                        app:layout_constraintStart_toEndOf="@+id/tvLng"
-                        app:layout_constraintTop_toTopOf="@+id/tvLng" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <EditText
-                    android:id="@+id/mltNotes"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:ems="10"
-                    android:gravity="start|top"
-                    android:hint="@string/notes"
-                    android:inputType="textMultiLine"
-                    android:lines="2"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="10sp"
+                    app:cardElevation="10sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/mvEditLocation" />
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <CheckBox
-                    android:id="@+id/cbVisited"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:layout_marginTop="8dp"
-                    android:buttonTint="@color/green_900"
-                    android:onClick="onVisitedClicked"
-                    android:text="@string/cb_not_yet_visited"
-                    android:textColor="@color/green_900"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/etDescription" />
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-                <com.google.android.gms.maps.MapView
-                    android:id="@+id/mvEditLocation"
-                    android:layout_width="0dp"
-                    android:layout_height="150sp"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ivLocationDetails" />
+                        <RatingBar
+                            android:id="@+id/rbHillfortRating"
+                            style="@android:style/Widget.DeviceDefault.RatingBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="45dp"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="8dp"
+                            android:max="5"
+                            android:numStars="5"
+                            android:progress="0"
+                            android:progressTint="@color/green_500"
+                            android:rating="0"
+                            android:scaleX="0.6"
+                            android:scaleY="0.6"
+                            android:stepSize="0.5"
+                            android:transformPivotX="0sp"
+                            android:transformPivotY="20sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/mvEditLocation" />
+
+                        <Button
+                            android:id="@+id/bAddFav"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="16dp"
+                            android:drawableLeft="@drawable/ic_baseline_favorite_border_24"
+                            android:drawableTint="@color/red"
+                            android:text="Add"
+                            android:textColor="@color/red"
+                            app:cornerRadius="20sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/rbHillfortRating"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toEndOf="@+id/rbHillfortRating"
+                            app:layout_constraintTop_toTopOf="@+id/rbHillfortRating"
+                            app:strokeColor="@color/red" />
+
+                        <TextView
+                            android:id="@+id/tvVisitedOn"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="2dp"
+                            android:onClick="onVisitedClicked"
+                            app:layout_constraintBottom_toBottomOf="@+id/cbVisited"
+                            app:layout_constraintStart_toEndOf="@+id/cbVisited"
+                            app:layout_constraintTop_toTopOf="@+id/cbVisited" />
+
+                        <EditText
+                            android:id="@+id/etDescription"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:ems="10"
+                            android:hint="@string/description"
+                            android:inputType="textPersonName"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/etName" />
+
+                        <EditText
+                            android:id="@+id/etName"
+                            android:layout_width="0dp"
+                            android:layout_height="45dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:ems="10"
+                            android:hint="@string/name"
+                            android:inputType="textPersonName"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="1.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/bAddFav" />
+
+                        <ImageView
+                            android:id="@+id/ivLocationDetails"
+                            android:layout_width="28dp"
+                            android:layout_height="32dp"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:contentDescription="TODO"
+                            android:foregroundTint="@color/green_900"
+                            android:tintMode="src_in"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/cbVisited"
+                            app:srcCompat="@drawable/ic_outline_my_location_24" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraintLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/ivLocationDetails"
+                            app:layout_constraintStart_toEndOf="@+id/ivLocationDetails"
+                            app:layout_constraintTop_toTopOf="@+id/ivLocationDetails">
+
+                            <TextView
+                                android:id="@+id/tvLat"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="4dp"
+                                android:text="@string/lat"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tvLng"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:text="@string/lng"
+                                app:layout_constraintBottom_toBottomOf="@+id/tvLatValDetails"
+                                app:layout_constraintStart_toEndOf="@+id/tvLatValDetails"
+                                app:layout_constraintTop_toTopOf="@+id/tvLatValDetails" />
+
+                            <TextView
+                                android:id="@+id/tvLatValDetails"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="00.000000"
+                                app:layout_constraintStart_toEndOf="@+id/tvLat"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/tvLngValDetails"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="00.000000"
+                                app:layout_constraintBottom_toBottomOf="@+id/tvLng"
+                                app:layout_constraintStart_toEndOf="@+id/tvLng"
+                                app:layout_constraintTop_toTopOf="@+id/tvLng" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <EditText
+                            android:id="@+id/mltNotes"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:ems="10"
+                            android:gravity="start|top"
+                            android:hint="@string/notes"
+                            android:inputType="textMultiLine"
+                            android:lines="2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/ivLocationDetails" />
+
+                        <CheckBox
+                            android:id="@+id/cbVisited"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="8dp"
+                            android:buttonTint="@color/green_900"
+                            android:onClick="onVisitedClicked"
+                            android:text="@string/cb_not_yet_visited"
+                            android:textColor="@color/green_900"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/etDescription" />
+
+                        <com.google.android.gms.maps.MapView
+                            android:id="@+id/mvEditLocation"
+                            android:layout_width="0dp"
+                            android:layout_height="150sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 

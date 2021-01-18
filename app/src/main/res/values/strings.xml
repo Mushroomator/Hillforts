@@ -43,6 +43,7 @@
     <!-- Edit Location -->
     <string name="title_edit_location_view">Set location</string>
     <string name="hillfort_marker_title">Hillfort: </string>
+    <string name="current_marker_loc">Current location</string>
 
     <!-- Settings -->
     <string name="title_settings_view">Settings</string>
