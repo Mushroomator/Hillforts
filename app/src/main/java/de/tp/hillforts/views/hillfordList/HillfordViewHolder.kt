@@ -1,8 +1,12 @@
 package de.tp.hillforts.views.hillfordList
 
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.CustomTarget
+import com.bumptech.glide.request.transition.Transition
 import de.tp.hillforts.models.hillfort.HillfortModel
 import kotlinx.android.synthetic.main.card_hillfort.view.*
 

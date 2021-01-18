@@ -44,8 +44,12 @@ class HillfortMemRepo: IHillfortRepo, AnkoLogger {
 
                 found.dateVisited = hillfort.dateVisited
 
-                if(!found.notes.equals(found.notes)){
+                if(!found.notes.equals(hillfort.notes)){
                     found.notes = hillfort.notes
+                }
+
+                if(found.rating != hillfort.rating){
+                    found.rating = hillfort.rating
                 }
             }
         }

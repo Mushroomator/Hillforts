@@ -153,12 +153,13 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
      * @param notes notes on hillfort
      * @param visitedOn date when hillfort was visited
      */
-    fun doAddOrSave(name: String, desc: String, notes: String, visitedOn: Date?) {
+    fun doAddOrSave(name: String, desc: String, notes: String, visitedOn: Date?, rating: Float) {
         hillfort.also {
             it.name = name
             it.desc = desc
             it.notes = notes
             it.dateVisited = visitedOn
+            it.rating = rating
         }
         if (editMode) {
             app.hillforts.update(hillfort)

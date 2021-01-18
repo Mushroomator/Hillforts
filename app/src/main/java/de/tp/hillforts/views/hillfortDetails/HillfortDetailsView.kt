@@ -63,6 +63,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
             etName.setText(it.name)
             etDescription.setText(it.desc)
             mltNotes.setText(it.notes)
+            rbHillfortRating.rating = it.rating
             updateLocation(it.loc.lat, it.loc.lng)
         }
         showDateVisited(hillfort.dateVisited)   // cannot be called within scope function because it can be null
@@ -118,6 +119,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
                 val visited = cbVisited.isChecked
                 val visitedOn = tvVisitedOn.text.toString()
                 var visitedDate: Date? = null
+                val rating = rbHillfortRating.rating
                 if(visited){
                     try {
                         visitedDate = SimpleDateFormat(dateFormat, Locale.GERMANY).parse(visitedOn)
@@ -127,7 +129,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
                         return false
                     }
                 }
-                presenter.doAddOrSave(name, desc, notes, visitedDate)
+                presenter.doAddOrSave(name, desc, notes, visitedDate, rating)
             }
             R.id.itemCancel -> presenter.doCancel()
             R.id.itemDelete -> presenter.doDelete()

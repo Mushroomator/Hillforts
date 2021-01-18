@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="max_images">4</integer>
-    <integer name="image_columns">2</integer>
+    <integer name="image_columns">1</integer>
 </resources>
