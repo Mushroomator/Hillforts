@@ -2,6 +2,7 @@ package de.tp.hillforts.views.settings
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.SeekBar
 import de.tp.hillforts.R
 import de.tp.hillforts.views.BaseView
 import de.tp.hillforts.views.login.LoginPresenter
@@ -10,7 +11,7 @@ import kotlinx.android.synthetic.main.login_view_portrait.toolbar
 import kotlinx.android.synthetic.main.settings_view_portrait.*
 import kotlin.math.ceil
 
-class SettingsView : BaseView() {
+class SettingsView : BaseView(), SeekBar.OnSeekBarChangeListener {
 
     lateinit var presenter: SettingsPresenter
 
@@ -25,6 +26,20 @@ class SettingsView : BaseView() {
         init(toolbar, true)
         presenter.doLoadUser()
         presenter.doLoadStatistics()
+        sbNumImgVal.setOnSeekBarChangeListener(this)
+        sbNumImgColVal.setOnSeekBarChangeListener(this)
+        initSeekBars()
+    }
+
+    fun initSeekBars(){
+        // Number of image columns
+        var prog = resources.getInteger(R.integer.image_columns)
+        tvImgColThumbVal.text = prog.toString()
+        sbNumImgColVal.progress = --prog    // required as 0 is always included in seekBar but not needed here
+
+        // Number of images
+        sbNumImgVal.progress = resources.getInteger(R.integer.max_images)
+        tvNumImgThumbVal.text = sbNumImgVal.progress.toString()
     }
 
     /**
@@ -54,5 +69,53 @@ class SettingsView : BaseView() {
         }
         pbVisitdProgress.setProgress(progress, true)
         tvPctVisitedVal.text = "$progress%"
+    }
+
+    /**
+     * Notification that the progress level has changed. Clients can use the fromUser parameter
+     * to distinguish user-initiated changes from those that occurred programmatically.
+     *
+     * @param seekBar The SeekBar whose progress has changed
+     * @param progress The current progress level. This will be in the range min..max where min
+     * and max were set by [ProgressBar.setMin] and
+     * [ProgressBar.setMax], respectively. (The default values for
+     * min is 0 and max is 100.)
+     * @param fromUser True if the progress change was initiated by the user.
+     */
+    override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+        if(seekBar != null && fromUser){
+            if(seekBar.id == R.id.sbNumImgColVal){
+                // there is no min. at used API level so 0 is always included but it must start from 1!
+                var progTxt = seekBar.progress
+                progTxt++
+                tvImgColThumbVal.text = progTxt.toString()
+            }
+            else{
+                if(progress == 0){
+                    tvNumImgThumbVal.text = "\u221E"
+                }
+                else{
+                    tvNumImgThumbVal.text = progress.toString()
+                }
+            }
+        }
+    }
+
+    /**
+     * Notification that the user has started a touch gesture. Clients may want to use this
+     * to disable advancing the seekbar.
+     * @param seekBar The SeekBar in which the touch gesture began
+     */
+    override fun onStartTrackingTouch(seekBar: SeekBar?) {
+
+    }
+
+    /**
+     * Notification that the user has finished a touch gesture. Clients may want to use this
+     * to re-enable advancing the seekbar.
+     * @param seekBar The SeekBar in which the touch gesture began
+     */
+    override fun onStopTrackingTouch(seekBar: SeekBar?) {
+
     }
 }
