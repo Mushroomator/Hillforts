@@ -1,6 +1,7 @@
 package de.tp.hillforts.views.login
 
 import android.os.Bundle
+import com.google.android.material.appbar.MaterialToolbar
 import de.tp.hillforts.R
 import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.login_view.*

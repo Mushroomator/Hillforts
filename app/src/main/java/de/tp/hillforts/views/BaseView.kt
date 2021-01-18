@@ -2,9 +2,11 @@ package de.tp.hillforts.views
 
 import android.content.Intent
 import android.os.Parcelable
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import org.jetbrains.anko.AnkoLogger
 import androidx.appcompat.widget.Toolbar
+import com.google.android.material.appbar.MaterialToolbar
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.editLocation.EditLocationView
 import de.tp.hillforts.views.hillfordList.HillfordListView
