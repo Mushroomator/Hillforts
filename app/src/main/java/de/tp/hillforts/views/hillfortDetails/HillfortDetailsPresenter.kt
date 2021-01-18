@@ -146,6 +146,9 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
         }
     }
 
+    /**
+     * Toggle isFavourite and show result on screen.
+     */
     fun doAddOrRemoveFavourites(){
         hillfort.isFavourite = !hillfort.isFavourite
         (view as HillfortDetailsView)?.showFavourite(hillfort.isFavourite)

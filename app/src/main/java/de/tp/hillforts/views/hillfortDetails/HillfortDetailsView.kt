@@ -112,6 +112,11 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
         }
     }
 
+    /**
+     * Toggle "Add to favourite" Button and change button style accordingly
+     * @param isFavourite true if hillfort is marked as favourite
+     * @author Thomas Pilz
+     */
     fun showFavourite(isFavourite: Boolean){
         if (isFavourite){
             bAddFav.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_favorite_24,0,0,0)
