@@ -5,12 +5,14 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.tabs.TabLayout
 import de.tp.hillforts.R
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.hillford_list_view.*
+import org.jetbrains.anko.info
 
-class HillfordListView : BaseView(), HillfordListener {
+class HillfordListView : BaseView(), HillfordListener, TabLayout.OnTabSelectedListener {
 
   lateinit var presenter: HillfordListPresenter
 
@@ -24,8 +26,10 @@ class HillfordListView : BaseView(), HillfordListener {
     // init toolbar
     init(toolbar, false) //disable up-support later; just for test purposes
 
+    tabLayout.addOnTabSelectedListener(this)
+
     rvHillforts.layoutManager = LinearLayoutManager(this)
-    presenter.loadPlacemarks()
+    presenter.loadHillforts()
   }
 
   /**
@@ -63,11 +67,51 @@ class HillfordListView : BaseView(), HillfordListener {
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
-    presenter.loadPlacemarks() // notify recyclerView that data has been changed
+    //presenter.loadHillforts() // notify recyclerView that data has been changed --> not required anymore as on resume will load data anyway
   }
 
   override fun onBackPressed() {
     super.onBackPressed()
     presenter.doLogout()
+  }
+
+  override fun onResume() {
+    super.onResume()
+    presenter.doLoadData()
+  }
+
+  /**
+   * Called when a tab enters the selected state.
+   *
+   * @param tab The tab that was selected
+   */
+  override fun onTabSelected(tab: TabLayout.Tab?) {
+    if (tab != null){
+      if(tab.position == 1){
+        presenter.loadFavourites()
+      }
+      else{
+        presenter.loadHillforts()
+      }
+    }
+  }
+
+  /**
+   * Called when a tab exits the selected state.
+   *
+   * @param tab The tab that was unselected
+   */
+  override fun onTabUnselected(tab: TabLayout.Tab?) {
+    /* no-op */
+  }
+
+  /**
+   * Called when a tab that is already selected is chosen again by the user. Some applications may
+   * use this action to return to the top level of a category.
+   *
+   * @param tab The tab that was reselected.
+   */
+  override fun onTabReselected(tab: TabLayout.Tab?) {
+    /* no-op */
   }
 }

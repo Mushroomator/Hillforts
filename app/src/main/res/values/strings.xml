@@ -23,6 +23,8 @@
     <string name="lng">Lng:</string>
     <string name="visited">Visited</string>
     <string name="log_signed_out">User logged out.</string>
+    <string name="favourite_hillforts">Favourites</string>
+    <string name="all_hillforts">All</string>
 
     <!-- Hillfort Details -->
     <string name="title_hillfort_details_view">Hillfort</string>
