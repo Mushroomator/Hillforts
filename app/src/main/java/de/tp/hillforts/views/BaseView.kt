@@ -21,7 +21,7 @@ abstract class BaseView(): AppCompatActivity(), AnkoLogger {
 
     var basePresenter: BasePresenter? = null
 
-    protected val dateFormat = "dd/MM/yyyy"
+    val dateFormat = "dd/MM/yyyy"
 
     fun navigateTo(view: VIEW, code: Int = 0, key: String = "", value: Parcelable? = null) {
         var intent = Intent()

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.CheckBox
 import androidx.appcompat.view.menu.ActionMenuItem
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.forEach
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.maps.GoogleMap
 import de.tp.hillforts.R
@@ -43,17 +44,17 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
 
         // init map
         mvEditLocation.onCreate(savedInstanceState)
-        mvEditLocation.getMapAsync{
+        mvEditLocation.getMapAsync {
             map = it
             presenter.doConfigureMap(map)
 
-            map.setOnMapClickListener{
+            map.setOnMapClickListener {
                 cacheHillfort()
                 presenter.doEditLocation()
             }
         }
 
-        bAddFav.setOnClickListener{
+        bAddFav.setOnClickListener {
             presenter.doAddOrRemoveFavourites()
         }
 
@@ -84,13 +85,14 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
      * Listener on Checkbox and following TextView. Set visitedOn date when clicked.
      * @param view clicked view
      */
-    fun onVisitedClicked(view: View){
-        if (view is CheckBox){
+    fun onVisitedClicked(view: View) {
+        if (view is CheckBox) {
             presenter.doHillfordVisited(cbVisited.isChecked)
         }
         // when textView after actual textBox is clicked the user exspects the same behavior
-        if(view.id == R.id.tvVisitedOn){
-            cbVisited.isChecked = !cbVisited.isChecked  // checkbox must manually be set in this case
+        if (view.id == R.id.tvVisitedOn) {
+            cbVisited.isChecked =
+                !cbVisited.isChecked  // checkbox must manually be set in this case
             presenter.doHillfordVisited(cbVisited.isChecked)
         }
     }
@@ -99,13 +101,12 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
      * Display visitedOn date
      * @param date visited on
      */
-    override fun showDateVisited(date: Date?){
-        if(date != null){
+    override fun showDateVisited(date: Date?) {
+        if (date != null) {
             tvVisitedOn.text = SimpleDateFormat(dateFormat, Locale.GERMANY).format(date)
             cbVisited.setText(R.string.cb_visited_on)
             cbVisited.isChecked = true
-        }
-        else{
+        } else {
             cbVisited.setText(R.string.cb_not_yet_visited)
             tvVisitedOn.text = ""
             cbVisited.isChecked = false
@@ -117,17 +118,26 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
      * @param isFavourite true if hillfort is marked as favourite
      * @author Thomas Pilz
      */
-    fun showFavourite(isFavourite: Boolean){
-        if (isFavourite){
-            bAddFav.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_favorite_24,0,0,0)
+    fun showFavourite(isFavourite: Boolean) {
+        if (isFavourite) {
+            bAddFav.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                R.drawable.ic_baseline_favorite_24,
+                0,
+                0,
+                0
+            )
             bAddFav.setBackgroundColor(getColor(R.color.red))
             bAddFav.setTextColor(getColor(R.color.white))
             bAddFav.compoundDrawableTintList = ColorStateList.valueOf(getColor(R.color.white))
             bAddFav.text = getString(R.string.b_remove_fav)
 
-        }
-        else{
-            bAddFav.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_favorite_border_24,0,0,0)
+        } else {
+            bAddFav.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                R.drawable.ic_baseline_favorite_border_24,
+                0,
+                0,
+                0
+            )
             bAddFav.setBackgroundColor(getColor(R.color.white))
             bAddFav.setTextColor(getColor(R.color.red))
             bAddFav.compoundDrawableTintList = ColorStateList.valueOf(getColor(R.color.red))
@@ -136,7 +146,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.itemAddImage -> {
                 cacheHillfort()
                 presenter.doSelectImage()
@@ -165,6 +175,14 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
                 }
                 presenter.doAddOrSave(name, desc, notes, visitedDate, rating)
             }
+            R.id.itemShare -> {
+                val name = etName.text.toString()
+                if (name == "" || name.isEmpty()) {
+                    toast(getString(R.string.toast_details_invalid_input))
+                    return false
+                }
+                presenter.doShare()
+            }
             R.id.itemCancel -> presenter.doCancel()
             R.id.itemDelete -> presenter.doDelete()
         }
@@ -173,10 +191,12 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_hillfort_details, menu)
-        if(menu != null){
-            if(presenter.editMode) {
-                menu.getItem(1)?.isVisible = true // show delete Button
-                menu.getItem(3)?.setTitle(R.string.b_item_save)  //add button --> save button
+        if (menu != null && presenter.editMode) {
+            menu.forEach {
+                when (it.itemId) {
+                    R.id.itemDelete -> it.isVisible = true // show delete Button }
+                    R.id.itemSave -> it.setTitle(R.string.b_item_save)  //add button --> save button
+                }
             }
 
         }
@@ -188,8 +208,8 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
      * Invalidate menu as users might want to change images and then abort that action again.
      */
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        if(menu != null){
-            if(presenter.hillfort.images.size < resources.getInteger(R.integer.max_images)) {
+        if (menu != null) {
+            if (presenter.hillfort.images.size < resources.getInteger(R.integer.max_images)) {
                 menu.getItem(0).also {
                     invalidateOptionsMenu() // if back is pressed --> no picture added --> need to recalculate number of images
                     it?.isVisible = true  // show add image button
@@ -205,7 +225,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
      * @param lat latitude
      * @param lng longitude
      */
-    override fun updateLocation(lat: Double, lng: Double){
+    override fun updateLocation(lat: Double, lng: Double) {
         tvLatValDetails.text = "%.6f".format(lat)
         tvLngValDetails.text = "%.6f".format(lng)
     }
@@ -213,7 +233,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
     /**
      * Cache values of text views so they dont get lost when calling another activity.
      */
-    fun cacheHillfort(){
+    fun cacheHillfort() {
         presenter.doCacheHillford(
             etName.text.toString(),
             etDescription.text.toString(),

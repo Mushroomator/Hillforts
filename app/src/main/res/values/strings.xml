@@ -39,6 +39,7 @@
     <string name="name">Name</string>
     <string name="description">Description</string>
     <string name="toast_details_invalid_input">Please enter a name</string>
+    <string name="share">Share</string>
 
     <!-- Edit Location -->
     <string name="title_edit_location_view">Set location</string>

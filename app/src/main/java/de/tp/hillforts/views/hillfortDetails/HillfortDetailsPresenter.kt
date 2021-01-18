@@ -1,6 +1,8 @@
 package de.tp.hillforts.views.hillfortDetails
 
 import android.content.Intent
+import android.net.Uri
+import androidx.core.content.ContextCompat.startActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -10,7 +12,10 @@ import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.models.location.LocationModel
 import de.tp.hillforts.views.BasePresenter
 import de.tp.hillforts.views.VIEW
+import java.net.URI
+import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) {
 
@@ -152,6 +157,34 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
     fun doAddOrRemoveFavourites(){
         hillfort.isFavourite = !hillfort.isFavourite
         (view as HillfortDetailsView)?.showFavourite(hillfort.isFavourite)
+    }
+
+    fun doShare(){
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND_MULTIPLE
+            hillfort.also {
+                var dateStr = ""
+                if(it.dateVisited != null){
+                    dateStr = SimpleDateFormat(view?.dateFormat, Locale.GERMANY).format(it.dateVisited!!)
+                }
+                else{
+                    dateStr = "Not yet visited."
+                }
+                putExtra(Intent.EXTRA_TEXT, "Hey there,\ntake a look at one of my hillfort:" +
+                        "\nName: ${it.name}" +
+                        "\nDescription: ${it.desc}" +
+                        "\nNotes: ${it.notes}" +
+                        "\nVisited: $dateStr" +
+                        "\nVisited: $dateStr" +
+                        "\nRating: ${"%.1f".format(it.rating)}")
+                var uriList = ArrayList<Uri>()
+                hillfort.images.forEach{ uriList.add(Uri.parse(it)) }
+                putParcelableArrayListExtra(Intent.EXTRA_STREAM, uriList)
+            }
+            type = "*/*"
+        }
+        val shareIntent = Intent.createChooser(sendIntent, "Share Hillfort via...")
+        view?.startActivity(shareIntent)
     }
 
     /**
