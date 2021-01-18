@@ -51,6 +51,10 @@ class HillfortMemRepo: IHillfortRepo, AnkoLogger {
                 if(found.rating != hillfort.rating){
                     found.rating = hillfort.rating
                 }
+
+                if(found.isFavourite != hillfort.isFavourite){
+                    found.isFavourite = hillfort.isFavourite
+                }
             }
         }
         return found

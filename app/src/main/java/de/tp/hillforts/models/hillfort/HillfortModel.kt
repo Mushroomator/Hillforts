@@ -15,6 +15,7 @@ data class HillfortModel(
     var images: MutableList<String> = mutableListOf(),
     var dateVisited: Date? = null,
     var notes: String = "",
-    var rating: Float = 0f
+    var rating: Float = 0f,
+    var isFavourite: Boolean = false
 ): Parcelable {
 }

@@ -75,6 +75,10 @@ class HillfortJsonRepo: IHillfortRepo {
                 if(found.rating != hillfort.rating){
                     found.rating = hillfort.rating
                 }
+
+                if(found.isFavourite != hillfort.isFavourite){
+                    found.isFavourite = hillfort.isFavourite
+                }
             }
         }
         serialize()

@@ -1,5 +1,6 @@
 package de.tp.hillforts.views.hillfortDetails
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.Menu
@@ -7,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
 import androidx.appcompat.view.menu.ActionMenuItem
+import androidx.core.graphics.drawable.DrawableCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.maps.GoogleMap
 import de.tp.hillforts.R
@@ -21,6 +23,7 @@ import org.jetbrains.anko.toast
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
 
@@ -50,8 +53,15 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
             }
         }
 
+        bAddFav.setOnClickListener{
+            presenter.doAddOrRemoveFavourites()
+        }
+
         // init recycler view
-        rvHillfortImages.layoutManager = GridLayoutManager(this, resources.getInteger(R.integer.image_columns))
+        rvHillfortImages.layoutManager = GridLayoutManager(
+            this,
+            resources.getInteger(R.integer.image_columns)
+        )
         presenter.loadHillfort()
     }
 
@@ -65,6 +75,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
             mltNotes.setText(it.notes)
             rbHillfortRating.rating = it.rating
             updateLocation(it.loc.lat, it.loc.lng)
+            showFavourite(it.isFavourite)
         }
         showDateVisited(hillfort.dateVisited)   // cannot be called within scope function because it can be null
     }
@@ -101,6 +112,24 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
         }
     }
 
+    fun showFavourite(isFavourite: Boolean){
+        if (isFavourite){
+            bAddFav.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_favorite_24,0,0,0)
+            bAddFav.setBackgroundColor(getColor(R.color.red))
+            bAddFav.setTextColor(getColor(R.color.white))
+            bAddFav.compoundDrawableTintList = ColorStateList.valueOf(getColor(R.color.white))
+            bAddFav.text = getString(R.string.b_remove_fav)
+
+        }
+        else{
+            bAddFav.setCompoundDrawablesRelativeWithIntrinsicBounds(R.drawable.ic_baseline_favorite_border_24,0,0,0)
+            bAddFav.setBackgroundColor(getColor(R.color.white))
+            bAddFav.setTextColor(getColor(R.color.red))
+            bAddFav.compoundDrawableTintList = ColorStateList.valueOf(getColor(R.color.red))
+            bAddFav.text = getString(R.string.b_add_fav)
+        }
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.itemAddImage -> {
@@ -110,7 +139,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
             }
             R.id.itemSave -> {
                 val name = etName.text.toString()
-                if(name == "" || name.isEmpty()){
+                if (name == "" || name.isEmpty()) {
                     toast(getString(R.string.toast_details_invalid_input))
                     return false
                 }
@@ -120,10 +149,10 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
                 val visitedOn = tvVisitedOn.text.toString()
                 var visitedDate: Date? = null
                 val rating = rbHillfortRating.rating
-                if(visited){
+                if (visited) {
                     try {
                         visitedDate = SimpleDateFormat(dateFormat, Locale.GERMANY).parse(visitedOn)
-                    } catch (e: ParseException){
+                    } catch (e: ParseException) {
                         // should never happen as date will always be populated automatically!
                         error("Visited date was populated incorrectly! Error:\n$e")
                         return false
@@ -180,7 +209,11 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
      * Cache values of text views so they dont get lost when calling another activity.
      */
     fun cacheHillfort(){
-        presenter.doCacheHillford(etName.text.toString(), etDescription.text.toString(), mltNotes.text.toString())
+        presenter.doCacheHillford(
+            etName.text.toString(),
+            etDescription.text.toString(),
+            mltNotes.text.toString()
+        )
     }
 
     /**

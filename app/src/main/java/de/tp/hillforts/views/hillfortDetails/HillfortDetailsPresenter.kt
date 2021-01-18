@@ -146,6 +146,11 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
         }
     }
 
+    fun doAddOrRemoveFavourites(){
+        hillfort.isFavourite = !hillfort.isFavourite
+        (view as HillfortDetailsView)?.showFavourite(hillfort.isFavourite)
+    }
+
     /**
      * Update hillfort when in edit-mode or create a new one.
      * @param name name for hillfort
