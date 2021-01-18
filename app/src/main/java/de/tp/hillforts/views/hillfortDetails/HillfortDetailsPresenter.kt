@@ -59,6 +59,11 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
         }
     }
 
+    /**
+     * Update location marker on map and labels on screen.
+     * @param lat latitude
+     * @param lng longitude
+     */
     fun locationUpdate(lat: Double, lng: Double) {
         hillfort.loc.lat = lat
         hillfort.loc.lng = lng
@@ -80,6 +85,9 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
         }
     }
 
+    /**
+     * Set the the hillfort location
+     */
     @SuppressLint("MissingPermission")
     fun doSetCurrentLocation() {
         locationService.lastLocation.addOnSuccessListener {
@@ -88,6 +96,9 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
     }
 
 
+    /**
+     * Request another location update if not in edit mode.
+     */
     @SuppressLint("MissingPermission")
     fun doResartLocationUpdates() {
         var locationCallback = object : LocationCallback() {
@@ -118,7 +129,7 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
             hillfort.loc.zoom = 15f
         }
         this.map = map
-        doUpdateMapLocation()
+        locationUpdate(hillfort.loc.lat, hillfort.loc.lng)
     }
 
     /**
@@ -177,22 +188,6 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
         view?.navigateTo(VIEW.EDIT_LOCATION, LOCATION_REQ_ID, LOCATION_EDIT, hillfort.loc)
     }
 
-    /**
-     * Update GoogleMap and labels according to hillfort location.
-     */
-    fun doUpdateMapLocation() {
-        map?.clear()
-        map?.uiSettings?.setZoomControlsEnabled(true)
-        map?.uiSettings?.setAllGesturesEnabled(true)
-        val pos = LatLng(hillfort.loc.lat, hillfort.loc.lng)
-        val options = MarkerOptions()
-            .title(hillfort.name)
-            .position(pos)
-        map?.addMarker(options)
-        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(pos, hillfort.loc.zoom))
-        view?.updateLocation(hillfort.loc.lat, hillfort.loc.lng)
-    }
-
     override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         when (requestCode) {
             IMAGE_REQ_ID -> {
@@ -211,7 +206,7 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
             LOCATION_REQ_ID -> {
                 if (data.extras?.getParcelable<LocationModel>(LOCATION_EDIT) != null) {
                     hillfort.loc = data.extras?.getParcelable(LOCATION_EDIT)!!
-                    doUpdateMapLocation()
+                    locationUpdate(hillfort.loc.lat, hillfort.loc.lng)
                     view?.showHillfort(hillfort)
                 }
             }
