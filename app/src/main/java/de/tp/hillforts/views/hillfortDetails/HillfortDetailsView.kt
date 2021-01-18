@@ -12,8 +12,8 @@ import com.google.android.gms.maps.GoogleMap
 import de.tp.hillforts.R
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
-import kotlinx.android.synthetic.main.hillford_list_view_portrait.toolbar
-import kotlinx.android.synthetic.main.hillfort_details_view_portrait.*
+import kotlinx.android.synthetic.main.hillford_list_view.toolbar
+import kotlinx.android.synthetic.main.hillfort_details_view.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.error
 import org.jetbrains.anko.info
@@ -30,7 +30,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.hillfort_details_view_portrait)
+        setContentView(R.layout.hillfort_details_view)
 
         // init presenter
         presenter = initPresenter(HillfortDetailsPresenter(this)) as HillfortDetailsPresenter

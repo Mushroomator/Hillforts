@@ -18,7 +18,7 @@
         android:theme="@style/Theme.Hillforts">
 
         <!-- Hillfort Map View -->
-        <activity android:name=".views.map.MapView"
+        <activity android:name=".views.hillfortMap.HillfortMapView"
             android:label="@string/title_hillfort_map_view">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

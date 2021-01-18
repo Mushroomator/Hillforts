@@ -1,7 +1,6 @@
-package de.tp.hillforts.views.map
+package de.tp.hillforts.views.hillfortMap
 
 import android.content.Intent
-import android.view.View
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -9,10 +8,9 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BasePresenter
-import de.tp.hillforts.views.VIEW
 import de.tp.hillforts.views.hillfortDetails.HillfortDetailsView
 
-class MapPresenter(view: MapView) : BasePresenter(view) {
+class HillfortMapPresenter(view: HillfortMapView) : BasePresenter(view) {
 
     private val HILLFORT_EDIT = "hillfort_edit"
     lateinit var map: GoogleMap

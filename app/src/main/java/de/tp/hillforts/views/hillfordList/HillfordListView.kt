@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import de.tp.hillforts.R
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
-import kotlinx.android.synthetic.main.hillford_list_view_portrait.*
+import kotlinx.android.synthetic.main.hillford_list_view.*
 
 class HillfordListView : BaseView(), HillfordListener {
 
@@ -16,7 +16,7 @@ class HillfordListView : BaseView(), HillfordListener {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.hillford_list_view_portrait)
+    setContentView(R.layout.hillford_list_view)
 
     // init presenter
     presenter = initPresenter(HillfordListPresenter(this)) as HillfordListPresenter

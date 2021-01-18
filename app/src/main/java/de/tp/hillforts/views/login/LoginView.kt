@@ -1,11 +1,9 @@
 package de.tp.hillforts.views.login
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import de.tp.hillforts.R
 import de.tp.hillforts.views.BaseView
-import kotlinx.android.synthetic.main.login_view_portrait.*
+import kotlinx.android.synthetic.main.login_view.*
 import org.jetbrains.anko.toast
 
 class LoginView : BaseView() {
@@ -15,7 +13,7 @@ class LoginView : BaseView() {
   override fun onCreate(savedInstanceState: Bundle?) {
     setTheme(R.style.Theme_Hillforts)
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.login_view_portrait)
+    setContentView(R.layout.login_view)
 
     // initialize presenter
     presenter = initPresenter(LoginPresenter(this)) as LoginPresenter

@@ -1,6 +1,5 @@
-package de.tp.hillforts.views.map
+package de.tp.hillforts.views.hillfortMap
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.bumptech.glide.Glide
@@ -9,22 +8,19 @@ import com.google.android.gms.maps.model.Marker
 import de.tp.hillforts.R
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
-import de.tp.hillforts.views.hillfortDetails.HillfortDetailsPresenter
-import kotlinx.android.synthetic.main.hillford_list_view_portrait.*
-import kotlinx.android.synthetic.main.hillford_list_view_portrait.toolbar
-import kotlinx.android.synthetic.main.hillfort_details_view_portrait.*
-import kotlinx.android.synthetic.main.map_view_portrait.*
+import kotlinx.android.synthetic.main.hillford_list_view.toolbar
+import kotlinx.android.synthetic.main.hillfort_map_view.*
 
-class MapView : BaseView(), GoogleMap.OnMarkerClickListener {
+class HillfortMapView : BaseView(), GoogleMap.OnMarkerClickListener {
 
-    lateinit var presenter: MapPresenter
+    lateinit var presenter: HillfortMapPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.map_view_portrait)
+        setContentView(R.layout.hillfort_map_view)
 
         // init presenter
-        presenter = initPresenter(MapPresenter(this)) as MapPresenter
+        presenter = initPresenter(HillfortMapPresenter(this)) as HillfortMapPresenter
 
         // init toolbar
         init(toolbar, true)

@@ -1,15 +1,10 @@
 package de.tp.hillforts.views.settings
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.SeekBar
 import de.tp.hillforts.R
 import de.tp.hillforts.views.BaseView
-import de.tp.hillforts.views.login.LoginPresenter
-import kotlinx.android.synthetic.main.login_view_portrait.*
-import kotlinx.android.synthetic.main.login_view_portrait.toolbar
-import kotlinx.android.synthetic.main.settings_view_portrait.*
-import kotlin.math.ceil
+import kotlinx.android.synthetic.main.settings_view.*
 
 class SettingsView : BaseView(), SeekBar.OnSeekBarChangeListener {
 
@@ -17,7 +12,7 @@ class SettingsView : BaseView(), SeekBar.OnSeekBarChangeListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.settings_view_portrait)
+        setContentView(R.layout.settings_view)
 
         // initialize presenter
         presenter = initPresenter(SettingsPresenter(this)) as SettingsPresenter

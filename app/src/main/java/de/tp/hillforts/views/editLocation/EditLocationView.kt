@@ -10,9 +10,8 @@ import com.google.android.gms.maps.model.Marker
 import de.tp.hillforts.R
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
-import kotlinx.android.synthetic.main.edit_location_view_portrait.*
-import kotlinx.android.synthetic.main.hillford_list_view_portrait.toolbar
-import kotlinx.android.synthetic.main.hillfort_details_view_portrait.*
+import kotlinx.android.synthetic.main.edit_location_view.*
+import kotlinx.android.synthetic.main.hillford_list_view.toolbar
 
 class EditLocationView: BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener{
 
@@ -21,7 +20,7 @@ class EditLocationView: BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.On
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.edit_location_view_portrait)
+        setContentView(R.layout.edit_location_view)
 
         // init presenter
         presenter = initPresenter(EditLocationPresenter(this)) as EditLocationPresenter
