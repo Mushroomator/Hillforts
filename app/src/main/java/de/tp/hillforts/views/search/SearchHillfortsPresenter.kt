@@ -21,6 +21,7 @@ class SearchHillfortsPresenter(view: SearchHillfortsView): BasePresenter(view) {
         this.view = view
         // Verify the action and get the query
         if (Intent.ACTION_SEARCH == view.intent.action) {
+            // start search and measure the elapsed time
             view.intent.getStringExtra(SearchManager.QUERY)?.also { query ->
                 this.query = query
                 doSaveRecentQuery(query)
@@ -32,15 +33,30 @@ class SearchHillfortsPresenter(view: SearchHillfortsView): BasePresenter(view) {
         }
     }
 
+    /**
+     * Save recent query for Android to suggest recent queries automatically.
+     * @param query Search query entered by user
+     * @author Thomas Pilz
+     */
     fun doSaveRecentQuery(query: String){
         SearchRecentSuggestions(view, HillfortSuggestionProvider.AUTHORITY, HillfortSuggestionProvider.MODE)
             .saveRecentQuery(query, null)
     }
 
+    /**
+     * Call activity HillfortDetails
+     * @param hillfort hillfort to be shown
+     * @author Thomas Pilz
+     */
     fun doEditHillfort(hillfort: HillfortModel){
         view?.navigateTo(VIEW.DETAILS, 0, HILLFORT_EDIT, hillfort)
     }
 
+    /**
+     * Searches for a query string in all hillforts.
+     * @param query query string entered by user
+     * @author Thomas Pilz
+     */
     fun doSearch(query: String): List<HillfortModel> {
         val all = app.hillforts.findAll()
         return all.parallelStream()
@@ -49,6 +65,11 @@ class SearchHillfortsPresenter(view: SearchHillfortsView): BasePresenter(view) {
     }
 
 
+    /**
+     * Checkf is a hillfort contains the query string.
+     * @param query query string entered by the user
+     * @author Thomas Pilz
+     */
     fun containsQuery(query: String, hillfortModel: HillfortModel): Boolean{
         if (hillfortModel.name.contains(query, ignoreCase = true) ||
                 hillfortModel.desc.contains(query, ignoreCase = true) ||
