@@ -200,8 +200,12 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener{
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_hillfort_details, menu)
         if (menu != null && presenter.editMode) {
-            menu.getItem(R.id.itemDelete)?.isVisible = true // show delete Button
-            menu.getItem(R.id.itemSave)?.setTitle(R.string.b_item_save)  //add button --> save button
+            menu.forEach {
+                when(it.itemId){
+                    R.id.itemDelete -> it.isVisible = true  // show delete Button
+                    R.id.itemSave -> it.setTitle(R.string.b_item_save)  //add button --> save button
+                }
+            }
         }
         return super.onCreateOptionsMenu(menu)
     }

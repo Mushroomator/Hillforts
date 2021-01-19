@@ -4,26 +4,45 @@ import android.app.SearchManager
 import android.content.Intent
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BasePresenter
+import de.tp.hillforts.views.VIEW
 import org.jetbrains.anko.info
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
 import java.util.*
+import java.util.stream.Collectors
 
 class SearchHillfortsPresenter(view: SearchHillfortsView): BasePresenter(view) {
 
+    private val HILLFORT_EDIT = "hillfort_edit"
+    var query = ""
+
     init{
+
+        val start = System.currentTimeMillis()
+        this.view = view
         // Verify the action and get the query
         if (Intent.ACTION_SEARCH == view.intent.action) {
             view.intent.getStringExtra(SearchManager.QUERY)?.also { query ->
-                doSearch(query)
+                this.query = query
+                val results = doSearch(query)
+                val end = System.currentTimeMillis()
+                val elapsed = (end - start) / 1000f  // elapsed time in seconds
+                view.showResults(results, elapsed)
             }
         }
     }
 
+    fun doEditHillfort(hillfort: HillfortModel){
+        view?.navigateTo(VIEW.DETAILS, 0, HILLFORT_EDIT, hillfort)
+    }
+
     fun doSearch(query: String): List<HillfortModel> {
         val all = app.hillforts.findAll()
-        all.parallelStream().filter{ containsQuery(query, it) }
-        return all
+        return all.parallelStream()
+            .filter{ containsQuery(query, it) }
+            .collect(Collectors.toList())
     }
+
 
     fun containsQuery(query: String, hillfortModel: HillfortModel): Boolean{
         if (hillfortModel.name.contains(query, ignoreCase = true) ||
@@ -39,7 +58,10 @@ class SearchHillfortsPresenter(view: SearchHillfortsView): BasePresenter(view) {
                 // check if date actually matches visitedOn date
                 val dateComponents = query.split(Regex("[-.\\/]"))
                 if(dateComponents.size == 3){
-                    return SimpleDateFormat(view?.dateFormat, Locale.GERMANY).format(hillfortModel.dateVisited).equals("${dateComponents[0]}/${dateComponents[1]}/{$dateComponents[2]}")
+                    val orgDate = SimpleDateFormat(view?.dateFormat, Locale.GERMANY).format(hillfortModel.dateVisited)
+                    val dateStr = "${dateComponents[0]}/${dateComponents[1]}/${dateComponents[2]}"
+                    val test = orgDate.equals(dateStr)
+                    return orgDate.equals(dateStr)
                 }
             }
         }

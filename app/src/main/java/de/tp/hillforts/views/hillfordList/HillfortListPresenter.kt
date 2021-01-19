@@ -11,10 +11,9 @@ import de.tp.hillforts.views.VIEW
 import de.tp.hillforts.views.editLocation.EditLocationView
 import org.jetbrains.anko.info
 
-class HillfordListPresenter(view: BaseView): BasePresenter(view) {
+class HillfortListPresenter(view: BaseView): BasePresenter(view) {
 
     private val HILLFORT_EDIT = "hillfort_edit"
-    private val TAB_SELCETED = "tab_selected"
     private var tabSelected = 0
 
     /**

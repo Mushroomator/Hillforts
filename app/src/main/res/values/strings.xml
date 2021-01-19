@@ -68,6 +68,10 @@
     <string name="title_hillfort_map_view">Map of Hillforts</string>
     <string name="menu_map">Map of Hillforts</string>
 
-    <!-- Search -->
+    <!-- Search View -->
     <string name="search_hint">Search hillforts</string>
+    <plurals name="results">
+        <item quantity="one">%d result in %.6f seconds</item>
+        <item quantity="other">%d results in %.6f seconds</item>
+    </plurals>
 </resources>

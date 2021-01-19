@@ -2,14 +2,12 @@ package de.tp.hillforts.views
 
 import android.content.Intent
 import android.os.Parcelable
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import org.jetbrains.anko.AnkoLogger
 import androidx.appcompat.widget.Toolbar
-import com.google.android.material.appbar.MaterialToolbar
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.editLocation.EditLocationView
-import de.tp.hillforts.views.hillfordList.HillfordListView
+import de.tp.hillforts.views.hillfordList.HillfortListView
 import de.tp.hillforts.views.hillfortDetails.HillfortDetailsView
 import de.tp.hillforts.views.login.LoginView
 import de.tp.hillforts.views.hillfortMap.HillfortMapView
@@ -26,7 +24,7 @@ abstract class BaseView(): AppCompatActivity(), AnkoLogger {
     fun navigateTo(view: VIEW, code: Int = 0, key: String = "", value: Parcelable? = null) {
         var intent = Intent()
         when (view) {
-            VIEW.LIST -> intent = Intent(this, HillfordListView::class.java)
+            VIEW.LIST -> intent = Intent(this, HillfortListView::class.java)
             VIEW.LOGIN -> intent = Intent(this, LoginView::class.java)
             VIEW.DETAILS -> intent = Intent(this, HillfortDetailsView::class.java)
             VIEW.EDIT_LOCATION -> intent = Intent(this, EditLocationView::class.java)

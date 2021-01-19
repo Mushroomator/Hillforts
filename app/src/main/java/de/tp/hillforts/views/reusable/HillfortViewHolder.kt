@@ -1,23 +1,20 @@
-package de.tp.hillforts.views.hillfordList
+package de.tp.hillforts.views.reusable
 
-import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
 import de.tp.hillforts.models.hillfort.HillfortModel
+import de.tp.hillforts.views.hillfordList.HillfortListener
 import kotlinx.android.synthetic.main.card_hillfort.view.*
 
-class HillfordViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+class HillfortViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
     /**
      * Bind data to fields on card
      * @param hillford hillford to be displayed in card
      * @param listener listener
      */
-    fun bind(hillford: HillfortModel, listener: HillfordListener){
+    fun bind(hillford: HillfortModel, listener: HillfortListener){
         // bind data to UI fields
         itemView.tvName.text = hillford.name
         itemView.tvLatVal.text = "%.6f".format(hillford.loc.lat)

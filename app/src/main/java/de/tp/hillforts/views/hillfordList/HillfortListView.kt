@@ -13,19 +13,20 @@ import com.google.android.material.tabs.TabLayout
 import de.tp.hillforts.R
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
+import de.tp.hillforts.views.reusable.HillfortAdapter
+import de.tp.hillforts.views.search.SearchHillfortsView
 import kotlinx.android.synthetic.main.hillford_list_view.*
-import org.jetbrains.anko.info
 
-class HillfordListView : BaseView(), HillfordListener, TabLayout.OnTabSelectedListener, SearchView.OnQueryTextListener {
+class HillfortListView : BaseView(), HillfortListener, TabLayout.OnTabSelectedListener, SearchView.OnQueryTextListener {
 
-  lateinit var presenter: HillfordListPresenter
+  lateinit var presenter: HillfortListPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.hillford_list_view)
 
     // init presenter
-    presenter = initPresenter(HillfordListPresenter(this)) as HillfordListPresenter
+    presenter = initPresenter(HillfortListPresenter(this)) as HillfortListPresenter
 
     // init toolbar
     init(toolbar, false) //disable up-support later; just for test purposes
@@ -71,9 +72,9 @@ class HillfordListView : BaseView(), HillfordListener, TabLayout.OnTabSelectedLi
     if(menu != null){
       // Get the SearchView and set the searchable configuration
       val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-      (menu.findItem(R.id.app_bar_search).actionView as SearchView).apply {
+      (menu.findItem(R.id.itemAppBarSearch).actionView as SearchView).apply {
         // Assumes current activity is the searchable activity
-        setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        setSearchableInfo(searchManager.getSearchableInfo(ComponentName(this.context, SearchHillfortsView::class.java)))
         isSubmitButtonEnabled = true
         isQueryRefinementEnabled = true
       }

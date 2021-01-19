@@ -1,16 +1,17 @@
-package de.tp.hillforts.views.hillfordList
+package de.tp.hillforts.views.reusable
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import de.tp.hillforts.R
 import de.tp.hillforts.models.hillfort.HillfortModel
+import de.tp.hillforts.views.hillfordList.HillfortListener
 
 class HillfortAdapter
 constructor(
     private var hillforts: List<HillfortModel>,
-    private var listener: HillfordListener
-) : RecyclerView.Adapter<HillfordViewHolder>() {
+    private var listener: HillfortListener
+) : RecyclerView.Adapter<HillfortViewHolder>() {
     /**
      * Called when RecyclerView needs a new [ViewHolder] of the given type to represent
      * an item.
@@ -34,11 +35,11 @@ constructor(
      * @see .getItemViewType
      * @see .onBindViewHolder
      */
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HillfordViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HillfortViewHolder {
         val viewItem = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.card_hillfort, parent, false)
-        return HillfordViewHolder(viewItem)
+        return HillfortViewHolder(viewItem)
     }
 
     /**
@@ -62,7 +63,7 @@ constructor(
      * item at the given position in the data set.
      * @param position The position of the item within the adapter's data set.
      */
-    override fun onBindViewHolder(holder: HillfordViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: HillfortViewHolder, position: Int) {
         val hillfort = hillforts[holder.adapterPosition]
         holder.bind(hillfort, listener)
     }

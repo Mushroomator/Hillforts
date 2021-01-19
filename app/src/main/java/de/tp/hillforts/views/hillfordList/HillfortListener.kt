@@ -2,7 +2,7 @@ package de.tp.hillforts.views.hillfordList
 
 import de.tp.hillforts.models.hillfort.HillfortModel
 
-interface HillfordListener {
+interface HillfortListener {
 
     /**
      * Executed when a hillford is clicked on in recycler view.

@@ -16,15 +16,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hillforts">
-        <activity android:name=".views.search.SearchHillfortsView"></activity>
+        <activity android:name=".views.search.SearchHillfortsView">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.hillfordList.HillfortListView" />
+        </activity>
+
+
         <!-- Hillfort Map View -->
         <activity
             android:name=".views.hillfortMap.HillfortMapView"
             android:label="@string/title_hillfort_map_view">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.hillfordList.HillfordListView" />
-        </activity> <!-- Activity for Splash Screen (only necessary cause load is to quick to just make a Theme change) -->
+                android:value=".views.hillfordList.HillfortListView" />
+        </activity>
+
+        <!-- Activity for Splash Screen (only necessary cause load is to quick to just make a Theme change) -->
         <activity
             android:name=".views.splash.SplashScreenActitivity"
             android:theme="@style/Theme.SplashScreen">
@@ -39,29 +54,28 @@
             android:label="@string/title_settings_view">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.hillfordList.HillfordListView" />
-        </activity> <!-- Edit Location view -->
+                android:value=".views.hillfordList.HillfortListView" />
+        </activity>
+
+        <!-- Edit Location view -->
         <activity
             android:name=".views.editLocation.EditLocationView"
             android:label="@string/title_edit_location_view">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".views.hillfortDetails.HillfortDetailsView" />
-        </activity> <!-- Login View -->
+        </activity>
+
+        <!-- Login View -->
         <activity
             android:name=".views.login.LoginView"
             android:label="@string/title_login_view"
-            android:theme="@style/Theme.SplashScreen" /> <!-- Hillford List View -->
-        <activity
-            android:name=".views.hillfordList.HillfordListView"
-            android:label="@string/title_hillfort_list_view">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
+            android:theme="@style/Theme.SplashScreen" />
 
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
+        <!-- Hillford List View -->
+        <activity
+            android:name=".views.hillfordList.HillfortListView"
+            android:label="@string/title_hillfort_list_view">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".views.login.LoginView" />
@@ -71,7 +85,7 @@
             android:label="@string/title_hillfort_details_view">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".views.hillfordList.HillfordListView" />
+                android:value=".views.hillfordList.HillfortListView" />
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
