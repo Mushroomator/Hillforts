@@ -2,12 +2,11 @@ package de.tp.hillforts.views.search
 
 import android.app.SearchManager
 import android.content.Intent
+import android.provider.SearchRecentSuggestions
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BasePresenter
 import de.tp.hillforts.views.VIEW
-import org.jetbrains.anko.info
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
 import java.util.*
 import java.util.stream.Collectors
 
@@ -24,12 +23,18 @@ class SearchHillfortsPresenter(view: SearchHillfortsView): BasePresenter(view) {
         if (Intent.ACTION_SEARCH == view.intent.action) {
             view.intent.getStringExtra(SearchManager.QUERY)?.also { query ->
                 this.query = query
+                doSaveRecentQuery(query)
                 val results = doSearch(query)
                 val end = System.currentTimeMillis()
                 val elapsed = (end - start) / 1000f  // elapsed time in seconds
                 view.showResults(results, elapsed)
             }
         }
+    }
+
+    fun doSaveRecentQuery(query: String){
+        SearchRecentSuggestions(view, HillfortSuggestionProvider.AUTHORITY, HillfortSuggestionProvider.MODE)
+            .saveRecentQuery(query, null)
     }
 
     fun doEditHillfort(hillfort: HillfortModel){
@@ -58,10 +63,9 @@ class SearchHillfortsPresenter(view: SearchHillfortsView): BasePresenter(view) {
                 // check if date actually matches visitedOn date
                 val dateComponents = query.split(Regex("[-.\\/]"))
                 if(dateComponents.size == 3){
-                    val orgDate = SimpleDateFormat(view?.dateFormat, Locale.GERMANY).format(hillfortModel.dateVisited)
+                    val hillfortDate = SimpleDateFormat(view?.dateFormat, Locale.GERMANY).format(hillfortModel.dateVisited)
                     val dateStr = "${dateComponents[0]}/${dateComponents[1]}/${dateComponents[2]}"
-                    val test = orgDate.equals(dateStr)
-                    return orgDate.equals(dateStr)
+                    return hillfortDate.equals(dateStr)
                 }
             }
         }

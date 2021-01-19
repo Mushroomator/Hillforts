@@ -16,6 +16,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hillforts">
+
+        <!-- Suggestion Provider for search-->
+        <provider android:name=".views.search.HillfortSuggestionProvider"
+            android:authorities="de.tp.hillforts.views.search.HillfortSuggestionProvider" />
+
+
         <activity android:name=".views.search.SearchHillfortsView">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
