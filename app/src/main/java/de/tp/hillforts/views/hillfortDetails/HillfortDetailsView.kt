@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
+import android.widget.SearchView
 import androidx.appcompat.view.menu.ActionMenuItem
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.forEach
@@ -26,7 +27,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
+class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener{
 
     lateinit var presenter: HillfortDetailsPresenter
     lateinit var map: GoogleMap
@@ -199,13 +200,8 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_hillfort_details, menu)
         if (menu != null && presenter.editMode) {
-            menu.forEach {
-                when (it.itemId) {
-                    R.id.itemDelete -> it.isVisible = true // show delete Button }
-                    R.id.itemSave -> it.setTitle(R.string.b_item_save)  //add button --> save button
-                }
-            }
-
+            menu.getItem(R.id.itemDelete)?.isVisible = true // show delete Button
+            menu.getItem(R.id.itemSave)?.setTitle(R.string.b_item_save)  //add button --> save button
         }
         return super.onCreateOptionsMenu(menu)
     }
@@ -308,4 +304,5 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener {
         super.onSaveInstanceState(outState)
         mvEditLocation.onSaveInstanceState(outState)
     }
+
 }

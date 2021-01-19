@@ -1,9 +1,13 @@
 package de.tp.hillforts.views.hillfordList
 
+import android.app.SearchManager
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import de.tp.hillforts.R
@@ -12,7 +16,7 @@ import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.hillford_list_view.*
 import org.jetbrains.anko.info
 
-class HillfordListView : BaseView(), HillfordListener, TabLayout.OnTabSelectedListener {
+class HillfordListView : BaseView(), HillfordListener, TabLayout.OnTabSelectedListener, SearchView.OnQueryTextListener {
 
   lateinit var presenter: HillfordListPresenter
 
@@ -29,6 +33,7 @@ class HillfordListView : BaseView(), HillfordListener, TabLayout.OnTabSelectedLi
     tabLayout.addOnTabSelectedListener(this)
 
     rvHillforts.layoutManager = LinearLayoutManager(this)
+
     presenter.loadHillforts()
   }
 
@@ -62,6 +67,17 @@ class HillfordListView : BaseView(), HillfordListener, TabLayout.OnTabSelectedLi
 
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {
     menuInflater.inflate(R.menu.menu_list_view, menu)
+
+    if(menu != null){
+      // Get the SearchView and set the searchable configuration
+      val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+      (menu.findItem(R.id.app_bar_search).actionView as SearchView).apply {
+        // Assumes current activity is the searchable activity
+        setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        isSubmitButtonEnabled = true
+        isQueryRefinementEnabled = true
+      }
+    }
     return super.onCreateOptionsMenu(menu)
   }
 
@@ -113,5 +129,33 @@ class HillfordListView : BaseView(), HillfordListener, TabLayout.OnTabSelectedLi
    */
   override fun onTabReselected(tab: TabLayout.Tab?) {
     /* no-op */
+  }
+
+  /**
+   * Called when the user submits the query. This could be due to a key press on the
+   * keyboard or due to pressing a submit button.
+   * The listener can override the standard behavior by returning true
+   * to indicate that it has handled the submit request. Otherwise return false to
+   * let the SearchView handle the submission by launching any associated intent.
+   *
+   * @param query the query text that is to be submitted
+   *
+   * @return true if the query has been handled by the listener, false to let the
+   * SearchView perform the default action.
+   */
+  override fun onQueryTextSubmit(query: String?): Boolean {
+    return false
+  }
+
+  /**
+   * Called when the query text is changed by the user.
+   *
+   * @param newText the new content of the query text field.
+   *
+   * @return false if the SearchView should perform the default action of showing any
+   * suggestions if available, true if the action was handled by the listener.
+   */
+  override fun onQueryTextChange(newText: String?): Boolean {
+    return false
   }
 }
