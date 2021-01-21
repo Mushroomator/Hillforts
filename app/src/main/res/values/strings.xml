@@ -9,10 +9,14 @@
     <string name="email">E-mail</string>
     <string name="password">Password</string>
     <string name="toast_login_invalid_input">Please enter email and password</string>
-    <string name="toast_signin_failed">E-mail and password combination does not exist</string>
-    <string name="toast_signup_failed">E-mail address is already used</string>
     <string name="log_signup_successful">User %1$s signed up.</string>
     <string name="log_signin_successful">User %1$s signed in.</string>
+    <string name="info_logging_in">Logging you in...</string>
+    <string name="toast_fb_signup_failed">Sign Up failed</string>
+    <string name="toast_fb_signin_failed">Sign In failed</string>
+    <!-- Only requried for self-made auth not for firebase -->
+    <string name="toast_signin_failed">E-mail and password combination does not exist</string>
+    <string name="toast_signup_failed">E-mail address is already used</string>
 
     <!-- Hillfort List View -->
     <string name="title_hillfort_list_view">All Hillforts</string>

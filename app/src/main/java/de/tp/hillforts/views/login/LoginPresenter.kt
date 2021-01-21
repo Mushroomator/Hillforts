@@ -1,5 +1,6 @@
 package de.tp.hillforts.views.login
 
+import com.google.firebase.auth.FirebaseAuth
 import de.tp.hillforts.R
 import de.tp.hillforts.helpers.AuthProvider
 import de.tp.hillforts.views.BasePresenter
@@ -8,8 +9,12 @@ import de.tp.hillforts.views.VIEW
 import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
 
-class LoginPresenter(view: BaseView): BasePresenter(view) {
+class LoginPresenter(view: LoginView): BasePresenter(view) {
 
+    //-------------
+    // No longer necessary with Firebase
+    //--------------
+    /*
     var auth: AuthProvider = AuthProvider
 
     /**
@@ -45,6 +50,33 @@ class LoginPresenter(view: BaseView): BasePresenter(view) {
         }
         else{
             view?.toast(view?.getString(R.string.toast_signup_failed)!!)
+        }
+    }
+    */
+
+    var auth = FirebaseAuth.getInstance()
+
+    fun doLogin(email: String, password: String) {
+        view?.showProgress()
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(view!!) { task ->
+            if (task.isSuccessful) {
+                view?.navigateTo(VIEW.LIST)
+            } else {
+                view?.toast("${view?.getString(R.string.toast_fb_signup_failed)}: ${task.exception?.message}")
+            }
+            view?.hideProgress()
+        }
+    }
+
+    fun doSignup(email: String, password: String) {
+        view?.showProgress()
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(view!!) { task ->
+            if (task.isSuccessful) {
+                view?.navigateTo(VIEW.LIST)
+            } else {
+                view?.toast("${view?.getString(R.string.toast_fb_signup_failed)}: ${task.exception?.message}")
+            }
+            view?.hideProgress()
         }
     }
 }

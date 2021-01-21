@@ -85,4 +85,8 @@ abstract class BaseView(): AppCompatActivity(), AnkoLogger {
     open fun showDateVisited(date: Date?){}
 
     open fun updateLocation(lat: Double, lng: Double){}
+
+    open fun showProgress(){}
+
+    open fun hideProgress(){}
 }
