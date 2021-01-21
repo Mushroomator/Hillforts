@@ -83,6 +83,25 @@
             app:layout_constraintStart_toEndOf="@+id/bSignUp"
             app:layout_constraintTop_toTopOf="@+id/bSignUp" />
 
+        <ProgressBar
+            android:id="@+id/pbLogin"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bSignUp" />
+
+        <TextView
+            android:id="@+id/tvLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="@+id/pbLogin"
+            app:layout_constraintStart_toStartOf="@+id/pbLogin"
+            app:layout_constraintTop_toBottomOf="@+id/pbLogin" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
