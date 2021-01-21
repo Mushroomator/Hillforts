@@ -38,4 +38,9 @@ interface IHillfortRepo {
      * @return all hillforts
      */
     fun findAll(): List<HillfortModel>
+
+    /**
+     * Clear hillforts.
+     */
+    fun clear()
 }
