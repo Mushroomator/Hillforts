@@ -38,7 +38,7 @@ class HillfortMapView : BaseView(), GoogleMap.OnMarkerClickListener {
         tvHillfortDescription.text = hillfort.desc
         val image = hillfort.images.first{ it.isNotEmpty() }
         if(image != null){
-            Glide.with(this).load(image).into(ivHillfortImageMap);
+            Glide.with(cvHillfortImageWrapper.context).load(image).into(ivHillfortMap)
         }
     }
 
