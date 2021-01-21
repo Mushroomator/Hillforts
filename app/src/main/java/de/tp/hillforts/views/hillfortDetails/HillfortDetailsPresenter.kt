@@ -149,6 +149,11 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
      * Load hillfort and display it.
      */
     fun loadHillfort() {
+        // load from cache if needed and invalidate cache
+        if(app.hillfortCache != null){
+            hillfort = app.hillfortCache!!
+            app.hillfortCache = null
+        }
         view?.showHillfort(hillfort)
     }
 
@@ -162,6 +167,7 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
         hillfort.name = name
         hillfort.desc = desc
         hillfort.notes = notes
+        app.hillfortCache = hillfort
     }
 
     /**

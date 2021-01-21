@@ -292,6 +292,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener{
     override fun onResume() {
         super.onResume()
         mvEditLocation.onResume()
+        presenter.loadHillfort()
         presenter.doResartLocationUpdates() //restart location updates
     }
 
