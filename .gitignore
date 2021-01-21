@@ -17,3 +17,6 @@ local.properties
 # add Maps API key files
 app/src/release/res/values/google_maps_api.xml
 app/src/debug/res/values/google_maps_api.xml
+
+# add google services file containing various keys for firebase
+app/google-services.json
