@@ -56,6 +56,7 @@ class LoginView : BaseView() {
   override fun showProgress(){
     pbLogin.visibility = View.VISIBLE
     tvLogin.visibility = View.VISIBLE
+    ivAppLogo.visibility = View.INVISIBLE
     tvLogin.text = getString(R.string.info_logging_in)
   }
 

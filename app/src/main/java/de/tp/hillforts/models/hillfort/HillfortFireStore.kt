@@ -3,6 +3,7 @@ package de.tp.hillforts.models.hillfort
 import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import de.tp.hillforts.helpers.generateRandomId
 import org.jetbrains.anko.AnkoLogger
 
 class HillfortFireStore(val context: Context) : IHillfortRepo, AnkoLogger {
@@ -16,8 +17,10 @@ class HillfortFireStore(val context: Context) : IHillfortRepo, AnkoLogger {
     }
 
     override fun findById(id: Long): HillfortModel? {
-        val found: HillfortModel? = hillforts.find { p -> p.id == id }
-        return found
+        // not useful with FireStore as the Long ID has no relevance! Just there for compatability.
+        //val found: HillfortModel? = hillforts.find { p -> p.id == id }
+        //return found
+        return null
     }
 
     override fun create(hillfort: HillfortModel): HillfortModel {
@@ -31,7 +34,10 @@ class HillfortFireStore(val context: Context) : IHillfortRepo, AnkoLogger {
     }
 
     override fun update(hillfort: HillfortModel): HillfortModel? {
-        var found = findById(hillfort.id)
+        var found: HillfortModel? = null
+        try {
+           found = hillforts.find{ hillfort.fbId.equals(it.fbId) }
+        } catch (e: NoSuchElementException){}
         if(found != null){
             if(!found.equals(hillfort)){
                 if(!found.name.equals(hillfort.name)){

@@ -45,7 +45,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:cardCornerRadius="10sp"
                 app:cardElevation="10sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -436,25 +436,25 @@
                         app:layout_constraintTop_toTopOf="@+id/ivUserEmailLabel" />
 
                     <TextView
-                        android:id="@+id/tvUserPasswordLabel"
+                        android:id="@+id/tvUserUidLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
-                        android:text="@string/user_password_label"
+                        android:text="@string/user_uid_label"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/ivUserEmailLabel"
                         app:layout_constraintTop_toBottomOf="@+id/ivUserEmailLabel" />
 
                     <TextView
-                        android:id="@+id/tvUserPasswordVal"
+                        android:id="@+id/tvUserUidVal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:text="TextView"
-                        app:layout_constraintBottom_toBottomOf="@+id/tvUserPasswordLabel"
-                        app:layout_constraintStart_toEndOf="@+id/tvUserPasswordLabel"
-                        app:layout_constraintTop_toTopOf="@+id/tvUserPasswordLabel" />
+                        app:layout_constraintBottom_toBottomOf="@+id/tvUserUidLabel"
+                        app:layout_constraintStart_toEndOf="@+id/tvUserUidLabel"
+                        app:layout_constraintTop_toTopOf="@+id/tvUserUidLabel" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
