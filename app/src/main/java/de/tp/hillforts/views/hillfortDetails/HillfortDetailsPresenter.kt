@@ -240,13 +240,12 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
                     dateStr = SimpleDateFormat(view?.dateFormat, Locale.GERMANY).format(it.dateVisited!!)
                 }
                 else{
-                    dateStr = "Not yet visited."
+                    dateStr = "Not yet visited"
                 }
                 putExtra(Intent.EXTRA_TEXT, "Hey there,\ntake a look at one of my hillfort:" +
                         "\nName: ${it.name}" +
-                        "\nDescription: ${it.desc}" +
-                        "\nNotes: ${it.notes}" +
-                        "\nVisited: $dateStr" +
+                        "\nDescription: ${if(it.desc != "") it.desc else "No description"}" +
+                        "\nNotes: ${if(it.notes != "") it.notes else "No notes"}" +
                         "\nVisited: $dateStr" +
                         "\nRating: ${"%.1f".format(it.rating)}")
                 var uriList = ArrayList<Uri>()

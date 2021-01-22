@@ -44,6 +44,9 @@ class HillfortMapView : BaseView(), GoogleMap.OnMarkerClickListener {
         }
         if(image != null){
             Glide.with(cvHillfortImageWrapper.context).load(image).into(ivHillfortMap)
+        }else{
+            // show no image if a hillfort does not have an image (otherwise image of a previous hillfort might be displayed!)
+            ivHillfortMap.setImageResource(0)
         }
     }
 
