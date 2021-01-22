@@ -81,7 +81,7 @@ class LoginPresenter(view: LoginView): BasePresenter(view) {
                 }
             } else {
                 view?.hideProgress()
-                view?.toast("${view?.getString(R.string.toast_fb_signup_failed)}: ${task.exception?.message}")
+                view?.toast("${view?.getString(R.string.toast_fb_signin_failed)}: ${task.exception?.message}")
             }
         }
     }
