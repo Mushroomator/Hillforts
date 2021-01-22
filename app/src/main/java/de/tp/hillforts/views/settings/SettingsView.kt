@@ -39,13 +39,15 @@ class SettingsView : BaseView(), SeekBar.OnSeekBarChangeListener {
 
     /**
      * Show a user's information on screen.
+     * Updated for Firebase as there is no password available.
+     * Instead display UID and email
      * @param email email address
-     * @param password password (will be shown in plain text!!! as per requirements)
+     * @param uid user ID
      * @author Thomas Pilz
      */
-    fun showUserInfo(email: String, password: String){
+    fun showUserInfo(email: String, uid: String){
         tvUserEmailVal.text = email
-        tvUserPasswordVal.text = password
+        tvUserUidVal.text = uid
     }
 
     /**

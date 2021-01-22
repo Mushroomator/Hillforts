@@ -1,8 +1,10 @@
 package de.tp.hillforts.views.login
 
+import android.view.View
 import com.google.firebase.auth.FirebaseAuth
 import de.tp.hillforts.R
 import de.tp.hillforts.helpers.AuthProvider
+import de.tp.hillforts.models.hillfort.HillfortFireStore
 import de.tp.hillforts.views.BasePresenter
 import de.tp.hillforts.views.BaseView
 import de.tp.hillforts.views.VIEW
@@ -55,16 +57,32 @@ class LoginPresenter(view: LoginView): BasePresenter(view) {
     */
 
     var auth = FirebaseAuth.getInstance()
+    var fireStore: HillfortFireStore? = null
+
+    init {
+        if(app.hillforts is HillfortFireStore){
+            fireStore = app.hillforts as HillfortFireStore
+        }
+    }
 
     fun doLogin(email: String, password: String) {
         view?.showProgress()
         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(view!!) { task ->
             if (task.isSuccessful) {
-                view?.navigateTo(VIEW.LIST)
+                if (fireStore != null){
+                    fireStore!!.fetchHillforts {
+                        view?.hideProgress()
+                        view?.navigateTo(VIEW.LIST)
+                    }
+                }
+                else{
+                    view?.hideProgress()
+                    view?.navigateTo(VIEW.LIST)
+                }
             } else {
+                view?.hideProgress()
                 view?.toast("${view?.getString(R.string.toast_fb_signup_failed)}: ${task.exception?.message}")
             }
-            view?.hideProgress()
         }
     }
 
@@ -72,11 +90,20 @@ class LoginPresenter(view: LoginView): BasePresenter(view) {
         view?.showProgress()
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(view!!) { task ->
             if (task.isSuccessful) {
-                view?.navigateTo(VIEW.LIST)
+                if (fireStore != null){
+                    fireStore!!.fetchHillforts {
+                        view?.hideProgress()
+                        view?.navigateTo(VIEW.LIST)
+                    }
+                }
+                else{
+                    view?.hideProgress()
+                    view?.navigateTo(VIEW.LIST)
+                }
             } else {
+                view?.hideProgress()
                 view?.toast("${view?.getString(R.string.toast_fb_signup_failed)}: ${task.exception?.message}")
             }
-            view?.hideProgress()
         }
     }
 }

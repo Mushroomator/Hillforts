@@ -1,5 +1,6 @@
 package de.tp.hillforts.views.settings
 
+import com.google.firebase.auth.FirebaseAuth
 import de.tp.hillforts.helpers.AuthProvider
 import de.tp.hillforts.views.BasePresenter
 
@@ -11,9 +12,16 @@ class SettingsPresenter(view: SettingsView): BasePresenter(view) {
      * At the moment just sample data.
      */
     fun doLoadUser(){
+        /*
         val user = AuthProvider.currentUser
         if(view is SettingsView && user != null){
             (view as SettingsView).showUserInfo(user.email, user.password)
+        }
+        */
+        // Password information is no longer available in Firebase. -> display email and uuid instead
+        val user = FirebaseAuth.getInstance().currentUser
+        if(view is SettingsView && user != null){
+            (view as SettingsView).showUserInfo(user.email!!, user.uid)
         }
     }
 

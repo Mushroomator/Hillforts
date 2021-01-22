@@ -2,6 +2,7 @@ package de.tp.hillforts.views.hillfordList
 
 import android.content.Intent
 import android.view.View
+import com.google.firebase.auth.FirebaseAuth
 import de.tp.hillforts.R
 import de.tp.hillforts.helpers.AuthProvider
 import de.tp.hillforts.models.hillfort.HillfortModel
@@ -53,7 +54,9 @@ class HillfortListPresenter(view: BaseView): BasePresenter(view) {
      * @author Thomas Pilz
      */
     fun doLogout(){
-        AuthProvider.logout()
+        //AuthProvider.logout() not required for Firebase
+        FirebaseAuth.getInstance().signOut()
+        app.hillforts.clear()
         view?.info(view?.getString(R.string.log_signed_out))
         view?.navigateTo(VIEW.LOGIN)
     }

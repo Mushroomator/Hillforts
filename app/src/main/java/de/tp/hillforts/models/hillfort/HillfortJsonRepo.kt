@@ -115,6 +115,13 @@ class HillfortJsonRepo: IHillfortRepo {
     }
 
     /**
+     * Clear hillforts.
+     */
+    override fun clear() {
+        hillforts.clear()
+    }
+
+    /**
      * Serialize hillforts.
      */
     private fun serialize() {

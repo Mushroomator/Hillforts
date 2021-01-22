@@ -28,13 +28,19 @@ class HillfortMapPresenter(view: HillfortMapView) : BasePresenter(view) {
         hillforts.forEach {
             val loc = LatLng(it.loc.lat, it.loc.lng)
             val options = MarkerOptions().title(it.name).position(loc)
-            map.addMarker(options).tag = it.id  // add the marker on the map and a tag to the marker to be able to identify which marker/ Placemark was clicked on later on
+            map.addMarker(options).tag =
+                it.fbId  // add the marker on the map and a tag to the marker to be able to identify which marker/ Placemark was clicked on later on
         }
         try {
             val first = hillforts.first()
             currentHillfort = first
             // zoom in to the hillfort
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(first.loc.lat, first.loc.lng),first.loc.zoom))
+            map.moveCamera(
+                CameraUpdateFactory.newLatLngZoom(
+                    LatLng(first.loc.lat, first.loc.lng),
+                    first.loc.zoom
+                )
+            )
             view?.showHillfort(first)
         } catch (e: NoSuchElementException) {
 
@@ -42,16 +48,21 @@ class HillfortMapPresenter(view: HillfortMapView) : BasePresenter(view) {
     }
 
     fun doMarkerSelected(marker: Marker) {
-        val tag = marker.tag as Long
-        val current = app.hillforts.findById(tag)
+        val tag = marker.tag as String
+        var current: HillfortModel? = null
+        try {
+            current = app.hillforts.findAll().find { it.fbId.equals(tag) }
+        } catch (e: NoSuchElementException) {
+
+        }
         currentHillfort = current
         if (current != null) {
-            view?.showHillfort(current)
+            view?.showHillfort(current!!)
         }
     }
 
-    fun doCardClicked(){
-        if(currentHillfort != null){
+    fun doCardClicked() {
+        if (currentHillfort != null) {
             val intent = Intent(view, HillfortDetailsView::class.java)
             intent.putExtra(HILLFORT_EDIT, currentHillfort)
             view?.startActivity(intent)

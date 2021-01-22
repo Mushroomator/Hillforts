@@ -88,5 +88,12 @@ class HillfortMemRepo: IHillfortRepo, AnkoLogger {
         return hillforts
     }
 
+    /**
+     * Clear hillforts.
+     */
+    override fun clear() {
+        hillforts.clear()
+    }
+
 
 }

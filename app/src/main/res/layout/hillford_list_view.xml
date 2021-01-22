@@ -27,11 +27,13 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:tabGravity="fill"
+            app:tabMaxWidth="0dp">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tabAll"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/ic_outline_list_24"
                 android:tag="all"
@@ -39,7 +41,7 @@
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/tabFavs"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/ic_baseline_favorite_border_24"
                 android:tag="favs"

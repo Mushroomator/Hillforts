@@ -60,6 +60,7 @@
     <string name="card_title_app_info">About Hillforts</string>
     <string name="user_password_label">Password:</string>
     <string name="user_email_label">E-mail:</string>
+    <string name="user_uid_label">User-ID:</string>
     <string name="app_credits">by Thomas Pilz</string>
     <string name="app_year">2021</string>
     <string name="total_sites">Total sites</string>
