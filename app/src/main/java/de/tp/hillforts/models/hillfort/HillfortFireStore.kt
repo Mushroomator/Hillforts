@@ -157,9 +157,11 @@ class HillfortFireStore(val context: Context) : IHillfortRepo, AnkoLogger {
                 hillfortsReady()
             }
         }
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         userId = FirebaseAuth.getInstance().currentUser!!.uid
         db = FirebaseDatabase.getInstance().reference
         st = FirebaseStorage.getInstance().reference
+        db.keepSynced(true)
         hillforts.clear()
         db.child("users").child(userId).child("hillforts")
             .addListenerForSingleValueEvent(valueEventListener)
