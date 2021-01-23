@@ -31,8 +31,10 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
 
     private val HILLFORT_EDIT = "hillfort_edit"
     private val LOCATION_EDIT = "location"
+    private val TAKE_PHOTO = "taken_photo"
     private val IMAGE_REQ_ID = 1
     private val LOCATION_REQ_ID = 2
+    private val TAKE_PHOTO_REQ_ID = 3
 
     var previousImage: Int? = null
     var map: GoogleMap? = null
@@ -220,6 +222,13 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
                     view?.showHillfort(hillfort)
                 }
             }
+            TAKE_PHOTO_REQ_ID -> {
+                // get path of taken image
+                if (data.hasExtra(TAKE_PHOTO)) {
+                    val photo = data.getStringExtra(TAKE_PHOTO)!!
+                    hillfort.images.add(photo)
+                }
+            }
         }
     }
 
@@ -256,6 +265,10 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
         }
         val shareIntent = Intent.createChooser(sendIntent, "Share Hillfort via...")
         view?.startActivity(shareIntent)
+    }
+
+    fun doTakePhoto(){
+        view?.navigateTo(VIEW.CAMERA, TAKE_PHOTO_REQ_ID)
     }
 
     /**

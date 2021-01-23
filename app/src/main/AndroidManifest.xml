@@ -6,7 +6,13 @@
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the "MyLocation" functionality.
     -->
+
+    <!-- location permission -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!-- camera permissions -->
+    <uses-feature android:name="android.hardware.camera.any" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".main.MainApp"
@@ -16,7 +22,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Hillforts">
-        <activity android:name=".views.camera.CameraView"></activity>
+
+        <!-- Camera View -->
+        <activity android:name=".views.camera.HillfortCameraView">
+        </activity>
+
         <!-- Suggestion Provider for search -->
         <provider
             android:name=".views.search.HillfortSuggestionProvider"
@@ -33,14 +43,18 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".views.hillfordList.HillfortListView" />
-        </activity> <!-- Hillfort Map View -->
+        </activity>
+
+        <!-- Hillfort Map View -->
         <activity
             android:name=".views.hillfortMap.HillfortMapView"
             android:label="@string/title_hillfort_map_view">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".views.hillfordList.HillfortListView" />
-        </activity> <!-- Activity for Splash Screen (only necessary cause load is to quick to just make a Theme change) -->
+        </activity>
+
+        <!-- Activity for Splash Screen (only necessary cause load is to quick to just make a Theme change) -->
         <activity
             android:name=".views.splash.SplashScreenActitivity"
             android:theme="@style/Theme.SplashScreen">
@@ -49,32 +63,42 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- Settings view -->
+        </activity>
+
+        <!-- Settings view -->
         <activity
             android:name=".views.settings.SettingsView"
             android:label="@string/title_settings_view">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".views.hillfordList.HillfortListView" />
-        </activity> <!-- Edit Location view -->
+        </activity>
+
+        <!-- Edit Location view -->
         <activity
             android:name=".views.editLocation.EditLocationView"
             android:label="@string/title_edit_location_view">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".views.hillfortDetails.HillfortDetailsView" />
-        </activity> <!-- Login View -->
+        </activity>
+
+        <!-- Login View -->
         <activity
             android:name=".views.login.LoginView"
             android:label="@string/title_login_view"
-            android:theme="@style/Theme.SplashScreen" /> <!-- Hillford List View -->
+            android:theme="@style/Theme.SplashScreen" />
+
+        <!-- Hillford List View -->
         <activity
             android:name=".views.hillfordList.HillfortListView"
             android:label="@string/title_hillfort_list_view">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".views.login.LoginView" />
-        </activity> <!-- Hillford Details View -->
+        </activity>
+
+        <!-- Hillford Details View -->
         <activity
             android:name=".views.hillfortDetails.HillfortDetailsView"
             android:label="@string/title_hillfort_details_view">

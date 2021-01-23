@@ -6,5 +6,6 @@ enum class VIEW {
     DETAILS,
     EDIT_LOCATION,
     SETTINGS,
-    MAP
+    MAP,
+    CAMERA,
 }

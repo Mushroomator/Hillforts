@@ -5,7 +5,9 @@ import android.os.Parcelable
 import androidx.appcompat.app.AppCompatActivity
 import org.jetbrains.anko.AnkoLogger
 import androidx.appcompat.widget.Toolbar
+import androidx.camera.view.CameraView
 import de.tp.hillforts.models.hillfort.HillfortModel
+import de.tp.hillforts.views.camera.HillfortCameraView
 import de.tp.hillforts.views.editLocation.EditLocationView
 import de.tp.hillforts.views.hillfordList.HillfortListView
 import de.tp.hillforts.views.hillfortDetails.HillfortDetailsView
@@ -30,6 +32,7 @@ abstract class BaseView(): AppCompatActivity(), AnkoLogger {
             VIEW.EDIT_LOCATION -> intent = Intent(this, EditLocationView::class.java)
             VIEW.SETTINGS -> intent = Intent(this, SettingsView::class.java)
             VIEW.MAP -> intent = Intent(this, HillfortMapView::class.java)
+            VIEW.CAMERA -> intent = Intent(this, HillfortCameraView::class.java)
         }
         if (key != "") {
             intent.putExtra(key, value)

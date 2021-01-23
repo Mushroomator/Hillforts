@@ -16,6 +16,7 @@ import com.google.android.gms.maps.GoogleMap
 import de.tp.hillforts.R
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
+import de.tp.hillforts.views.VIEW
 import kotlinx.android.synthetic.main.hillford_list_view.toolbar
 import kotlinx.android.synthetic.main.hillfort_details_view.*
 import org.jetbrains.anko.AnkoLogger
@@ -155,6 +156,9 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener{
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.itemTakePhoto -> {
+                presenter.doTakePhoto()
+            }
             R.id.itemAddImage -> {
                 cacheHillfort()
                 presenter.doSelectImage()
@@ -217,11 +221,16 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener{
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         if (menu != null) {
             if (presenter.hillfort.images.size < resources.getInteger(R.integer.max_images)) {
+                invalidateOptionsMenu() // if back is pressed --> no picture added --> need to recalculate number of images
                 val menuAddImage = menu.findItem(R.id.itemAddImage)
                 menuAddImage.also {
-                    invalidateOptionsMenu() // if back is pressed --> no picture added --> need to recalculate number of images
                     it?.isVisible = true  // show add image button
                     it?.setShowAsAction(ActionMenuItem.SHOW_AS_ACTION_ALWAYS)   // show image as button not as dropdown
+                }
+                val menuTakePhoto = menu.findItem(R.id.itemTakePhoto)
+                menuTakePhoto.also {
+                    it?.isVisible = true  // show add image button
+                    it?.setShowAsAction(ActionMenuItem.SHOW_AS_ACTION_IF_ROOM)   // show image as button not as dropdown
                 }
             }
         }

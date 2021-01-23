@@ -29,4 +29,10 @@
         android:icon="@drawable/ic_outline_check_circle_24"
         android:title="@string/b_item_add"
         app:showAsAction="always|withText" />
+    <item
+        android:id="@+id/itemTakePhoto"
+        android:icon="@drawable/ic_outline_add_a_photo_24"
+        android:title="@string/take_photo"
+        android:visible="false"
+        app:showAsAction="ifRoom" />
 </menu>

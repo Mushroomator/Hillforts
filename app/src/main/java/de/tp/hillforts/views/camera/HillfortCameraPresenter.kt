@@ -1,11 +1,11 @@
 package de.tp.hillforts.views.camera
 
 import android.Manifest
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.provider.Settings.Global.getString
 import android.util.Log
-import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -24,12 +24,13 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class CameraPresenter(view: CameraView): BasePresenter(view) {
+class HillfortCameraPresenter(view: HillfortCameraView): BasePresenter(view) {
 
     private var imageCapture: ImageCapture? = null
 
     private lateinit var outputDirectory: File
     private lateinit var cameraExecutor: ExecutorService
+    private val TAKE_PHOTO = "taken_photo"
 
     companion object {
         private const val TAG = "CameraXBasic"
@@ -59,14 +60,21 @@ class CameraPresenter(view: CameraView): BasePresenter(view) {
         imageCapture.takePicture(
             outputOptions, ContextCompat.getMainExecutor(view), object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
-                    view?.info("${view?.getString(R.string.toast_photo_saved)}: ${exc.message}", exc)
+                    view?.info("${view?.getString(R.string.toast_photo_failed)}: ${exc.message}", exc)
                 }
 
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    //val savedUri = Uri.fromFile(photoFile)
-                    val msg = view?.getString(R.string.toast_photo_failed)
+                    // image has been save successfully
+                    val msg = view?.getString(R.string.toast_photo_saved)
                     view?.toast(msg.toString())
                     view?.info(msg)
+
+                    // send image path back to caller activity
+                    val savedUri = Uri.fromFile(photoFile)
+                    val resultIntent = Intent()
+                    resultIntent.putExtra(TAKE_PHOTO, savedUri.toString())
+                    view?.setResult(Activity.RESULT_OK, resultIntent)
+                    view?.finish()
                 }
             })
     }
@@ -106,8 +114,8 @@ class CameraPresenter(view: CameraView): BasePresenter(view) {
 
     fun doRequestPermission(){
         ActivityCompat.requestPermissions(view!!,
-            CameraPresenter.REQUIRED_PERMISSIONS,
-            CameraPresenter.REQUEST_CODE_PERMISSIONS
+            HillfortCameraPresenter.REQUIRED_PERMISSIONS,
+            HillfortCameraPresenter.REQUEST_CODE_PERMISSIONS
         )
     }
 
