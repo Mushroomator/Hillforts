@@ -7,7 +7,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import de.tp.hillforts.R
-import kotlinx.android.synthetic.main.card_hillford_image.view.*
+import kotlinx.android.synthetic.main.card_hillfort_image.view.*
 
 interface HillfortImageListener{
     fun onImageClick(image: String, index: Int)
@@ -46,7 +46,7 @@ class HillfortImagesAdapter constructor(
         return MainHolder(
             LayoutInflater
                 .from(parent.context)
-                .inflate(R.layout.card_hillford_image, parent, false)
+                .inflate(R.layout.card_hillfort_image, parent, false)
         )
     }
 

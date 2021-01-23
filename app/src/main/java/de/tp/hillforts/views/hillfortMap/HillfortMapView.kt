@@ -8,7 +8,7 @@ import com.google.android.gms.maps.model.Marker
 import de.tp.hillforts.R
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
-import kotlinx.android.synthetic.main.hillford_list_view.toolbar
+import kotlinx.android.synthetic.main.hillfort_list_view.toolbar
 import kotlinx.android.synthetic.main.hillfort_map_view.*
 
 class HillfortMapView : BaseView(), GoogleMap.OnMarkerClickListener {

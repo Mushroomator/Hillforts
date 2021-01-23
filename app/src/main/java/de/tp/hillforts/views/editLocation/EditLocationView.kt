@@ -11,7 +11,7 @@ import de.tp.hillforts.R
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.edit_location_view.*
-import kotlinx.android.synthetic.main.hillford_list_view.toolbar
+import kotlinx.android.synthetic.main.hillfort_list_view.toolbar
 
 class EditLocationView: BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener{
 

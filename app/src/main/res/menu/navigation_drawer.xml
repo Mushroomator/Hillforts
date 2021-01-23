@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/itemNavAllHillforts"
+            android:icon="@drawable/ic_outline_list_24"
+            android:title="@string/title_hillfort_list_view" />
+        <item
+            android:id="@+id/itemNavMap"
+            android:icon="@drawable/ic_outline_map_24"
+            android:title="@string/menu_map" />
+        <item
+            android:id="@+id/itemNavSettings"
+            android:icon="@drawable/ic_outline_settings_24"
+            android:title="@string/menu_settings" />
+    </group>
+</menu>
