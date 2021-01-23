@@ -18,7 +18,7 @@
         android:icon="@drawable/ic_outline_delete_24"
         android:title="@string/b_item_delete"
         android:visible="false"
-        app:showAsAction="always|withText" />
+        app:showAsAction="never|withText" />
     <item
         android:id="@+id/itemCancel"
         android:icon="@drawable/ic_outline_cancel_24"

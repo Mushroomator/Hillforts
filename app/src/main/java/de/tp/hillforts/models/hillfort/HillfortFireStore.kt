@@ -2,6 +2,7 @@ package de.tp.hillforts.models.hillfort
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.net.Uri
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
@@ -39,7 +40,10 @@ class HillfortFireStore(val context: Context) : IHillfortRepo, AnkoLogger {
         key?.let {
             hillfort.fbId = key
             hillforts.add(hillfort)
+
             db.child("users").child(userId).child("hillforts").child(key).setValue(hillfort)
+            updateImages(hillfort)
+
         }
         return hillfort
     }
@@ -59,20 +63,6 @@ class HillfortFireStore(val context: Context) : IHillfortRepo, AnkoLogger {
                     found.desc = hillfort.desc
                 }
 
-                // if anything changes in list update whole list
-                if(found.images.size != hillfort.images.size){
-                    found.images = hillfort.images
-                    updateImages(found)
-                }
-                else{
-                    for(i in found.images.indices){
-                        if(!found.images[i].equals(hillfort.images[i])){
-                            found.images = hillfort.images
-                            updateImages(found)
-                            break
-                        }
-                    }
-                }
 
                 if (!found.loc.equals(hillfort.loc)) {
                     found.loc = hillfort.loc
@@ -91,16 +81,33 @@ class HillfortFireStore(val context: Context) : IHillfortRepo, AnkoLogger {
                 if (found.isFavourite != hillfort.isFavourite) {
                     found.isFavourite = hillfort.isFavourite
                 }
+
+                // if anything changes in list update whole list
+                if (found.images.size != hillfort.images.size) {
+                    found.images = hillfort.images
+                    updateImages(found)
+                } else {
+                    for (i in found.images.indices) {
+                        if (!found.images[i].equals(hillfort.images[i])) {
+                            found.images = hillfort.images
+                            // everyting has been updated and images have changed. now upload images and then update the hillfort in Firebase storage
+                            updateImages(found)
+                            break
+                        } else {
+                            // everything has been updated and images have not changed! --> update placemark in Firebase
+                            db.child("users").child(userId).child("hillforts").child(hillfort.fbId)
+                                .setValue(found)
+                        }
+                    }
+                }
             }
         }
-
-        db.child("users").child(userId).child("hillforts").child(hillfort.fbId).setValue(found)
         return found
     }
 
     fun updateImages(hillfort: HillfortModel) {
         if (hillfort.images.size > 0) {
-            for (i in hillfort.images.indices){
+            for (i in hillfort.images.indices) {
                 var curImage = hillfort.images[i]   // use "old school" iteration to get mutability
 
                 val fileName = File(curImage)
@@ -122,10 +129,11 @@ class HillfortFireStore(val context: Context) : IHillfortRepo, AnkoLogger {
                             taskSnapshot.metadata!!.reference!!.downloadUrl.addOnSuccessListener {
                                 curImage = it.toString()
                                 hillfort.images[i] = curImage
-                                if(i == hillfort.images.size){
+                                //if (i == hillfort.images.size) {
                                     // could be done smarter with a Future that resolved when all uploads are done but will do for now
-                                    db.child("users").child(userId).child("hillforts").child(hillfort.fbId).setValue(hillfort)
-                                }
+                                    db.child("users").child(userId).child("hillforts")
+                                        .child(hillfort.fbId).setValue(hillfort)
+                                //}
                             }
                         }
                 }

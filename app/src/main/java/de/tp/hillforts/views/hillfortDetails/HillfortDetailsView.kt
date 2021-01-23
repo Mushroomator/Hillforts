@@ -1,5 +1,7 @@
 package de.tp.hillforts.views.hillfortDetails
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.res.ColorStateList
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -19,10 +21,7 @@ import de.tp.hillforts.views.BaseView
 import de.tp.hillforts.views.VIEW
 import kotlinx.android.synthetic.main.hillford_list_view.toolbar
 import kotlinx.android.synthetic.main.hillfort_details_view.*
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.error
-import org.jetbrains.anko.info
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -161,7 +160,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener{
             }
             R.id.itemAddImage -> {
                 cacheHillfort()
-                presenter.doSelectImage()
+                presenter.doSelectImage(IMAGEOPTION.GALLERY_IMAGE)
                 invalidateOptionsMenu() //invalidate options menu so onPrepareOptionsMenu will be called after
             }
             R.id.itemSave -> {
@@ -262,8 +261,24 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener{
      * Listener on image clicks. When image is clicked allow user to select a different image.
      */
     override fun onImageClick(image: String, index: Int) {
-        info("Image #$index clicked.\nImage path: $image")
-        presenter.doSelectImage(image, index)
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(getString(R.string.modal_change_image))
+        builder.setMessage(R.string.modal_change_image_text)
+        builder.setPositiveButton(getString(R.string.modal_change_image_gallery),
+            { dialog, id ->
+                    // User cancelled the dialog
+                    presenter.doSelectImage(IMAGEOPTION.GALLERY_IMAGE, image, index)
+            })
+        builder.setNegativeButton(R.string.modal_change_image_camera,
+            { dialog, id ->
+                presenter.doSelectImage(IMAGEOPTION.CAMERA_PHOTO, image, index)
+            })
+        builder.setNeutralButton(getString(R.string.modal_cancel),
+            { dialog, id ->
+                /* no-op */
+            })
+        builder.create()
+        builder.show()
     }
 
     /**

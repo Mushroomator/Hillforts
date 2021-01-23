@@ -32,6 +32,7 @@ class LoginView : BaseView() {
       val pw = etPassword.text.toString()
 
       if(email == "" || email.isEmpty() || pw == "" || pw.isEmpty()){
+        hideProgress()
         toast(getString(R.string.toast_login_invalid_input))
       }
       else{
@@ -45,6 +46,7 @@ class LoginView : BaseView() {
       val pw = etPassword.text.toString()
 
       if(email == "" || email.isEmpty() || pw == "" || pw.isEmpty()){
+        hideProgress()
         toast("Please enter email and password")
       }
       else{
@@ -63,6 +65,7 @@ class LoginView : BaseView() {
   override fun hideProgress(){
     pbLogin.visibility = View.GONE
     tvLogin.visibility = View.GONE
+    ivAppLogo.visibility = View.VISIBLE
   }
 
 }

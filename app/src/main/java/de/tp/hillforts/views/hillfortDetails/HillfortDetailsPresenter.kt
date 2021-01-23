@@ -27,6 +27,11 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
+enum class IMAGEOPTION {
+    CAMERA_PHOTO,
+    GALLERY_IMAGE,
+}
+
 class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) {
 
     private val HILLFORT_EDIT = "hillfort_edit"
@@ -177,14 +182,17 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
      * @param image previous image
      * @param index index of previous image
      */
-    fun doSelectImage(image: String? = null, index: Int? = null) {
+    fun doSelectImage(option: IMAGEOPTION, image: String? = null, index: Int? = null) {
         view?.also {
             if (image != null && index != null) {
                 previousImage = index
             } else {
                 previousImage = null
             }
-            showImagePicker(view!!, IMAGE_REQ_ID)
+            when(option){
+                IMAGEOPTION.GALLERY_IMAGE -> showImagePicker(view!!, IMAGE_REQ_ID)
+                IMAGEOPTION.CAMERA_PHOTO -> doTakePhoto()
+            }
         }
     }
 
@@ -226,7 +234,14 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
                 // get path of taken image
                 if (data.hasExtra(TAKE_PHOTO)) {
                     val photo = data.getStringExtra(TAKE_PHOTO)!!
-                    hillfort.images.add(photo)
+                    if (previousImage != null) {
+                        // a new photo has been made --> cant be "equal to previous"
+                        hillfort.images[previousImage!!] = photo
+                    } else {
+                        // add image
+                        hillfort.images.add(photo)
+                    }
+                    view?.showHillfort(hillfort)
                 }
             }
         }

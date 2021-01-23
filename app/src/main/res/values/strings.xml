@@ -46,6 +46,11 @@
     <string name="description">Description</string>
     <string name="toast_details_invalid_input">Please enter a name</string>
     <string name="share">Share</string>
+    <string name="modal_change_image">Change image</string>
+    <string name="modal_change_image_text">Please choose a source</string>
+    <string name="modal_change_image_camera">Camera</string>
+    <string name="modal_change_image_gallery">Gallery</string>
+    <string name="modal_cancel">Cancel</string>
 
     <!-- Edit Location -->
     <string name="title_edit_location_view">Set location</string>
