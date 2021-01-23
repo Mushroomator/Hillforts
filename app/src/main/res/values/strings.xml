@@ -79,4 +79,11 @@
         <item quantity="one">%d result in %.6f seconds</item>
         <item quantity="other">%d results in %.6f seconds</item>
     </plurals>
+
+    <!-- Hillfort Camera View -->
+    <string name="toast_photo_saved">Photo saved</string>
+    <string name="toast_photo_failed">Photo capture failed</string>
+    <string name="toast_user_allow_photo">Allow the app to access the camera to take a photo!</string>
+    <string name="photo_permission_denied">User declined permission to access camera.</string>
+    <string name="take_photo">Take photo</string>
 </resources>
