@@ -35,4 +35,9 @@
         android:title="@string/take_photo"
         android:visible="false"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/itemNavigate"
+        android:icon="@drawable/ic_outline_navigation_24"
+        android:title="@string/menu_navigate"
+        app:showAsAction="ifRoom" />
 </menu>

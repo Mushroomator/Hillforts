@@ -51,6 +51,8 @@
     <string name="modal_change_image_camera">Camera</string>
     <string name="modal_change_image_gallery">Gallery</string>
     <string name="modal_cancel">Cancel</string>
+    <string name="menu_navigate">Guide me!</string>
+    <string name="toast_same_location">You are already there!</string>
 
     <!-- Edit Location -->
     <string name="title_edit_location_view">Set location</string>

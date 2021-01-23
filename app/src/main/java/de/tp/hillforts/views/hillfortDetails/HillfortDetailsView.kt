@@ -155,6 +155,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener{
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.itemNavigate -> presenter.doNavigateToHillfort()
             R.id.itemTakePhoto -> {
                 presenter.doTakePhoto()
             }

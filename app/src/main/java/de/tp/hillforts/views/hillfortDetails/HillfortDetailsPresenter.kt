@@ -13,6 +13,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import de.tp.hillforts.R
 import de.tp.hillforts.helpers.checkLocationPermissions
 import de.tp.hillforts.helpers.createDefaultLocationRequest
 import de.tp.hillforts.helpers.isPermissionGranted
@@ -22,10 +23,12 @@ import de.tp.hillforts.models.location.LocationModel
 import de.tp.hillforts.views.BasePresenter
 import de.tp.hillforts.views.VIEW
 import org.jetbrains.anko.info
+import org.jetbrains.anko.toast
 import java.net.URI
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
+import kotlin.math.absoluteValue
 
 enum class IMAGEOPTION {
     CAMERA_PHOTO,
@@ -51,6 +54,9 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
     var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
     val locationRequest = createDefaultLocationRequest()
     var locationManuallyChanged = false
+
+    // Current location
+    var userCurrentLocation = LocationModel(defaultLocation.lat, defaultLocation.lng)
 
     init {
         if (view.intent.hasExtra(HILLFORT_EDIT) && view.intent.extras?.getParcelable<HillfortModel>(HILLFORT_EDIT) != null) {
@@ -99,6 +105,8 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
     fun doSetCurrentLocation() {
         locationService.lastLocation.addOnSuccessListener {
             locationUpdate(it.latitude, it.longitude)
+            userCurrentLocation.lat = it.latitude
+            userCurrentLocation.lng = it.longitude
         }
     }
 
@@ -115,6 +123,9 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
                     if(!locationManuallyChanged){
                         locationUpdate(l.latitude, l.longitude)
                     }
+                    userCurrentLocation.lat = l.latitude
+                    userCurrentLocation.lng = l.longitude
+
                 }
             }
         }
@@ -206,6 +217,21 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
 
     fun doChangeRating(rating: Float){
         hillfort.rating = rating
+    }
+
+    fun doNavigateToHillfort(){
+        val precision: Double = 0.001
+        val latOff = (userCurrentLocation.lat - hillfort.loc.lat).absoluteValue
+        val lngOff = (userCurrentLocation.lng - hillfort.loc.lng).absoluteValue
+        if( latOff < precision && lngOff < precision){
+            // location difference is so small --> considered same location (Google wont find a route since there really is no route!)
+            view?.toast(view?.getString(R.string.toast_same_location).toString())
+            return
+        }
+        val gmmIntentUri = Uri.parse("google.navigation:q=${hillfort.loc.lat},${hillfort.loc.lng}")
+        val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+        mapIntent.setPackage("com.google.android.apps.maps")
+        view?.startActivity(mapIntent)
     }
 
     override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
