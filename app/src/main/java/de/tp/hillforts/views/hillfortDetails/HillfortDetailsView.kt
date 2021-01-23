@@ -2,7 +2,9 @@ package de.tp.hillforts.views.hillfortDetails
 
 import android.app.AlertDialog
 import android.content.DialogInterface
+import android.content.pm.ActivityInfo
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.Menu
@@ -225,6 +227,21 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener{
      * Invalidate menu as users might want to change images and then abort that action again.
      */
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+
+        // do not show images recycler view and fill whole screen in landscape mode
+        if(presenter.hillfort.images.size == 0){
+            rvHillfortImages.visibility = View.GONE
+            if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
+                guideLineMiddle.setGuidelinePercent(1f)
+            }
+        }
+        else{
+            rvHillfortImages.visibility = View.VISIBLE
+            if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                guideLineMiddle.setGuidelinePercent(0.5f)
+            }
+        }
+
         if (menu != null) {
             if (presenter.hillfort.images.size < resources.getInteger(R.integer.max_images)) {
                 invalidateOptionsMenu() // if back is pressed --> no picture added --> need to recalculate number of images
