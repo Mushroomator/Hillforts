@@ -45,26 +45,6 @@ class HillfortListPresenter(view: BaseView): BasePresenter(view) {
         view?.showHillforts(hillforts)
     }
 
-    fun doShowMap(){
-        view?.navigateTo(VIEW.MAP)
-    }
-
-    /**
-     * Logout a logged in user.
-     * @author Thomas Pilz
-     */
-    fun doLogout(){
-        //AuthProvider.logout() not required for Firebase
-        FirebaseAuth.getInstance().signOut()
-        app.hillforts.clear()
-        view?.info(view?.getString(R.string.log_signed_out))
-        view?.navigateTo(VIEW.LOGIN)
-    }
-
-    fun doShowSettings(){
-        view?.navigateTo(VIEW.SETTINGS)
-    }
-
     /**
      * Call another activity to add a hillfort.
      * @author Thomas Pilz

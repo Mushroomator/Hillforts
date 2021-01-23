@@ -46,9 +46,10 @@ class HillfortListView : BaseView(), HillfortListener, TabLayout.OnTabSelectedLi
         navView.setNavigationItemSelectedListener { menuItem ->
             // Handle menu item selected
             when(menuItem.itemId){
-                R.id.itemNavAllHillforts -> { drawerLayout.close() }
-                R.id.itemNavMap -> { presenter.doShowMap() }
-                R.id.itemNavSettings -> { presenter.doShowSettings() }
+                R.id.itemNavAllHillforts -> drawerLayout.close()
+                R.id.itemNavMap -> presenter.doShowMap()
+                R.id.itemNavSettings -> presenter.doShowSettings()
+                R.id.ItemNavLogout -> presenter.doLogout()
             }
             menuItem.isChecked = true
             drawerLayout.close()

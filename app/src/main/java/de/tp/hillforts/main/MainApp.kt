@@ -1,6 +1,7 @@
 package de.tp.hillforts.main
 
 import android.app.Application
+import com.google.firebase.database.FirebaseDatabase
 import de.tp.hillforts.helpers.AuthProvider
 import de.tp.hillforts.models.hillfort.HillfortFireStore
 import de.tp.hillforts.models.hillfort.HillfortJsonRepo
@@ -19,6 +20,7 @@ class MainApp: Application(), AnkoLogger {
 
     override fun onCreate() {
         super.onCreate()
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         //AuthProvider.init(applicationContext) not required for firebase
         hillforts = HillfortFireStore(applicationContext)
         info("Placemark app started")

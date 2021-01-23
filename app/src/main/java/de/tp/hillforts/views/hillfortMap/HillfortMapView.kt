@@ -10,6 +10,9 @@ import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.hillfort_list_view.toolbar
 import kotlinx.android.synthetic.main.hillfort_map_view.*
+import kotlinx.android.synthetic.main.hillfort_map_view.drawerLayout
+import kotlinx.android.synthetic.main.hillfort_map_view.navView
+import kotlinx.android.synthetic.main.settings_view.*
 
 class HillfortMapView : BaseView(), GoogleMap.OnMarkerClickListener {
 
@@ -24,6 +27,27 @@ class HillfortMapView : BaseView(), GoogleMap.OnMarkerClickListener {
 
         // init toolbar
         init(toolbar, true)
+
+        // init navigation drawer
+        toolbar.setNavigationOnClickListener {
+            drawerLayout.open()
+        }
+        val defaultItem = navView.menu.getItem(1)
+        if (defaultItem != null) {
+            defaultItem.isChecked = true
+        }
+        navView.setNavigationItemSelectedListener { menuItem ->
+            // Handle menu item selected
+            when(menuItem.itemId){
+                R.id.itemNavAllHillforts -> presenter.doShowAllHillforts()
+                R.id.itemNavMap -> drawerLayout.close()
+                R.id.itemNavSettings -> presenter.doShowSettings()
+                R.id.ItemNavLogout -> presenter.doLogout()
+            }
+            menuItem.isChecked = true
+            drawerLayout.close()
+            true
+        }
 
         // init map
         mvAllHillforts.onCreate(savedInstanceState)

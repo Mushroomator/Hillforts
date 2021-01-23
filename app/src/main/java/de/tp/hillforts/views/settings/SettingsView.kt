@@ -4,7 +4,11 @@ import android.os.Bundle
 import android.widget.SeekBar
 import de.tp.hillforts.R
 import de.tp.hillforts.views.BaseView
+import kotlinx.android.synthetic.main.hillfort_list_view.*
 import kotlinx.android.synthetic.main.settings_view.*
+import kotlinx.android.synthetic.main.settings_view.drawerLayout
+import kotlinx.android.synthetic.main.settings_view.navView
+import kotlinx.android.synthetic.main.settings_view.toolbar
 
 class SettingsView : BaseView(), SeekBar.OnSeekBarChangeListener {
 
@@ -19,10 +23,35 @@ class SettingsView : BaseView(), SeekBar.OnSeekBarChangeListener {
 
         // initialize view
         init(toolbar, true)
-        presenter.doLoadUser()
-        presenter.doLoadStatistics()
+
+        // init navigation drawer
+        toolbar.setNavigationOnClickListener {
+            drawerLayout.open()
+        }
+        val defaultItem = navView.menu.getItem(2)
+        if (defaultItem != null) {
+            defaultItem.isChecked = true
+        }
+        navView.setNavigationItemSelectedListener { menuItem ->
+            // Handle menu item selected
+            when(menuItem.itemId){
+                R.id.itemNavAllHillforts -> presenter.doShowAllHillforts()
+                R.id.itemNavMap -> presenter.doShowMap()
+                R.id.itemNavSettings -> drawerLayout.close()
+                R.id.ItemNavLogout -> presenter.doLogout()
+            }
+            menuItem.isChecked = true
+            drawerLayout.close()
+            true
+        }
+
+        // set handler
         sbNumImgVal.setOnSeekBarChangeListener(this)
         sbNumImgColVal.setOnSeekBarChangeListener(this)
+
+        // load data
+        presenter.doLoadUser()
+        presenter.doLoadStatistics()
         initSeekBars()
     }
 

@@ -156,8 +156,12 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener{
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.itemNavigate -> presenter.doNavigateToHillfort()
+            R.id.itemNavigate -> {
+                cacheHillfort()
+                presenter.doNavigateToHillfort()
+            }
             R.id.itemTakePhoto -> {
+                cacheHillfort()
                 presenter.doTakePhoto()
             }
             R.id.itemAddImage -> {
@@ -189,6 +193,7 @@ class HillfortDetailsView : BaseView(), AnkoLogger, HillfortImageListener{
                 presenter.doAddOrSave(name, desc, notes, visitedDate, rating)
             }
             R.id.itemShare -> {
+                cacheHillfort()
                 val name = etName.text.toString()
                 if (name == "" || name.isEmpty()) {
                     toast(getString(R.string.toast_details_invalid_input))

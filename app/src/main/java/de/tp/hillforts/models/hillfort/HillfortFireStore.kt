@@ -165,7 +165,6 @@ class HillfortFireStore(val context: Context) : IHillfortRepo, AnkoLogger {
                 hillfortsReady()
             }
         }
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true)
         userId = FirebaseAuth.getInstance().currentUser!!.uid
         db = FirebaseDatabase.getInstance().reference
         st = FirebaseStorage.getInstance().reference
