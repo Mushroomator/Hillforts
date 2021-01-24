@@ -27,11 +27,7 @@ class LoginFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-        // initialize toolbar
-        //hostView.toolbar.title = "test" //hostView.context.
-        //setSupportActionBar(toolbar)
-        //hostView.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        hideProgress()
 
         // sign in button
         bSignIn.setOnClickListener {

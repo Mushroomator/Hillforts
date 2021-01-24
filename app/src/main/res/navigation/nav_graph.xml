@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="de.tp.hillforts.views.login.LoginFragment"
-        android:label="LoginFragment" >
+        android:label="LoginFragment">
         <action
             android:id="@+id/loginToHillfortList"
             app:destination="@id/hillfortListFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/hillfortListFragment"
         android:name="de.tp.hillforts.views.hillfordList.HillfortListFragment"
-        android:label="HillfortListFragment" >
+        android:label="HillfortListFragment">
         <action
             android:id="@+id/hillfortListToLogin"
             app:destination="@id/loginFragment"
@@ -27,6 +27,20 @@
     <fragment
         android:id="@+id/hillfortMapFragment"
         android:name="de.tp.hillforts.views.hillfortMap.HillfortMapFragment"
-        android:label="HillfortMapFragment" />
-    <action android:id="@+id/globalMap" app:destination="@id/hillfortMapFragment" />
+        android:label="@string/title_hillfort_map_view"
+        tools:layout="@layout/hillfort_map_view" />
+    <action
+        android:id="@+id/globalMap"
+        app:destination="@id/hillfortMapFragment"
+        app:enterAnim="@android:anim/slide_in_left"
+        app:exitAnim="@android:anim/slide_out_right" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="de.tp.hillforts.views.settings.SettingsFragment"
+        android:label="@string/title_settings_view" />
+    <action
+        android:id="@+id/globalSettings"
+        app:destination="@id/settingsFragment"
+        app:enterAnim="@android:anim/slide_in_left"
+        app:exitAnim="@android:anim/slide_out_right" />
 </navigation>

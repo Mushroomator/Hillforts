@@ -1,55 +1,46 @@
 package de.tp.hillforts.views.settings
 
-
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.SeekBar
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import de.tp.hillforts.R
 import de.tp.hillforts.views.BaseView
-import kotlinx.android.synthetic.main.hillfort_list_view.*
+import kotlinx.android.synthetic.main.login_view.*
+import kotlinx.android.synthetic.main.login_view.view.*
 import kotlinx.android.synthetic.main.settings_view.*
+import org.jetbrains.anko.toast
 
+class SettingsFragment: Fragment(), SeekBar.OnSeekBarChangeListener {
 
+    lateinit var presenter: SettingsFragmentPresenter
+    lateinit var hostView: View
 
-class SettingsView : BaseView() //, SeekBar.OnSeekBarChangeListener
-{
-    /*
-    lateinit var presenter: SettingsPresenter
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        hostView = inflater.inflate(R.layout.settings_view, container, false)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.settings_view)
+        // init presenter
+        presenter = SettingsFragmentPresenter(this)
 
-        // initialize presenter
-        presenter = initPresenter(SettingsPresenter(this)) as SettingsPresenter
-
-        // initialize view
-        init(toolbar, true)
-
-        // init navigation drawer
-        toolbar.setNavigationOnClickListener {
-            drawerLayout.open()
-        }
-        val defaultItem = navView.menu.getItem(2)
-        if (defaultItem != null) {
-            defaultItem.isChecked = true
-        }
-        navView.setNavigationItemSelectedListener { menuItem ->
-            // Handle menu item selected
-            when (menuItem.itemId) {
-                R.id.itemNavAllHillforts -> presenter.doShowAllHillforts()
-                R.id.itemNavMap -> presenter.doShowMap()
-                R.id.itemNavSettings -> drawerLayout.close()
-                R.id.ItemNavLogout -> presenter.doLogout()
-            }
-            menuItem.isChecked = true
-            drawerLayout.close()
-            true
-        }
-
-     */
+        return hostView
     }
 
-/*
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // set handler
+        sbNumImgVal.setOnSeekBarChangeListener(this)
+        sbNumImgColVal.setOnSeekBarChangeListener(this)
+
+        // load data
+        presenter.doLoadUser()
+        presenter.doLoadStatistics()
+        initSeekBars()
+
+        super.onViewCreated(view, savedInstanceState)
+    }
+
     fun initSeekBars() {
         // Number of image columns
         var prog = resources.getInteger(R.integer.image_columns)
@@ -138,6 +129,5 @@ class SettingsView : BaseView() //, SeekBar.OnSeekBarChangeListener
     override fun onStopTrackingTouch(seekBar: SeekBar?) {
 
     }
-}
 
- */
+}

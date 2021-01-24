@@ -6,7 +6,7 @@ import de.tp.hillforts.views.BasePresenter
 
 class SettingsPresenter(view: SettingsView): BasePresenter(view) {
 
-
+/*
     /**
      * Load user data.
      * At the moment just sample data.
@@ -37,4 +37,6 @@ class SettingsPresenter(view: SettingsView): BasePresenter(view) {
             (view as SettingsView).showStatistics(hillforts.size, visited)
         }
     }
+
+ */
 }

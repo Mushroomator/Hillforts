@@ -63,6 +63,6 @@ abstract class BasePresenterFragment(var baseView: Fragment?) {
      * @author Thomas Pilz
      */
     fun doShowSettings() {
-        hostActivity?.navigateTo(VIEW.SETTINGS)
+        baseView?.findNavController()?.navigate(R.id.settingsFragment)
     }
 }
