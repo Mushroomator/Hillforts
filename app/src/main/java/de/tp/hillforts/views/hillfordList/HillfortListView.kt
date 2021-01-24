@@ -1,33 +1,28 @@
 package de.tp.hillforts.views.hillfordList
 
-import android.app.SearchManager
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.SearchView
-import androidx.core.view.get
-import androidx.drawerlayout.widget.DrawerLayout
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.tabs.TabLayout
 import de.tp.hillforts.R
-import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
-import de.tp.hillforts.views.VIEW
-import de.tp.hillforts.views.reusable.HillfortAdapter
-import de.tp.hillforts.views.search.SearchHillfortsView
-import kotlinx.android.synthetic.main.hillfort_list_view.*
+import de.tp.hillforts.views.login.LoginFragment
 
-class HillfortListView : BaseView(), HillfortListener, TabLayout.OnTabSelectedListener,
-    SearchView.OnQueryTextListener {
+class HillfortListView : BaseView() //, HillfortListener, TabLayout.OnTabSelectedListener,
+{
 
     lateinit var presenter: HillfortListPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.hillfort_list_view)
+        setContentView(R.layout.main_fragment)
+
+        if (savedInstanceState == null) {
+            val fragment = HillfortListFragment()
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.main_content, fragment)
+                .commit()
+        }
+
+        /*
 
         // init presenter
         presenter = initPresenter(HillfortListPresenter(this)) as HillfortListPresenter
@@ -63,7 +58,11 @@ class HillfortListView : BaseView(), HillfortListener, TabLayout.OnTabSelectedLi
         rvHillforts.layoutManager = LinearLayoutManager(this)
 
         presenter.loadHillforts()
+
+         */
     }
+
+    /*
 
     /**
      * Executed by HillfordViewHolder::bind() when a hillford is clicked on.
@@ -192,4 +191,6 @@ class HillfortListView : BaseView(), HillfortListener, TabLayout.OnTabSelectedLi
     override fun onQueryTextChange(newText: String?): Boolean {
         return false
     }
+
+     */
 }

@@ -1,12 +1,9 @@
 package de.tp.hillforts.views.login
 
 import android.os.Bundle
-import android.view.View
-import com.google.android.material.appbar.MaterialToolbar
 import de.tp.hillforts.R
 import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.login_view.*
-import org.jetbrains.anko.toast
 
 class LoginView : BaseView() {
 
@@ -16,7 +13,7 @@ class LoginView : BaseView() {
     setTheme(R.style.Theme_Hillforts)
     super.onCreate(savedInstanceState)
     //setContentView(R.layout.login_view) change to fragment
-    setContentView(R.layout.login_fragment)
+    setContentView(R.layout.main_fragment)
 
     if (savedInstanceState == null) {
       val fragment = LoginFragment()
