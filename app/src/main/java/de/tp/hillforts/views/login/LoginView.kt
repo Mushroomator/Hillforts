@@ -15,14 +15,6 @@ class LoginView : BaseView() {
     //setContentView(R.layout.login_view) change to fragment
     setContentView(R.layout.main_fragment)
 
-    if (savedInstanceState == null) {
-      val fragment = LoginFragment()
-      supportFragmentManager
-        .beginTransaction()
-        .add(R.id.main_content, fragment)
-        .commit()
-    }
-
     /* NOW IN FRAGMENT
     // hide progress at the beginning
     hideProgress()

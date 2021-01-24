@@ -1,7 +1,11 @@
 package de.tp.hillforts.views.hillfortMap
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
@@ -9,53 +13,36 @@ import de.tp.hillforts.R
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.hillfort_map_view.*
+import kotlinx.android.synthetic.main.login_view.*
+import kotlinx.android.synthetic.main.login_view.view.*
+import org.jetbrains.anko.toast
 
-class HillfortMapView : BaseView() //, GoogleMap.OnMarkerClickListener
-{
-/*
-    lateinit var presenter: HillfortMapPresenter
+class HillfortMapFragment: Fragment(), GoogleMap.OnMarkerClickListener {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_fragment)
+    lateinit var presenter: HillfortMapFragmentPresenter
+    lateinit var hostView: View
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        hostView = inflater.inflate(R.layout.hillfort_map_view, container, false)
 
         // init presenter
-        presenter = initPresenter(HillfortMapPresenter(this)) as HillfortMapPresenter
+        presenter = HillfortMapFragmentPresenter(this)
 
-        // init toolbar
-        init(toolbar, true)
+        return hostView
+    }
 
-        // init navigation drawer
-        toolbar.setNavigationOnClickListener {
-            drawerLayout.open()
-        }
-        val defaultItem = navView.menu.getItem(1)
-        if (defaultItem != null) {
-            defaultItem.isChecked = true
-        }
-        navView.setNavigationItemSelectedListener { menuItem ->
-            // Handle menu item selected
-            when(menuItem.itemId){
-                R.id.itemNavAllHillforts -> presenter.doShowAllHillforts()
-                R.id.itemNavMap -> drawerLayout.close()
-                R.id.itemNavSettings -> presenter.doShowSettings()
-                R.id.ItemNavLogout -> presenter.doLogout()
-            }
-            menuItem.isChecked = true
-            drawerLayout.close()
-            true
-        }
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // init map
         mvAllHillforts.onCreate(savedInstanceState)
         mvAllHillforts.getMapAsync {
             presenter.doConfigureMap(it)
             it.setOnMarkerClickListener(this)
         }
+
+        super.onViewCreated(view, savedInstanceState)
     }
 
-
-    override fun showHillfort(hillfort: HillfortModel){
+    fun showHillfort(hillfort: HillfortModel){
         tvHillfortName.text = hillfort.name
         tvHillfortDescription.text = hillfort.desc
         var image: String? = null
@@ -84,28 +71,28 @@ class HillfortMapView : BaseView() //, GoogleMap.OnMarkerClickListener
     // Lifecycle events
     override fun onDestroy() {
         super.onDestroy()
-        mvAllHillforts.onDestroy()
+        mvAllHillforts?.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mvAllHillforts.onLowMemory()
+        mvAllHillforts?.onLowMemory()
     }
 
     override fun onPause() {
         super.onPause()
-        mvAllHillforts.onPause()
+        mvAllHillforts?.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-        mvAllHillforts.onResume()
+        mvAllHillforts?.onResume()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mvAllHillforts.onSaveInstanceState(outState)
+        mvAllHillforts?.onSaveInstanceState(outState)
     }
 
-     */
+
 }

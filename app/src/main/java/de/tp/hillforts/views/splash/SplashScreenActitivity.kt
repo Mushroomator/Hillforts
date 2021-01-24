@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import de.tp.hillforts.R
 import de.tp.hillforts.views.login.LoginView
+import de.tp.hillforts.views.mainActivity.MainActivity
 
 class SplashScreenActitivity : AppCompatActivity() {
 
@@ -13,7 +14,7 @@ class SplashScreenActitivity : AppCompatActivity() {
 
     private val runnable = Runnable{
         if(!isFinishing){
-            startActivity(Intent(applicationContext, LoginView::class.java))
+            startActivity(Intent(applicationContext, MainActivity::class.java))
             finish()
         }
     }

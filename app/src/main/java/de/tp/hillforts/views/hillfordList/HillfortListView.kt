@@ -1,9 +1,17 @@
 package de.tp.hillforts.views.hillfordList
 
+import android.app.SearchManager
+import android.content.ComponentName
+import android.content.Context
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.widget.SearchView
 import de.tp.hillforts.R
 import de.tp.hillforts.views.BaseView
 import de.tp.hillforts.views.login.LoginFragment
+import de.tp.hillforts.views.search.SearchHillfortsView
+import kotlinx.android.synthetic.main.hillfort_list_view.*
 
 class HillfortListView : BaseView() //, HillfortListener, TabLayout.OnTabSelectedListener,
 {
@@ -14,14 +22,6 @@ class HillfortListView : BaseView() //, HillfortListener, TabLayout.OnTabSelecte
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_fragment)
 
-        if (savedInstanceState == null) {
-            val fragment = HillfortListFragment()
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.main_content, fragment)
-                .commit()
-        }
-
         /*
 
         // init presenter
@@ -29,6 +29,7 @@ class HillfortListView : BaseView() //, HillfortListener, TabLayout.OnTabSelecte
 
         // init toolbar
         init(toolbar, true) //disable up-support later; just for test purposes
+
 
         // init navigation drawer
         toolbar.setNavigationOnClickListener {

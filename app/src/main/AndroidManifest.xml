@@ -23,6 +23,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Hillforts">
 
+        <!-- MainActivity -->
+        <activity android:name=".views.mainActivity.MainActivity">
+        </activity>
+
         <!-- Camera View -->
         <activity android:name=".views.camera.HillfortCameraView">
         </activity>

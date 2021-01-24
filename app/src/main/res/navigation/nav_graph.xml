@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="de.tp.hillforts.views.login.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/loginToHillfortList"
+            app:destination="@id/hillfortListFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/hillfortListFragment"
+        android:name="de.tp.hillforts.views.hillfordList.HillfortListFragment"
+        android:label="HillfortListFragment" >
+        <action
+            android:id="@+id/hillfortListToLogin"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/hillfortMapFragment"
+        android:name="de.tp.hillforts.views.hillfortMap.HillfortMapFragment"
+        android:label="HillfortMapFragment" />
+    <action android:id="@+id/globalMap" app:destination="@id/hillfortMapFragment" />
+</navigation>

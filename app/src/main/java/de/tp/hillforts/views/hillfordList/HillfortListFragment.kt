@@ -83,7 +83,7 @@ class HillfortListFragment: Fragment(), HillfortListener, TabLayout.OnTabSelecte
 
         if (menu != null) {
             // Get the SearchView and set the searchable configuration
-            val searchManager = (hostView as BaseView).getSystemService(Context.SEARCH_SERVICE) as SearchManager
+            val searchManager = activity?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
             (menu.findItem(R.id.itemAppBarSearch).actionView as SearchView).apply {
                 // Assumes current activity is the searchable activity
                 setSearchableInfo(

@@ -21,7 +21,6 @@ import de.tp.hillforts.R
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
 import de.tp.hillforts.views.VIEW
-import kotlinx.android.synthetic.main.hillfort_list_view.toolbar
 import kotlinx.android.synthetic.main.hillfort_details_view.*
 import org.jetbrains.anko.*
 import java.text.ParseException

@@ -2,6 +2,7 @@ package de.tp.hillforts.views
 
 import android.content.Intent
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import de.tp.hillforts.R
 import de.tp.hillforts.main.MainApp
@@ -38,7 +39,7 @@ abstract class BasePresenterFragment(var baseView: Fragment?) {
         FirebaseAuth.getInstance().signOut()
         app.hillforts.clear()
         hostActivity?.info(hostActivity?.getString(R.string.log_signed_out))
-        hostActivity?.navigateTo(VIEW.LOGIN)
+        baseView?.findNavController()?.navigate(R.id.hillfortListToLogin)
     }
 
     /**
@@ -54,7 +55,7 @@ abstract class BasePresenterFragment(var baseView: Fragment?) {
      * @author Thomas Pilz
      */
     fun doShowMap() {
-        hostActivity?.navigateTo(VIEW.MAP)
+        baseView?.findNavController()?.navigate(R.id.globalMap)
     }
 
     /**
