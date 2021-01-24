@@ -15,8 +15,18 @@ class LoginView : BaseView() {
   override fun onCreate(savedInstanceState: Bundle?) {
     setTheme(R.style.Theme_Hillforts)
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.login_view)
+    //setContentView(R.layout.login_view) change to fragment
+    setContentView(R.layout.login_fragment)
 
+    if (savedInstanceState == null) {
+      val fragment = LoginFragment()
+      supportFragmentManager
+        .beginTransaction()
+        .add(R.id.main_content, fragment)
+        .commit()
+    }
+
+    /* NOW IN FRAGMENT
     // hide progress at the beginning
     hideProgress()
 
@@ -53,8 +63,11 @@ class LoginView : BaseView() {
         presenter.doSignup(email, pw)
       }
     }
+
+     */
   }
 
+  /* NOW IN FRAGMENT
   override fun showProgress(){
     pbLogin.visibility = View.VISIBLE
     tvLogin.visibility = View.VISIBLE
@@ -67,5 +80,7 @@ class LoginView : BaseView() {
     tvLogin.visibility = View.GONE
     ivAppLogo.visibility = View.VISIBLE
   }
+
+   */
 
 }
