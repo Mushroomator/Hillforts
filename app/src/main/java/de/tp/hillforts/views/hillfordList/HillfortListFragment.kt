@@ -31,13 +31,12 @@ class HillfortListFragment: Fragment(), HillfortListener, TabLayout.OnTabSelecte
 
         setHasOptionsMenu(true)
 
-        // init presenter
-        presenter = HillfortListFragmentPresenter(this)
-
         return hostView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // init presenter
+        presenter = HillfortListFragmentPresenter(this)
 
         // init tab listeners
         tabLayout.addOnTabSelectedListener(this)
@@ -100,14 +99,6 @@ class HillfortListFragment: Fragment(), HillfortListener, TabLayout.OnTabSelecte
         }
         super.onCreateOptionsMenu(menu, inflater)
     }
-
-    /*
-    override fun onBackPressed() {
-        super.onBackPressed()
-        presenter.doLogout()
-    }
-
-     */
 
     override fun onResume() {
         super.onResume()

@@ -19,10 +19,11 @@
         android:name="de.tp.hillforts.views.hillfordList.HillfortListFragment"
         android:label="HillfortListFragment">
         <action
-            android:id="@+id/hillfortListToLogin"
-            app:destination="@id/loginFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right" />
+            android:id="@+id/listToDetails"
+            app:destination="@id/hillfortDetailsFragment" />
+        <action
+            android:id="@+id/listToLogin"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/hillfortMapFragment"
@@ -43,4 +44,36 @@
         app:destination="@id/settingsFragment"
         app:enterAnim="@android:anim/slide_in_left"
         app:exitAnim="@android:anim/slide_out_right" />
+    <fragment
+        android:id="@+id/cameraFragment"
+        android:name="de.tp.hillforts.views.camera.CameraFragment"
+        android:label="CameraFragment">
+        <action
+            android:id="@+id/cameraToDetails"
+            app:destination="@id/hillfortDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/hillfortDetailsFragment"
+        android:name="de.tp.hillforts.views.hillfortDetails.HillfortDetailsFragment"
+        android:label="@string/title_hillfort_details_view"
+        tools:layout="@layout/hillfort_details_view">
+        <action
+            android:id="@+id/detailsToList"
+            app:destination="@id/hillfortListFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/detailsToCamera"
+            app:destination="@id/cameraFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <argument
+            android:name="photo"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="hillfort"
+            app:argType="de.tp.hillforts.models.hillfort.HillfortModel"
+            app:nullable="true" />
+    </fragment>
 </navigation>

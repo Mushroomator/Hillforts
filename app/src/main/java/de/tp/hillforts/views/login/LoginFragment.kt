@@ -20,13 +20,13 @@ class LoginFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         hostView = inflater.inflate(R.layout.login_view, container, false)
 
-        // init presenter
-        presenter = LoginFragmentPresenter(this)
-
         return hostView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // init presenter
+        presenter = LoginFragmentPresenter(this)
+
         hideProgress()
 
         // sign in button

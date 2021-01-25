@@ -7,26 +7,6 @@
     android:foregroundTintMode="src_in"
     tools:context=".views.hillfortDetails.HillfortDetailsView">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/green_500"
-        android:fitsSystemWindows="true"
-        app:elevation="0dip"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:titleTextColor="@color/white" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
@@ -39,7 +19,6 @@
             android:id="@+id/scrollView2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="55dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/rvHillfortImages"
             app:layout_constraintHorizontal_bias="0.0"
@@ -111,7 +90,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="2dp"
-                            android:onClick="onVisitedClicked"
                             app:layout_constraintBottom_toBottomOf="@+id/cbVisited"
                             app:layout_constraintStart_toEndOf="@+id/cbVisited"
                             app:layout_constraintTop_toTopOf="@+id/cbVisited" />
@@ -232,7 +210,6 @@
                             android:layout_marginStart="16dp"
                             android:layout_marginTop="8dp"
                             android:buttonTint="@color/green_900"
-                            android:onClick="onVisitedClicked"
                             android:text="@string/cb_not_yet_visited"
                             android:textColor="@color/green_900"
                             app:layout_constraintStart_toStartOf="parent"
@@ -263,7 +240,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="72dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"

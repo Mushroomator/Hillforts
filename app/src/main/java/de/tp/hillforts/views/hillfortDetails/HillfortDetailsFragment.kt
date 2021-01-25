@@ -1,51 +1,48 @@
 package de.tp.hillforts.views.hillfortDetails
 
 import android.app.AlertDialog
-import android.content.DialogInterface
-import android.content.pm.ActivityInfo
+import android.content.ContentValues.TAG
+import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
+import android.util.Log
+import android.view.*
 import android.widget.CheckBox
-import android.widget.SearchView
+import android.widget.Toast
 import androidx.appcompat.view.menu.ActionMenuItem
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.forEach
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.maps.GoogleMap
 import de.tp.hillforts.R
 import de.tp.hillforts.models.hillfort.HillfortModel
-import de.tp.hillforts.views.BaseView
-import de.tp.hillforts.views.VIEW
 import kotlinx.android.synthetic.main.hillfort_details_view.*
-import org.jetbrains.anko.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
+class HillfortDetailsFragment: Fragment(), HillfortImageListener {
 
-class HillfortDetailsView : BaseView() //, AnkoLogger, HillfortImageListener
-{
-
-    /*
-    lateinit var presenter: HillfortDetailsPresenter
+    lateinit var presenter: HillfortDetailsFragmentPresenter
+    lateinit var hostView: View
     lateinit var map: GoogleMap
+    val dateFormat = "dd/MM/yyyy"
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        hostView = inflater.inflate(R.layout.hillfort_details_view, container, false)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+        setHasOptionsMenu(true)
 
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.hillfort_details_view)
+        return hostView
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // init presenter
-        presenter = initPresenter(HillfortDetailsPresenter(this)) as HillfortDetailsPresenter
-
-        // init toolbar
-        init(toolbar,true)
+        presenter = HillfortDetailsFragmentPresenter(this)
 
         // init map
         mvEditLocation.onCreate(savedInstanceState)
@@ -71,17 +68,22 @@ class HillfortDetailsView : BaseView() //, AnkoLogger, HillfortImageListener
             }
         }
 
+        cbVisited.setOnClickListener {
+            visitedClicked(it)
+        }
+
+        tvVisitedOn.setOnClickListener {
+            visitedClicked(it)
+        }
+
         // init recycler view
-        rvHillfortImages.layoutManager = GridLayoutManager(
-            this,
-            resources.getInteger(R.integer.image_columns)
-        )
+        rvHillfortImages.layoutManager = GridLayoutManager(context, resources.getInteger(R.integer.image_columns))
         presenter.loadHillfort()
 
-
+        super.onViewCreated(view, savedInstanceState)
     }
 
-    override fun showHillfort(hillfort: HillfortModel) {
+    fun showHillfort(hillfort: HillfortModel) {
         rvHillfortImages.adapter = HillfortImagesAdapter(hillfort.images, this)
         rvHillfortImages.adapter?.notifyDataSetChanged()
 
@@ -96,11 +98,19 @@ class HillfortDetailsView : BaseView() //, AnkoLogger, HillfortImageListener
         showDateVisited(hillfort.dateVisited)   // cannot be called within scope function because it can be null
     }
 
-    /**
-     * Listener on Checkbox and following TextView. Set visitedOn date when clicked.
-     * @param view clicked view
-     */
-    fun onVisitedClicked(view: View) {
+    override fun onAttach(context: Context) {
+        /*
+         if(app.hillfortCache != null){
+            editMode = true
+            hillfort = app.hillfortCache!!
+            app.hillfortCache = null // invalidate cache
+        }
+
+         */
+        super.onAttach(context)
+    }
+
+    fun visitedClicked(view: View){
         if (view is CheckBox) {
             presenter.doHillfordVisited(cbVisited.isChecked)
         }
@@ -112,11 +122,12 @@ class HillfortDetailsView : BaseView() //, AnkoLogger, HillfortImageListener
         }
     }
 
+
     /**
      * Display visitedOn date
      * @param date visited on
      */
-    override fun showDateVisited(date: Date?) {
+    fun showDateVisited(date: Date?) {
         if (date != null) {
             tvVisitedOn.text = SimpleDateFormat(dateFormat, Locale.GERMANY).format(date)
             cbVisited.setText(R.string.cb_visited_on)
@@ -141,9 +152,9 @@ class HillfortDetailsView : BaseView() //, AnkoLogger, HillfortImageListener
                 0,
                 0
             )
-            bAddFav.setBackgroundColor(getColor(R.color.red))
-            bAddFav.setTextColor(getColor(R.color.white))
-            bAddFav.compoundDrawableTintList = ColorStateList.valueOf(getColor(R.color.white))
+            bAddFav.setBackgroundColor(requireActivity().getColor(R.color.red))
+            bAddFav.setTextColor(requireActivity().getColor(R.color.white))
+            bAddFav.compoundDrawableTintList = ColorStateList.valueOf(requireActivity().getColor(R.color.white))
             bAddFav.text = getString(R.string.b_remove_fav)
 
         } else {
@@ -153,9 +164,9 @@ class HillfortDetailsView : BaseView() //, AnkoLogger, HillfortImageListener
                 0,
                 0
             )
-            bAddFav.setBackgroundColor(getColor(R.color.white))
-            bAddFav.setTextColor(getColor(R.color.red))
-            bAddFav.compoundDrawableTintList = ColorStateList.valueOf(getColor(R.color.red))
+            bAddFav.setBackgroundColor(requireActivity().getColor(R.color.white))
+            bAddFav.setTextColor(requireActivity().getColor(R.color.red))
+            bAddFav.compoundDrawableTintList = ColorStateList.valueOf(requireActivity().getColor(R.color.red))
             bAddFav.text = getString(R.string.b_add_fav)
         }
     }
@@ -173,12 +184,12 @@ class HillfortDetailsView : BaseView() //, AnkoLogger, HillfortImageListener
             R.id.itemAddImage -> {
                 cacheHillfort()
                 presenter.doSelectImage(IMAGEOPTION.GALLERY_IMAGE)
-                invalidateOptionsMenu() //invalidate options menu so onPrepareOptionsMenu will be called after
+                activity?.invalidateOptionsMenu() //invalidate options menu so onPrepareOptionsMenu will be called after
             }
             R.id.itemSave -> {
                 val name = etName.text.toString()
                 if (name == "" || name.isEmpty()) {
-                    toast(getString(R.string.toast_details_invalid_input))
+                    Toast.makeText(context, getString(R.string.toast_details_invalid_input), Toast.LENGTH_LONG)
                     return false
                 }
                 val desc = etDescription.text.toString()
@@ -192,7 +203,7 @@ class HillfortDetailsView : BaseView() //, AnkoLogger, HillfortImageListener
                         visitedDate = SimpleDateFormat(dateFormat, Locale.GERMANY).parse(visitedOn)
                     } catch (e: ParseException) {
                         // should never happen as date will always be populated automatically!
-                        error("Visited date was populated incorrectly! Error:\n$e")
+                        Log.e(TAG, "Visited date was populated incorrectly! Error:\n$e")
                         return false
                     }
                 }
@@ -202,7 +213,7 @@ class HillfortDetailsView : BaseView() //, AnkoLogger, HillfortImageListener
                 cacheHillfort()
                 val name = etName.text.toString()
                 if (name == "" || name.isEmpty()) {
-                    toast(getString(R.string.toast_details_invalid_input))
+                    Toast.makeText(context, getString(R.string.toast_details_invalid_input), Toast.LENGTH_LONG)
                     return false
                 }
                 presenter.doShare()
@@ -213,8 +224,13 @@ class HillfortDetailsView : BaseView() //, AnkoLogger, HillfortImageListener
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_hillfort_details, menu)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        presenter.doOnActivityResult(requestCode, resultCode, data)
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_hillfort_details, menu)
         if (menu != null && presenter.editMode) {
             menu.forEach {
                 when(it.itemId){
@@ -223,15 +239,14 @@ class HillfortDetailsView : BaseView() //, AnkoLogger, HillfortImageListener
                 }
             }
         }
-        return super.onCreateOptionsMenu(menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     /**
      * Called every time before menu is displayed.
      * Invalidate menu as users might want to change images and then abort that action again.
      */
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-
+    override fun onPrepareOptionsMenu(menu: Menu) {
         // do not show images recycler view and fill whole screen in landscape mode
         if(presenter.hillfort.images.size == 0){
             rvHillfortImages.visibility = View.GONE
@@ -248,7 +263,7 @@ class HillfortDetailsView : BaseView() //, AnkoLogger, HillfortImageListener
 
         if (menu != null) {
             if (presenter.hillfort.images.size < resources.getInteger(R.integer.max_images)) {
-                invalidateOptionsMenu() // if back is pressed --> no picture added --> need to recalculate number of images
+                activity?.invalidateOptionsMenu() // if back is pressed --> no picture added --> need to recalculate number of images
                 val menuAddImage = menu.findItem(R.id.itemAddImage)
                 menuAddImage.also {
                     it?.isVisible = true  // show add image button
@@ -261,7 +276,7 @@ class HillfortDetailsView : BaseView() //, AnkoLogger, HillfortImageListener
                 }
             }
         }
-        return super.onPrepareOptionsMenu(menu)
+        super.onPrepareOptionsMenu(menu)
     }
 
     /**
@@ -269,9 +284,9 @@ class HillfortDetailsView : BaseView() //, AnkoLogger, HillfortImageListener
      * @param lat latitude
      * @param lng longitude
      */
-    override fun updateLocation(lat: Double, lng: Double) {
-        tvLatValDetails.text = "%.6f".format(lat)
-        tvLngValDetails.text = "%.6f".format(lng)
+    fun updateLocation(lat: Double, lng: Double) {
+        tvLatValDetails?.text = "%.6f".format(lat)
+        tvLngValDetails?.text = "%.6f".format(lng)
     }
 
     /**
@@ -289,20 +304,22 @@ class HillfortDetailsView : BaseView() //, AnkoLogger, HillfortImageListener
      * Listener on image clicks. When image is clicked allow user to select a different image.
      */
     override fun onImageClick(image: String, index: Int) {
-        val builder = AlertDialog.Builder(this)
+        val builder = AlertDialog.Builder(context)
         builder.setTitle(getString(R.string.modal_change_image))
         builder.setMessage(R.string.modal_change_image_text)
         builder.setPositiveButton(getString(R.string.modal_change_image_gallery),
-            { dialog, id ->
-                    // User cancelled the dialog
-                    presenter.doSelectImage(IMAGEOPTION.GALLERY_IMAGE, image, index)
+            { _ , _ ->
+                // User cancelled the dialog
+                cacheHillfort()
+                presenter.doSelectImage(IMAGEOPTION.GALLERY_IMAGE, image, index)
             })
         builder.setNegativeButton(R.string.modal_change_image_camera,
-            { dialog, id ->
+            { _ , _ ->
+                cacheHillfort()
                 presenter.doSelectImage(IMAGEOPTION.CAMERA_PHOTO, image, index)
             })
         builder.setNeutralButton(getString(R.string.modal_cancel),
-            { dialog, id ->
+            { _ , _ ->
                 /* no-op */
             })
         builder.create()
@@ -313,55 +330,44 @@ class HillfortDetailsView : BaseView() //, AnkoLogger, HillfortImageListener
      * Show menu of different actions to perform on menu.
      */
     override fun onImageLongClick(image: String, index: Int) {
-        info("Long Click")
+
     }
 
     override fun onStart() {
         super.onStart()
-        mvEditLocation.onStart()
+        mvEditLocation?.onStart()
     }
 
     override fun onStop() {
         super.onStop()
-        mvEditLocation.onStop()
-    }
-
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        mvEditLocation.onSaveInstanceState(outState)
-        super.onSaveInstanceState(outState, outPersistentState)
+        mvEditLocation?.onStop()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mvEditLocation.onDestroy()
+        presenter.doOnDestroy()
+        mvEditLocation?.onDestroy()
     }
 
     override fun onPause() {
         super.onPause()
-        mvEditLocation.onPause()
+        mvEditLocation?.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-        mvEditLocation.onResume()
+        mvEditLocation?.onResume()
         presenter.loadHillfort()
         presenter.doResartLocationUpdates() //restart location updates
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mvEditLocation.onLowMemory()
-    }
-
-    override fun onBackPressed() {
-        presenter.doCancel()
+        mvEditLocation?.onLowMemory()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        mvEditLocation.onSaveInstanceState(outState)
+        mvEditLocation?.onSaveInstanceState(outState)
     }
-
-     */
-
 }

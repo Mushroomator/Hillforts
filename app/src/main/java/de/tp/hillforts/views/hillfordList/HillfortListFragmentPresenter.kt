@@ -1,14 +1,11 @@
 package de.tp.hillforts.views.hillfordList
 
-import com.google.firebase.auth.FirebaseAuth
+import androidx.navigation.fragment.findNavController
 import de.tp.hillforts.R
-import de.tp.hillforts.models.hillfort.HillfortFireStore
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BasePresenterFragment
-import de.tp.hillforts.views.VIEW
-import org.jetbrains.anko.toast
 
-class HillfortListFragmentPresenter(var view: HillfortListFragment?): BasePresenterFragment(view) {
+class HillfortListFragmentPresenter(var view: HillfortListFragment): BasePresenterFragment(view) {
 
     private val HILLFORT_EDIT = "hillfort_edit"
     private var tabSelected = 0
@@ -32,13 +29,13 @@ class HillfortListFragmentPresenter(var view: HillfortListFragment?): BasePresen
     fun loadHillforts(): Unit{
         val hillforts = app.hillforts.findAll()
         tabSelected = 0
-        view?.showHillforts(hillforts)
+        view.showHillforts(hillforts)
     }
 
     fun loadFavourites(){
         val hillforts = app.hillforts.findAll().filter { it.isFavourite }
         tabSelected = 1
-        view?.showHillforts(hillforts)
+        view.showHillforts(hillforts)
     }
 
     /**
@@ -46,10 +43,11 @@ class HillfortListFragmentPresenter(var view: HillfortListFragment?): BasePresen
      * @author Thomas Pilz
      */
     fun doAddHillfort(){
-        hostActivity?.navigateTo(VIEW.DETAILS)
+        view.findNavController().navigate(R.id.hillfortDetailsFragment)
     }
 
     fun doEditHillfort(hillfort: HillfortModel){
-        hostActivity?.navigateTo(VIEW.DETAILS, 0, HILLFORT_EDIT, hillfort)
+        val action = HillfortListFragmentDirections.listToDetails(photo = null, hillfort = hillfort)
+        view.findNavController().navigate(action)
     }
 }

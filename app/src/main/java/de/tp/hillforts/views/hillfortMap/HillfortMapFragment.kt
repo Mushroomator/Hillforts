@@ -24,20 +24,21 @@ class HillfortMapFragment: Fragment(), GoogleMap.OnMarkerClickListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         hostView = inflater.inflate(R.layout.hillfort_map_view, container, false)
-
-        // init presenter
-        presenter = HillfortMapFragmentPresenter(this)
-
         return hostView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // init presenter
+        presenter = HillfortMapFragmentPresenter(this)
+
         // init map
         mvAllHillforts.onCreate(savedInstanceState)
         mvAllHillforts.getMapAsync {
             presenter.doConfigureMap(it)
             it.setOnMarkerClickListener(this)
         }
+
+        detailsCardView.setOnClickListener { presenter.doCardClicked() }
 
         super.onViewCreated(view, savedInstanceState)
     }
@@ -62,10 +63,6 @@ class HillfortMapFragment: Fragment(), GoogleMap.OnMarkerClickListener {
     override fun onMarkerClick(marker: Marker): Boolean {
         presenter.doMarkerSelected(marker)
         return false; // false means default behavior = camera zooms on marker on popup will be displayed; true: custom event
-    }
-
-    fun onCardClick(view: View){
-        presenter.doCardClicked()
     }
 
     // Lifecycle events

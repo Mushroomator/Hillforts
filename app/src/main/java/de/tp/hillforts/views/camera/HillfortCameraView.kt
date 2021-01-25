@@ -6,7 +6,7 @@ import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.camera_view.*
 
 class HillfortCameraView : BaseView() {
-
+/*
     lateinit var presenter: HillfortCameraPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +24,6 @@ class HillfortCameraView : BaseView() {
             presenter.doRequestPermission()
         }
 
-
         // Set up the listener for take photo button
         camera_capture_button.setOnClickListener { presenter.takePhoto() }
     }
@@ -37,5 +36,7 @@ class HillfortCameraView : BaseView() {
         super.onDestroy()
         presenter.doShutdown()
     }
+
+ */
 
 }

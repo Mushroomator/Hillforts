@@ -1,10 +1,15 @@
 package de.tp.hillforts.views.hillfortDetails
 
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.Intent
-import android.location.Location
 import android.net.Uri
-import androidx.core.content.ContextCompat.startActivity
+import android.util.Log
+import android.widget.Toast
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationResult
@@ -13,33 +18,35 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 import de.tp.hillforts.R
 import de.tp.hillforts.helpers.checkLocationPermissions
 import de.tp.hillforts.helpers.createDefaultLocationRequest
 import de.tp.hillforts.helpers.isPermissionGranted
 import de.tp.hillforts.helpers.showImagePicker
+import de.tp.hillforts.models.hillfort.HillfortFireStore
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.models.location.LocationModel
-import de.tp.hillforts.views.BasePresenter
+import de.tp.hillforts.views.BasePresenterFragment
 import de.tp.hillforts.views.VIEW
+import de.tp.hillforts.views.camera.CameraFragmentDirections
 import org.jetbrains.anko.info
 import org.jetbrains.anko.toast
-import java.net.URI
+import java.lang.reflect.InvocationTargetException
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.math.absoluteValue
 
-/*
+
 enum class IMAGEOPTION {
     CAMERA_PHOTO,
     GALLERY_IMAGE,
 }
 
- */
+class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
+    BasePresenterFragment(view) {
 
-class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) {
-/*
     private val HILLFORT_EDIT = "hillfort_edit"
     private val LOCATION_EDIT = "location"
     private val TAKE_PHOTO = "taken_photo"
@@ -47,14 +54,16 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
     private val LOCATION_REQ_ID = 2
     private val TAKE_PHOTO_REQ_ID = 3
 
-    var previousImage: Int? = null
+    val dateFormat = "dd/MM/yyyy"
+
     var map: GoogleMap? = null
     var hillfort = HillfortModel()
     var editMode = false
 
     // Location
     var defaultLocation = LocationModel(49.141018, 11.854860, 15f)
-    var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
+    var locationService: FusedLocationProviderClient =
+        LocationServices.getFusedLocationProviderClient(view!!.requireActivity())
     val locationRequest = createDefaultLocationRequest()
     var locationManuallyChanged = false
 
@@ -62,16 +71,41 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
     var userCurrentLocation = LocationModel(defaultLocation.lat, defaultLocation.lng)
 
     init {
-        if (view.intent.hasExtra(HILLFORT_EDIT) && view.intent.extras?.getParcelable<HillfortModel>(HILLFORT_EDIT) != null) {
-            editMode = true
-            hillfort =
-                view.intent.extras?.getParcelable(HILLFORT_EDIT)!!    //smart cast not possible
-            view.showHillfort(hillfort)
-        }
-        else{
-            if(checkLocationPermissions(view)){
+
+        // Check hillfort here
+        try {
+            val args: HillfortDetailsFragmentArgs by view!!.navArgs()
+            if (args.hillfort != null) {
+                editMode = true
+                hillfort = args.hillfort!!
+            }
+
+            // check if photo was taken
+            if (args.photo != null) {
+                val photo = args.photo!!
+                getCacheIfAvailable()
+                if (app.cachePreviousImage != null) {
+                    // a new photo has been made --> cant be "equal to previous"
+                    hillfort.images[app.cachePreviousImage!!] = photo
+                    app.cachePreviousImage = null // invalidate cache
+                } else {
+                    // add image
+                    hillfort.images.add(photo)
+                }
+            }
+        } catch (e: InvocationTargetException) {
+            // only thrown when there are no arguments given --> new hillfort --> get location
+            if(checkLocationPermissions(view!!.requireActivity())){
                 doSetCurrentLocation()
             }
+        }
+        // showHillfort() will be called at the end of OnViewCreated() in Fragement!
+    }
+
+    fun getCacheIfAvailable(){
+        if(app.hillfortCache != null){
+            hillfort = app.hillfortCache!!
+            app.hillfortCache = null
         }
     }
 
@@ -84,15 +118,27 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
         hillfort.loc.lat = lat
         hillfort.loc.lng = lng
         map?.clear()
-        view?.info("Location changed: $lat, $lng")
+        Log.i(TAG, "Location changed: $lat, $lng")
         map?.uiSettings?.setZoomControlsEnabled(true)
-        val options = MarkerOptions().title(hillfort.name).position(LatLng(hillfort.loc.lat, hillfort.loc.lng))
+        val options = MarkerOptions().title(hillfort.name)
+            .position(LatLng(hillfort.loc.lat, hillfort.loc.lng))
         map?.addMarker(options)
-        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(hillfort.loc.lat, hillfort.loc.lng), hillfort.loc.zoom))
+        map?.moveCamera(
+            CameraUpdateFactory.newLatLngZoom(
+                LatLng(
+                    hillfort.loc.lat,
+                    hillfort.loc.lng
+                ), hillfort.loc.zoom
+            )
+        )
         view?.updateLocation(hillfort.loc.lat, hillfort.loc.lng)
     }
 
-    override fun doRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun doRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         if (isPermissionGranted(requestCode, grantResults)) {
             doSetCurrentLocation()
         } else {
@@ -113,6 +159,10 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
         }
     }
 
+    fun doOnDestroy() {
+        view = null
+    }
+
 
     /**
      * Request another location update if not in edit mode.
@@ -123,7 +173,7 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
             override fun onLocationResult(locationResult: LocationResult?) {
                 if (locationResult != null && locationResult.locations != null) {
                     val l = locationResult.locations.last()
-                    if(!locationManuallyChanged){
+                    if (!locationManuallyChanged) {
                         locationUpdate(l.latitude, l.longitude)
                     }
                     userCurrentLocation.lat = l.latitude
@@ -171,7 +221,7 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
      */
     fun loadHillfort() {
         // load from cache if needed and invalidate cache
-        if(app.hillfortCache != null){
+        if (app.hillfortCache != null) {
             hillfort = app.hillfortCache!!
             app.hillfortCache = null
         }
@@ -199,11 +249,11 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
     fun doSelectImage(option: IMAGEOPTION, image: String? = null, index: Int? = null) {
         view?.also {
             if (image != null && index != null) {
-                previousImage = index
+                app.cachePreviousImage = index
             } else {
-                previousImage = null
+                app.cachePreviousImage = null
             }
-            when(option){
+            when (option) {
                 IMAGEOPTION.GALLERY_IMAGE -> showImagePicker(view!!, IMAGE_REQ_ID)
                 IMAGEOPTION.CAMERA_PHOTO -> doTakePhoto()
             }
@@ -215,20 +265,25 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
      */
     fun doEditLocation() {
         locationManuallyChanged = true
-        view?.navigateTo(VIEW.EDIT_LOCATION, LOCATION_REQ_ID, LOCATION_EDIT, hillfort.loc)
+        //TODO naviagte to edit location
+        //view?.navigateTo(VIEW.EDIT_LOCATION, LOCATION_REQ_ID, LOCATION_EDIT, hillfort.loc)
     }
 
-    fun doChangeRating(rating: Float){
+    fun doChangeRating(rating: Float) {
         hillfort.rating = rating
     }
 
-    fun doNavigateToHillfort(){
+    fun doNavigateToHillfort() {
         val precision: Double = 0.001
         val latOff = (userCurrentLocation.lat - hillfort.loc.lat).absoluteValue
         val lngOff = (userCurrentLocation.lng - hillfort.loc.lng).absoluteValue
-        if( latOff < precision && lngOff < precision){
+        if (latOff < precision && lngOff < precision) {
             // location difference is so small --> considered same location (Google wont find a route since there really is no route!)
-            view?.toast(view?.getString(R.string.toast_same_location).toString())
+            Toast.makeText(
+                view?.context,
+                view?.getString(R.string.toast_same_location),
+                Toast.LENGTH_LONG
+            ).show()
             return
         }
         val gmmIntentUri = Uri.parse("google.navigation:q=${hillfort.loc.lat},${hillfort.loc.lng}")
@@ -237,41 +292,47 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
         view?.startActivity(mapIntent)
     }
 
-    override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        when (requestCode) {
-            IMAGE_REQ_ID -> {
-                val newImgPath = data.data.toString()
-                if (previousImage != null) {
-                    // attempt to change image
-                    if (!newImgPath.equals(hillfort.images[previousImage!!])) {
-                        hillfort.images[previousImage!!] = newImgPath
-                    }
-                } else {
-                    // add image
-                    hillfort.images.add(newImgPath)
-                }
-                view?.showHillfort(hillfort)
-            }
-            LOCATION_REQ_ID -> {
-                if (data.extras?.getParcelable<LocationModel>(LOCATION_EDIT) != null) {
-                    hillfort.loc = data.extras?.getParcelable(LOCATION_EDIT)!!
-                    locationUpdate(hillfort.loc.lat, hillfort.loc.lng)
-                    view?.showHillfort(hillfort)
-                }
-            }
-            TAKE_PHOTO_REQ_ID -> {
-                // get path of taken image
-                if (data.hasExtra(TAKE_PHOTO)) {
-                    val photo = data.getStringExtra(TAKE_PHOTO)!!
-                    if (previousImage != null) {
-                        // a new photo has been made --> cant be "equal to previous"
-                        hillfort.images[previousImage!!] = photo
+    fun doOnActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        if (data != null) {
+            when (requestCode) {
+                IMAGE_REQ_ID -> {
+                    val newImgPath = data.data.toString()
+                    if (app.cachePreviousImage != null) {
+                        // attempt to change image
+                        if (!newImgPath.equals(hillfort.images[app.cachePreviousImage!!])) {
+                            hillfort.images[app.cachePreviousImage!!] = newImgPath
+                            app.cachePreviousImage = null // invalidate cache
+                        }
                     } else {
                         // add image
-                        hillfort.images.add(photo)
+                        hillfort.images.add(newImgPath)
                     }
                     view?.showHillfort(hillfort)
                 }
+                LOCATION_REQ_ID -> {
+                    if (data.extras?.getParcelable<LocationModel>(LOCATION_EDIT) != null) {
+                        hillfort.loc = data.extras?.getParcelable(LOCATION_EDIT)!!
+                        locationUpdate(hillfort.loc.lat, hillfort.loc.lng)
+                        view?.showHillfort(hillfort)
+                    }
+                }
+                /*
+                TAKE_PHOTO_REQ_ID -> {
+                    // get path of taken image
+                    if (data.hasExtra(TAKE_PHOTO)) {
+                        val photo = data.getStringExtra(TAKE_PHOTO)!!
+                        if (previousImage != null) {
+                            // a new photo has been made --> cant be "equal to previous"
+                            hillfort.images[previousImage!!] = photo
+                        } else {
+                            // add image
+                            hillfort.images.add(photo)
+                        }
+                        view.showHillfort(hillfort)
+                    }
+                }
+
+                 */
             }
         }
     }
@@ -279,40 +340,42 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
     /**
      * Toggle isFavourite and show result on screen.
      */
-    fun doAddOrRemoveFavourites(){
+    fun doAddOrRemoveFavourites() {
         hillfort.isFavourite = !hillfort.isFavourite
-        (view as HillfortDetailsView)?.showFavourite(hillfort.isFavourite)
+        view?.showFavourite(hillfort.isFavourite)
     }
 
-    fun doShare(){
+    fun doShare() {
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND_MULTIPLE
             hillfort.also {
                 var dateStr = ""
-                if(it.dateVisited != null){
-                    dateStr = SimpleDateFormat(view?.dateFormat, Locale.GERMANY).format(it.dateVisited!!)
-                }
-                else{
+                if (it.dateVisited != null) {
+                    dateStr = SimpleDateFormat(dateFormat, Locale.GERMANY).format(it.dateVisited!!)
+                } else {
                     dateStr = "Not yet visited"
                 }
-                putExtra(Intent.EXTRA_TEXT, "Hey there,\ntake a look at one of my hillfort:" +
-                        "\nName: ${it.name}" +
-                        "\nDescription: ${if(it.desc != "") it.desc else "No description"}" +
-                        "\nNotes: ${if(it.notes != "") it.notes else "No notes"}" +
-                        "\nVisited: $dateStr" +
-                        "\nRating: ${"%.1f".format(it.rating)}")
+                putExtra(
+                    Intent.EXTRA_TEXT, "Hey there,\ntake a look at one of my hillfort:" +
+                            "\nName: ${it.name}" +
+                            "\nDescription: ${if (it.desc != "") it.desc else "No description"}" +
+                            "\nNotes: ${if (it.notes != "") it.notes else "No notes"}" +
+                            "\nVisited: $dateStr" +
+                            "\nRating: ${"%.1f".format(it.rating)}"
+                )
                 var uriList = ArrayList<Uri>()
-                hillfort.images.forEach{ uriList.add(Uri.parse(it)) }
+                hillfort.images.forEach { uriList.add(Uri.parse(it)) }
                 putParcelableArrayListExtra(Intent.EXTRA_STREAM, uriList)
             }
-            type = here must be type **
+            type = "*/*"
         }
         val shareIntent = Intent.createChooser(sendIntent, "Share Hillfort via...")
         view?.startActivity(shareIntent)
     }
 
-    fun doTakePhoto(){
-        view?.navigateTo(VIEW.CAMERA, TAKE_PHOTO_REQ_ID)
+    fun doTakePhoto() {
+        val navController = view?.findNavController()
+        navController?.navigate(R.id.cameraFragment)
     }
 
     /**
@@ -335,23 +398,25 @@ class HillfortDetailsPresenter(view: HillfortDetailsView) : BasePresenter(view) 
         } else {
             app.hillforts.create(hillfort)
         }
-        view?.finish()
+        val navController = view?.findNavController()
+        navController!!.navigate(R.id.hillfortListFragment)
     }
 
     /**
      * Cancel operation. Do nothing.
      */
     fun doCancel() {
-        view?.finish()
+        val navController = view?.findNavController()
+        navController?.navigate(R.id.hillfortListFragment)
     }
 
     /**
      * Delete hillford.
      */
     fun doDelete() {
+        val navController = view?.findNavController()
         app.hillforts.delete(hillfort)
-        view?.finish()
+        navController?.navigate(R.id.hillfortListFragment)
     }
 
- */
 }

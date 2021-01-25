@@ -39,7 +39,7 @@ abstract class BasePresenterFragment(var baseView: Fragment?) {
         FirebaseAuth.getInstance().signOut()
         app.hillforts.clear()
         hostActivity?.info(hostActivity?.getString(R.string.log_signed_out))
-        baseView?.findNavController()?.navigate(R.id.hillfortListToLogin)
+        baseView?.findNavController()?.navigate(R.id.listToDetails)
     }
 
     /**
@@ -47,7 +47,7 @@ abstract class BasePresenterFragment(var baseView: Fragment?) {
      * @author Thomas Pilz
      */
     fun doShowAllHillforts() {
-        hostActivity?.navigateTo(VIEW.LIST)
+        baseView?.findNavController()?.navigate(R.id.hillfortListFragment)
     }
 
     /**

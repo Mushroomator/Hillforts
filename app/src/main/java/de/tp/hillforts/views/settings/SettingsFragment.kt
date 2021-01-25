@@ -22,13 +22,13 @@ class SettingsFragment: Fragment(), SeekBar.OnSeekBarChangeListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         hostView = inflater.inflate(R.layout.settings_view, container, false)
 
-        // init presenter
-        presenter = SettingsFragmentPresenter(this)
-
         return hostView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // init presenter
+        presenter = SettingsFragmentPresenter(this)
+
         // set handler
         sbNumImgVal.setOnSeekBarChangeListener(this)
         sbNumImgColVal.setOnSeekBarChangeListener(this)
