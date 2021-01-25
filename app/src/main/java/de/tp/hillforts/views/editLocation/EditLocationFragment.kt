@@ -1,32 +1,39 @@
 package de.tp.hillforts.views.editLocation
 
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
+import androidx.activity.addCallback
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import de.tp.hillforts.R
 import de.tp.hillforts.models.hillfort.HillfortModel
-import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.edit_location_view.*
 
-class EditLocationView: BaseView() //, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener
-{
-/*
-    lateinit var presenter: EditLocationPresenter
+class EditLocationFragment: Fragment(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
+
+    lateinit var presenter: EditLocationFragmentPresenter
+    lateinit var hostView: View
     lateinit var map: GoogleMap
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.edit_location_view)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        hostView = inflater.inflate(R.layout.edit_location_view, container, false)
 
+        setHasOptionsMenu(true)
+
+        return hostView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // init presenter
-        presenter = initPresenter(EditLocationPresenter(this)) as EditLocationPresenter
+        presenter = EditLocationFragmentPresenter(this)
 
-        // init toolbar
-        init(toolbar, true)
+        // add custom behavior to save location when back is pressed!
+        requireActivity().onBackPressedDispatcher.addCallback {
+            presenter.doCancel()    // dont set location on back! User must confirm to change the location
+        }
 
         // init map
         mvEditLocationMap.onCreate(savedInstanceState)
@@ -36,13 +43,15 @@ class EditLocationView: BaseView() //, GoogleMap.OnMarkerDragListener, GoogleMap
             map.setOnMarkerClickListener(this)
             presenter.doConfigureMap(map)
         }
+
+        super.onViewCreated(view, savedInstanceState)
     }
 
     /**
      * Show hillfort i.e. its location on map.
      * @param hillfort hillfort to be displayed.
      */
-    override fun showHillfort(hillfort: HillfortModel) {
+    fun showHillfort(hillfort: HillfortModel) {
         tvLatValEL.text = "%.6f".format(hillfort.loc.lat)
         tvLngValEL.text = "%.6f".format(hillfort.loc.lng)
     }
@@ -80,62 +89,52 @@ class EditLocationView: BaseView() //, GoogleMap.OnMarkerDragListener, GoogleMap
     override fun onMarkerDragEnd(marker: Marker?) {
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_edit_location, menu)
-        return super.onCreateOptionsMenu(menu)
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_edit_location, menu)
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.itemCancel -> finish()
-            R.id.itemSave -> {
-                presenter.doOnBackPressed()
-            }
+            R.id.itemCancel -> presenter.doCancel()
+            R.id.itemSave -> presenter.doSetLocation()
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onStart() {
         super.onStart()
-        mvEditLocationMap.onStart()
+        mvEditLocationMap?.onStart()
     }
 
     override fun onStop() {
         super.onStop()
-        mvEditLocationMap.onStop()
+        mvEditLocationMap?.onStop()
     }
 
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+    override fun onSaveInstanceState(outState: Bundle) {
         mvEditLocationMap.onSaveInstanceState(outState)
-        super.onSaveInstanceState(outState, outPersistentState)
-    }
-
-    override fun onBackPressed() {
-        presenter.doOnBackPressed()
-        super.onBackPressed()
+        super.onSaveInstanceState(outState)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mvEditLocationMap.onDestroy()
+        mvEditLocationMap?.onDestroy()
     }
 
     override fun onPause() {
         super.onPause()
-        mvEditLocationMap.onPause()
+        mvEditLocationMap?.onPause()
     }
 
     override fun onResume() {
         super.onResume()
-        mvEditLocationMap.onResume()
+        mvEditLocationMap?.onResume()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        mvEditLocationMap.onLowMemory()
+        mvEditLocationMap?.onLowMemory()
     }
 
- */
 }
-
-

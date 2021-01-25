@@ -78,7 +78,7 @@ class CameraFragmentPresenter(var view: CameraFragment): BasePresenterFragment(v
 
                     // send image path back to caller activity
                     val savedUri = Uri.fromFile(photoFile)
-                    val action = CameraFragmentDirections.cameraToDetails(hillfort = null, photo = savedUri.toString())
+                    val action = CameraFragmentDirections.cameraToDetails(hillfort = null, photo = savedUri.toString(), location = null)
                     view.findNavController()?.navigate(action)
                 }
             })
@@ -131,7 +131,7 @@ class CameraFragmentPresenter(var view: CameraFragment): BasePresenterFragment(v
                 startCamera(previewView)
             } else {
                 Log.i(TAG, view.getString(R.string.photo_permission_denied))
-                CameraFragmentDirections.cameraToDetails(hillfort = null, photo = null)
+                CameraFragmentDirections.cameraToDetails(hillfort = null, photo = null, location = null)
             }
         }
     }

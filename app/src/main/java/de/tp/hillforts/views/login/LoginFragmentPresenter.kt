@@ -19,6 +19,11 @@ class LoginFragmentPresenter(var view: LoginFragment?): BasePresenterFragment(vi
         if(app.hillforts is HillfortFireStore){
             fireStore = app.hillforts as HillfortFireStore
         }
+        if (auth.currentUser != null){
+            // when navigation back to this activity log the user out and clear hillforts!
+            auth.signOut()
+            app.hillforts.clear()
+        }
     }
 
     fun doLogin(email: String, password: String) {

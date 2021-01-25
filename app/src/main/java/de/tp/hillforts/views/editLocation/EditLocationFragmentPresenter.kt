@@ -2,25 +2,31 @@ package de.tp.hillforts.views.editLocation
 
 import android.app.Activity
 import android.content.Intent
+import android.widget.Toast
+import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.auth.FirebaseAuth
 import de.tp.hillforts.R
+import de.tp.hillforts.models.hillfort.HillfortFireStore
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.models.location.LocationModel
-import de.tp.hillforts.views.BasePresenter
+import de.tp.hillforts.views.BasePresenterFragment
+import de.tp.hillforts.views.VIEW
+import org.jetbrains.anko.toast
 
-class EditLocationPresenter(view: EditLocationView): BasePresenter(view) {
-/*
+class EditLocationFragmentPresenter(var view: EditLocationFragment?): BasePresenterFragment(view) {
     private val LOCATION = "location"
 
     lateinit var location: LocationModel
 
     init {
-        if(view.intent.hasExtra(LOCATION) && view.intent.extras?.getParcelable<LocationModel>(LOCATION) != null){
-            location = view.intent.extras?.getParcelable(LOCATION)!!
-        }
+        val args: EditLocationFragmentArgs by view!!.navArgs()
+        location = args.location.copy()
     }
 
     /**
@@ -52,14 +58,16 @@ class EditLocationPresenter(view: EditLocationView): BasePresenter(view) {
     /**
      * Return current location to calling actitiviy.
      */
-    fun doOnBackPressed(){
-        val resultIntent = Intent()
-        resultIntent.putExtra(LOCATION, location)
-        view?.setResult(Activity.RESULT_OK, resultIntent)
-        view?.finish()
+    fun doSetLocation(){
+        val action = EditLocationFragmentDirections.editLocationToDetails(photo = null, hillfort = null, location = location)
+        view?.findNavController()?.navigate(action)
     }
 
- */
-
-
+    /**
+     * Return nothing so location is not updated.
+     */
+    fun doCancel(){
+        val action = EditLocationFragmentDirections.editLocationToDetails(photo = null, hillfort = null, location = null)
+        view?.findNavController()?.navigate(action)
+    }
 }

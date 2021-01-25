@@ -65,7 +65,7 @@ class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
     var locationService: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(view!!.requireActivity())
     val locationRequest = createDefaultLocationRequest()
-    var locationManuallyChanged = false
+    var locationManuallyChanged = true  // change behavior: assume location is set except it was not InvocationTargetException
 
     // Current location
     var userCurrentLocation = LocationModel(defaultLocation.lat, defaultLocation.lng)
@@ -93,8 +93,16 @@ class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
                     hillfort.images.add(photo)
                 }
             }
+
+            // check if location was changed
+            if (args.location != null) {
+                val location = args.location!!
+                getCacheIfAvailable()
+                hillfort.loc = location
+            }
         } catch (e: InvocationTargetException) {
             // only thrown when there are no arguments given --> new hillfort --> get location
+            locationManuallyChanged = false
             if(checkLocationPermissions(view!!.requireActivity())){
                 doSetCurrentLocation()
             }
@@ -265,8 +273,8 @@ class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
      */
     fun doEditLocation() {
         locationManuallyChanged = true
-        //TODO naviagte to edit location
-        //view?.navigateTo(VIEW.EDIT_LOCATION, LOCATION_REQ_ID, LOCATION_EDIT, hillfort.loc)
+        val action = HillfortDetailsFragmentDirections.detailsToEditLocation(hillfort.loc)
+        view?.findNavController()?.navigate(action)
     }
 
     fun doChangeRating(rating: Float) {
@@ -309,6 +317,7 @@ class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
                     }
                     view?.showHillfort(hillfort)
                 }
+                /*
                 LOCATION_REQ_ID -> {
                     if (data.extras?.getParcelable<LocationModel>(LOCATION_EDIT) != null) {
                         hillfort.loc = data.extras?.getParcelable(LOCATION_EDIT)!!
@@ -316,7 +325,7 @@ class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
                         view?.showHillfort(hillfort)
                     }
                 }
-                /*
+
                 TAKE_PHOTO_REQ_ID -> {
                     // get path of taken image
                     if (data.hasExtra(TAKE_PHOTO)) {

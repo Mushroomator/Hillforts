@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="de.tp.hillforts.views.login.LoginFragment"
-        android:label="LoginFragment">
+        android:label="@string/title_login_view">
         <action
             android:id="@+id/loginToHillfortList"
             app:destination="@id/hillfortListFragment"
@@ -17,7 +17,7 @@
     <fragment
         android:id="@+id/hillfortListFragment"
         android:name="de.tp.hillforts.views.hillfordList.HillfortListFragment"
-        android:label="HillfortListFragment">
+        android:label="@string/title_hillfort_list_view">
         <action
             android:id="@+id/listToDetails"
             app:destination="@id/hillfortDetailsFragment" />
@@ -47,7 +47,7 @@
     <fragment
         android:id="@+id/cameraFragment"
         android:name="de.tp.hillforts.views.camera.CameraFragment"
-        android:label="CameraFragment">
+        android:label="@string/title_camera_view">
         <action
             android:id="@+id/cameraToDetails"
             app:destination="@id/hillfortDetailsFragment" />
@@ -75,5 +75,27 @@
             android:name="hillfort"
             app:argType="de.tp.hillforts.models.hillfort.HillfortModel"
             app:nullable="true" />
+        <action
+            android:id="@+id/detailsToEditLocation"
+            app:destination="@id/editLocationFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+        <argument
+            android:name="location"
+            app:argType="de.tp.hillforts.models.location.LocationModel"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/editLocationFragment"
+        android:name="de.tp.hillforts.views.editLocation.EditLocationFragment"
+        android:label="@string/title_edit_location_view">
+        <argument
+            android:name="location"
+            app:argType="de.tp.hillforts.models.location.LocationModel" />
+        <action
+            android:id="@+id/editLocationToDetails"
+            app:destination="@id/hillfortDetailsFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
     </fragment>
 </navigation>

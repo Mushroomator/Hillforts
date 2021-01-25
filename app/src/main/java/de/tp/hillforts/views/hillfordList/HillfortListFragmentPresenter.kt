@@ -47,7 +47,7 @@ class HillfortListFragmentPresenter(var view: HillfortListFragment): BasePresent
     }
 
     fun doEditHillfort(hillfort: HillfortModel){
-        val action = HillfortListFragmentDirections.listToDetails(photo = null, hillfort = hillfort)
+        val action = HillfortListFragmentDirections.listToDetails(photo = null, hillfort = hillfort, location = null)
         view.findNavController().navigate(action)
     }
 }

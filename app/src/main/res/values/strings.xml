@@ -93,4 +93,5 @@
     <string name="toast_user_allow_photo">Allow the app to access the camera to take a photo!</string>
     <string name="photo_permission_denied">User declined permission to access camera.</string>
     <string name="take_photo">Take photo</string>
+    <string name="title_camera_view">Camera</string>
 </resources>
