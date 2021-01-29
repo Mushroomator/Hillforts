@@ -33,14 +33,14 @@ class EditLocationFragmentPresenter(var view: EditLocationFragment?): BasePresen
      * Configure google map and display hillfort on screen.
      * @param map map to be configured
      */
-    fun doConfigureMap(map: GoogleMap){
+    fun doConfigureMap(map: GoogleMap?){
         val loc = LatLng(location.lat, location.lng)
         val options = MarkerOptions()
             .title(view?.resources?.getString(R.string.hillfort_marker_title))
             .draggable(true)
             .position(loc)
-        map.addMarker(options)
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))
+        map?.addMarker(options)
+        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))
         view?.showHillfort(HillfortModel(loc = location))
     }
 

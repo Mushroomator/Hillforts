@@ -37,7 +37,7 @@ class LoginFragment: Fragment() {
 
             if(email == "" || email.isEmpty() || pw == "" || pw.isEmpty()){
                 hideProgress()
-                Toast.makeText(this.context, getString(R.string.toast_login_invalid_input), Toast.LENGTH_LONG)
+                Toast.makeText(this.context, getString(R.string.toast_login_invalid_input), Toast.LENGTH_LONG).show()
                 //view.toast(getString(R.string.toast_login_invalid_input))
             }
             else{
@@ -53,7 +53,7 @@ class LoginFragment: Fragment() {
 
             if(email == "" || email.isEmpty() || pw == "" || pw.isEmpty()){
                 hideProgress()
-                Toast.makeText(this.context,"Please enter email and password", Toast.LENGTH_LONG)
+                Toast.makeText(this.context,"Please enter email and password", Toast.LENGTH_LONG).show()
             }
             else{
                 presenter.doSignup(email, pw)

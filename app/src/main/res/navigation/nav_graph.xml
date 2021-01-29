@@ -10,9 +10,17 @@
         android:label="@string/title_login_view">
         <action
             android:id="@+id/loginToHillfortList"
-            app:destination="@id/hillfortListFragment"
+            app:destination="@id/hillfortListFragment" />
+        <action
+            android:id="@+id/loginToDetails"
+            app:destination="@id/hillfortDetailsFragment"
             app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right" />
+            app:exitAnim="@android:anim/slide_out_right"
+            app:launchSingleTop="false"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/hillfortListFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/hillfortListFragment"

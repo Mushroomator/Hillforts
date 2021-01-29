@@ -74,6 +74,8 @@ class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
 
         // Check hillfort here
         try {
+            // deeplink required to be able to navigate from search to HillfortDetails
+            // Cannot be done another way it seems as the SearchableActivity needs to be an activity and therefore cannot have an action to this fragment in the navigation graph
             val args: HillfortDetailsFragmentArgs by view!!.navArgs()
             if (args.hillfort != null) {
                 editMode = true
@@ -373,10 +375,10 @@ class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
                             "\nRating: ${"%.1f".format(it.rating)}"
                 )
                 var uriList = ArrayList<Uri>()
-                hillfort.images.forEach { uriList.add(Uri.parse(it)) }
+                hillfort.images.forEach { image -> uriList.add(Uri.parse(image)) }
                 putParcelableArrayListExtra(Intent.EXTRA_STREAM, uriList)
             }
-            type = "*/*"
+            type = "image/*"
         }
         val shareIntent = Intent.createChooser(sendIntent, "Share Hillfort via...")
         view?.startActivity(shareIntent)

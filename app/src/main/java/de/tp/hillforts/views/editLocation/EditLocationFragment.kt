@@ -16,7 +16,7 @@ class EditLocationFragment: Fragment(), GoogleMap.OnMarkerDragListener, GoogleMa
 
     lateinit var presenter: EditLocationFragmentPresenter
     lateinit var hostView: View
-    lateinit var map: GoogleMap
+    var map: GoogleMap? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         hostView = inflater.inflate(R.layout.edit_location_view, container, false)
@@ -39,8 +39,8 @@ class EditLocationFragment: Fragment(), GoogleMap.OnMarkerDragListener, GoogleMa
         mvEditLocationMap.onCreate(savedInstanceState)
         mvEditLocationMap.getMapAsync{
             map = it
-            map.setOnMarkerDragListener(this)
-            map.setOnMarkerClickListener(this)
+            map?.setOnMarkerDragListener(this)
+            map?.setOnMarkerClickListener(this)
             presenter.doConfigureMap(map)
         }
 
@@ -113,7 +113,7 @@ class EditLocationFragment: Fragment(), GoogleMap.OnMarkerDragListener, GoogleMa
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        mvEditLocationMap.onSaveInstanceState(outState)
+        mvEditLocationMap?.onSaveInstanceState(outState)
         super.onSaveInstanceState(outState)
     }
 

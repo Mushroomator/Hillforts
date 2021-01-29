@@ -36,10 +36,10 @@ class SearchHillfortsView : BaseView(), HillfortListener {
 
     /**
      * Executed when a hillford is clicked on in recycler view.
-     * @param hillford hillford which was clicked on
+     * @param hillfort hillford which was clicked on
      */
-    override fun onHillfordClick(hillford: HillfortModel) {
-        presenter.doEditHillfort(hillford)
+    override fun onHillfordClick(hillfort: HillfortModel) {
+        presenter.doEditHillfort(hillfort)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

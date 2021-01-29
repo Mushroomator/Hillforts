@@ -189,7 +189,7 @@ class HillfortDetailsFragment: Fragment(), HillfortImageListener {
             R.id.itemSave -> {
                 val name = etName.text.toString()
                 if (name == "" || name.isEmpty()) {
-                    Toast.makeText(context, getString(R.string.toast_details_invalid_input), Toast.LENGTH_LONG)
+                    Toast.makeText(context, getString(R.string.toast_details_invalid_input), Toast.LENGTH_LONG).show()
                     return false
                 }
                 val desc = etDescription.text.toString()
@@ -213,7 +213,7 @@ class HillfortDetailsFragment: Fragment(), HillfortImageListener {
                 cacheHillfort()
                 val name = etName.text.toString()
                 if (name == "" || name.isEmpty()) {
-                    Toast.makeText(context, getString(R.string.toast_details_invalid_input), Toast.LENGTH_LONG)
+                    Toast.makeText(context, getString(R.string.toast_details_invalid_input), Toast.LENGTH_LONG).show()
                     return false
                 }
                 presenter.doShare()

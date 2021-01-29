@@ -1,11 +1,20 @@
 package de.tp.hillforts.views.search
 
+import android.app.Activity
 import android.app.SearchManager
 import android.content.Intent
+import android.os.Bundle
 import android.provider.SearchRecentSuggestions
+import androidx.navigation.ActivityNavigatorDestinationBuilder
+import androidx.navigation.NavDeepLinkBuilder
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorDestinationBuilder
+import de.tp.hillforts.R
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BasePresenter
 import de.tp.hillforts.views.VIEW
+import de.tp.hillforts.views.mainActivity.MainActivity
+import kotlinx.android.synthetic.main.main_fragment.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.stream.Collectors
@@ -49,7 +58,9 @@ class SearchHillfortsPresenter(view: SearchHillfortsView): BasePresenter(view) {
      * @author Thomas Pilz
      */
     fun doEditHillfort(hillfort: HillfortModel){
-        view?.navigateTo(VIEW.DETAILS, 0, HILLFORT_EDIT, hillfort)
+        val intent = Intent(view!!, MainActivity::class.java)
+        intent.putExtra("hillfort", hillfort)
+        view?.startActivity(intent)
     }
 
     /**
