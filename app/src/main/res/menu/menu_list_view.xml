@@ -12,7 +12,7 @@
         android:id="@+id/itemSave"
         android:icon="@drawable/ic_outline_add_circle_outline_24"
         android:title="@string/menu_add"
-        app:showAsAction="ifRoom|withText" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/itemMap"
         android:icon="@drawable/ic_outline_map_24"

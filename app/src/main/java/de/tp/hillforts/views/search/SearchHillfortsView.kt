@@ -1,24 +1,40 @@
 package de.tp.hillforts.views.search
 
-import android.app.SearchManager
-import android.content.Context
 import android.os.Bundle
-import android.view.Menu
-import android.widget.SearchView
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import de.tp.hillforts.R
-import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
-import de.tp.hillforts.views.reusable.HillfortAdapter
-import de.tp.hillforts.views.hillfordList.HillfortListener
-import kotlinx.android.synthetic.main.search_hillforts_view.*
+import kotlinx.android.synthetic.main.main_fragment.*
+import kotlinx.android.synthetic.main.search_hillforts_fragment_view.*
 
-class SearchHillfortsView : BaseView(), HillfortListener {
+class SearchHillfortsView : BaseView() //, HillfortListener
+{
 
-    lateinit var presenter: SearchHillfortsPresenter
+    lateinit var navController: NavController
+    lateinit var appBarConfiguration: AppBarConfiguration
+
+    //lateinit var presenter: SearchHillfortsPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.search_hillforts_fragment_view)
+
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostSearch) as NavHostFragment
+        navController = navHostFragment.navController
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.searchHillfortsFragment), drawerLayoutSearch)
+        setSupportActionBar(toolbarSearch)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //setupActionBarWithNavController(navController, appBarConfiguration)
+
+        // handle clicks on navigation bar menu items automatically
+        //navViewSearch.setupWithNavController(navController)
+
+        /*
         setContentView(R.layout.search_hillforts_view)
 
         presenter = initPresenter(SearchHillfortsPresenter(this)) as SearchHillfortsPresenter
@@ -26,8 +42,10 @@ class SearchHillfortsView : BaseView(), HillfortListener {
         init(toolbar, true)
 
         rvSearchResults.layoutManager = LinearLayoutManager(this)
-    }
 
+         */
+    }
+    /*
     fun showResults(hillforts: List<HillfortModel>, time: Float){
         tvResults.text = resources.getQuantityString(R.plurals.results, hillforts.size, hillforts.size, time)
         rvSearchResults.adapter = HillfortAdapter(hillforts, this)
@@ -59,4 +77,6 @@ class SearchHillfortsView : BaseView(), HillfortListener {
         }
         return super.onCreateOptionsMenu(menu)
     }
+
+     */
 }

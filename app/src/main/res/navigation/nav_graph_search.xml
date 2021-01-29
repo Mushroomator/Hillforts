@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_search"
+    app:startDestination="@id/searchHillfortsFragment">
+
+    <fragment
+        android:id="@+id/searchHillfortsFragment"
+        android:name="de.tp.hillforts.views.search.SearchHillfortsFragment"
+        android:label=" ">
+        <action
+            android:id="@+id/searchToDetails"
+            app:destination="@id/hillfortDetailsFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/hillfortDetailsFragment2"
+        android:name="de.tp.hillforts.views.hillfortDetails.HillfortDetailsFragment"
+        android:label="@string/title_hillfort_details_view"
+        tools:layout="@layout/hillfort_details_view">
+        <argument
+            android:name="photo"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="location"
+            app:argType="de.tp.hillforts.models.location.LocationModel"
+            app:nullable="true" />
+        <argument
+            android:name="hillfort"
+            app:argType="de.tp.hillforts.models.hillfort.HillfortModel"
+            app:nullable="true" />
+    </fragment>
+</navigation>

@@ -8,6 +8,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import de.tp.hillforts.R
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BaseView
@@ -31,17 +32,8 @@ class MainActivity : BaseView(), NavController.OnDestinationChangedListener{
         setSupportActionBar(toolbar)
         setupActionBarWithNavController(navController, appBarConfiguration)
 
-        // not a very nice solution but one that works
-        // necessary since SearchActivity supported by the Android framework is used and the Navigation Component does not seem to allow
-        // to get an Action from an DestinationActivity back to DestinationFragment within the Graph.
-        // So to navigate from SearchActivity to HillfortDetailsFragment an Intent is sent to MainActivity which then passes
-        // the argument on to HillfortDetailsFragment
-        if (intent.hasExtra("hillfort")){
-            val hillfort = intent.getParcelableExtra<HillfortModel>("hillfort")
-            val action = LoginFragmentDirections.loginToDetails(hillfort = hillfort, photo = null,  location = null)
-            navController.navigate(action)
-
-        }
+        // handle clicks on navigation bar menu items automatically
+        navView.setupWithNavController(navController)
     }
 
     override fun onSupportNavigateUp(): Boolean {

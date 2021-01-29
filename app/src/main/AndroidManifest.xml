@@ -29,6 +29,9 @@
 
         <!-- Camera View -->
         <activity android:name=".views.camera.HillfortCameraView">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".views.hillfortDetails.HillfortDetailsView" />
         </activity>
 
         <!-- Suggestion Provider for search -->
