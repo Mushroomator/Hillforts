@@ -367,7 +367,7 @@ class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
                     dateStr = "Not yet visited"
                 }
                 putExtra(
-                    Intent.EXTRA_TEXT, "Hey there,\ntake a look at one of my hillfort:" +
+                    Intent.EXTRA_TEXT, "Hey there,\ntake a look at one of my hillforts:" +
                             "\nName: ${it.name}" +
                             "\nDescription: ${if (it.desc != "") it.desc else "No description"}" +
                             "\nNotes: ${if (it.notes != "") it.notes else "No notes"}" +

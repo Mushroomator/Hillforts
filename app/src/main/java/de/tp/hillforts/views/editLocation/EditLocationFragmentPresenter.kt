@@ -39,6 +39,7 @@ class EditLocationFragmentPresenter(var view: EditLocationFragment?): BasePresen
             .title(view?.resources?.getString(R.string.hillfort_marker_title))
             .draggable(true)
             .position(loc)
+        map?.uiSettings?.setZoomControlsEnabled(true)
         map?.addMarker(options)
         map?.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, location.zoom))
         view?.showHillfort(HillfortModel(loc = location))
