@@ -12,6 +12,7 @@ import de.tp.hillforts.models.hillfort.HillfortFireStore
 import de.tp.hillforts.models.hillfort.HillfortModel
 import de.tp.hillforts.views.BasePresenterFragment
 import de.tp.hillforts.views.VIEW
+import de.tp.hillforts.views.hillfordList.HillfortListFragmentDirections
 import de.tp.hillforts.views.mainActivity.MainActivity
 import org.jetbrains.anko.toast
 import java.text.SimpleDateFormat
@@ -58,7 +59,12 @@ class SearchHillfortFragmentPresenter(var view: SearchHillfortsFragment?): BaseP
      * @author Thomas Pilz
      */
     fun doEditHillfort(hillfort: HillfortModel){
-        val action = SearchHillfortsFragmentDirections.searchToDetails(photo = null, location = null, hillfort = hillfort)
+        // use main navGraph and go to edit location to provide access to other views again!
+        val navController = view!!.findNavController()
+        val navGraph = navController.navInflater.inflate(R.navigation.nav_graph)
+        navGraph.startDestination = R.id.hillfortListFragment
+        navController.graph = navGraph
+        val action = HillfortListFragmentDirections.listToDetails(photo = null, location = null, hillfort = hillfort)
         view?.findNavController()?.navigate(action)
     }
 

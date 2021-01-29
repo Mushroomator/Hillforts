@@ -11,10 +11,10 @@
         android:label=" ">
         <action
             android:id="@+id/searchToDetails"
-            app:destination="@id/hillfortDetailsFragment2" />
+            app:destination="@id/hillfortDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/hillfortDetailsFragment2"
+        android:id="@+id/hillfortDetailsFragment"
         android:name="de.tp.hillforts.views.hillfortDetails.HillfortDetailsFragment"
         android:label="@string/title_hillfort_details_view"
         tools:layout="@layout/hillfort_details_view">

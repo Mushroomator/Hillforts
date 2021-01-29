@@ -2,14 +2,16 @@ package de.tp.hillforts.views.search
 
 import android.os.Bundle
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
+import androidx.navigation.ui.navigateUp
 import de.tp.hillforts.R
 import de.tp.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.main_fragment.*
 import kotlinx.android.synthetic.main.search_hillforts_fragment_view.*
+
 
 class SearchHillfortsView : BaseView() //, HillfortListener
 {
@@ -26,7 +28,7 @@ class SearchHillfortsView : BaseView() //, HillfortListener
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostSearch) as NavHostFragment
         navController = navHostFragment.navController
-        appBarConfiguration = AppBarConfiguration(setOf(R.id.searchHillfortsFragment), drawerLayoutSearch)
+
         setSupportActionBar(toolbarSearch)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //setupActionBarWithNavController(navController, appBarConfiguration)
@@ -39,12 +41,13 @@ class SearchHillfortsView : BaseView() //, HillfortListener
 
         presenter = initPresenter(SearchHillfortsPresenter(this)) as SearchHillfortsPresenter
 
-        init(toolbar, true)
+        init(toolbar, true)^
 
-        rvSearchResults.layoutManager = LinearLayoutManager(this)
+       rvSearchResults.layoutManager = LinearLayoutManager(this)
 
          */
     }
+
     /*
     fun showResults(hillforts: List<HillfortModel>, time: Float){
         tvResults.text = resources.getQuantityString(R.plurals.results, hillforts.size, hillforts.size, time)

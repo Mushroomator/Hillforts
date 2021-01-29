@@ -70,9 +70,6 @@ class HillfortListFragment: Fragment(), HillfortListener, TabLayout.OnTabSelecte
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.itemSave -> presenter.doAddHillfort()
-            R.id.itemLogout -> presenter.doLogout()
-            R.id.itemSettings -> presenter.doShowSettings()
-            R.id.itemMap -> presenter.doShowMap()
         }
         return super.onOptionsItemSelected(item)
     }

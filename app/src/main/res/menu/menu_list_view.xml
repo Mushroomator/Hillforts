@@ -13,19 +13,4 @@
         android:icon="@drawable/ic_outline_add_circle_outline_24"
         android:title="@string/menu_add"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/itemMap"
-        android:icon="@drawable/ic_outline_map_24"
-        android:title="@string/menu_map"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/itemSettings"
-        android:icon="@drawable/ic_outline_settings_24"
-        android:title="@string/menu_settings"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/itemLogout"
-        android:title="@string/menu_logout"
-        android:visible="true"
-        app:showAsAction="never|withText" />
 </menu>

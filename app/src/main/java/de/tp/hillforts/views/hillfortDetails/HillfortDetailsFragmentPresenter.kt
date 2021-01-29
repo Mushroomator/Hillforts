@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import android.widget.Toast
+import androidx.navigation.NavGraph
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.navigation.fragment.findNavController
@@ -74,8 +75,7 @@ class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
 
         // Check hillfort here
         try {
-            // deeplink required to be able to navigate from search to HillfortDetails
-            // Cannot be done another way it seems as the SearchableActivity needs to be an activity and therefore cannot have an action to this fragment in the navigation graph
+
             val args: HillfortDetailsFragmentArgs by view!!.navArgs()
             if (args.hillfort != null) {
                 editMode = true
