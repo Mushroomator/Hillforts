@@ -29,7 +29,13 @@
         android:id="@+id/hillfortMapFragment"
         android:name="de.tp.hillforts.views.hillfortMap.HillfortMapFragment"
         android:label="@string/title_hillfort_map_view"
-        tools:layout="@layout/hillfort_map_view" />
+        tools:layout="@layout/hillfort_map_view" >
+        <action
+            android:id="@+id/mapToDetails"
+            app:destination="@id/hillfortDetailsFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right" />
+    </fragment>
     <action
         android:id="@+id/globalMap"
         app:destination="@id/hillfortMapFragment"

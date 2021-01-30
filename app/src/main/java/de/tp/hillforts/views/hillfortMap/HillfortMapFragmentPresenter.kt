@@ -1,6 +1,7 @@
 package de.tp.hillforts.views.hillfortMap
 
 import android.content.Intent
+import androidx.navigation.fragment.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -68,9 +69,8 @@ class HillfortMapFragmentPresenter(var view: HillfortMapFragment?): BasePresente
 
     fun doCardClicked() {
         if (currentHillfort != null) {
-            val intent = Intent(hostActivity, HillfortDetailsView::class.java)
-            intent.putExtra(HILLFORT_EDIT, currentHillfort)
-            view?.startActivity(intent)
+            val action = HillfortMapFragmentDirections.mapToDetails(photo = null, hillfort = currentHillfort, location = null)
+            view?.findNavController()?.navigate(action)
         }
     }
 }
