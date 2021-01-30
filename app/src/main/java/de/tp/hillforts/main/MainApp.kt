@@ -18,6 +18,7 @@ class MainApp: Application(), AnkoLogger {
     lateinit var hillforts: IHillfortRepo
     var hillfortCache: HillfortModel? = null    // required to cache hillfort when HillfortDetails activity is stopped when Back (Up Support) is clicked on edit location
     var cachePreviousImage: Int? = null // cache previous image ID to be used when Image is changed and fragment is destroyed
+    var cacheEditMode: Boolean? = null
 
     override fun onCreate() {
         super.onCreate()

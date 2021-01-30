@@ -81,6 +81,12 @@ class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
                 editMode = true
                 hillfort = args.hillfort!!
             }
+            else{
+                if(app.cacheEditMode != null){
+                    editMode = app.cacheEditMode!!
+                    app.cacheEditMode = null
+                }
+            }
 
             // check if photo was taken
             if (args.photo != null) {
@@ -274,6 +280,7 @@ class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
      * Call activity to set hilfort location.
      */
     fun doEditLocation() {
+        app.cacheEditMode = editMode
         locationManuallyChanged = true
         val action = HillfortDetailsFragmentDirections.detailsToEditLocation(hillfort.loc)
         view?.findNavController()?.navigate(action)
@@ -284,6 +291,7 @@ class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
     }
 
     fun doNavigateToHillfort() {
+        app.cacheEditMode = editMode
         val precision: Double = 0.001
         val latOff = (userCurrentLocation.lat - hillfort.loc.lat).absoluteValue
         val lngOff = (userCurrentLocation.lng - hillfort.loc.lng).absoluteValue
@@ -357,6 +365,7 @@ class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
     }
 
     fun doShare() {
+        app.cacheEditMode = editMode
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND_MULTIPLE
             hillfort.also {
@@ -385,6 +394,7 @@ class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
     }
 
     fun doTakePhoto() {
+        app.cacheEditMode = editMode
         val navController = view?.findNavController()
         navController?.navigate(R.id.cameraFragment)
     }
@@ -409,6 +419,8 @@ class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
         } else {
             app.hillforts.create(hillfort)
         }
+        // invalidate cache
+        app.cacheEditMode = null
         val navController = view?.findNavController()
         navController!!.navigate(R.id.hillfortListFragment)
     }
@@ -417,6 +429,7 @@ class HillfortDetailsFragmentPresenter(var view: HillfortDetailsFragment?) :
      * Cancel operation. Do nothing.
      */
     fun doCancel() {
+        app.cacheEditMode = null
         val navController = view?.findNavController()
         navController?.navigate(R.id.hillfortListFragment)
     }
